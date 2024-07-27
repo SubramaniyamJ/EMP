@@ -5,15 +5,16 @@ import Signup from './components/Signup';
 import { color } from 'framer-motion';
 import DataTable from './components/DataTable'
 import { Attendence } from './components/Attendence';
-
+import HomePage from './components/Homepage/HomePage'
 
 
 function App() {
   return (
     <div>
       {/* <Login /> */}
-      <Signup/>
+      {/* <Signup/> */}
       {/* <DataTable/> */}
+      <HomePage/ >
     </div>
   );
 }
