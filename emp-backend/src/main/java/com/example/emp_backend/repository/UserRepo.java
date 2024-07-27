@@ -3,11 +3,11 @@ package com.example.emp_backend.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.emp_backend.model.StudentUser;
+import com.example.emp_backend.model.User;
 
 @Repository
-public interface UserRepo extends JpaRepository<StudentUser, Integer> {
+public interface UserRepo extends JpaRepository<User, Integer> {
 
-	StudentUser findStudentUserByEmail(String email);
+	User findUserByEmail(String email);
     
 }

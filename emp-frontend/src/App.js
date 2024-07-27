@@ -11,8 +11,8 @@ import { Attendence } from './components/Attendence';
 function App() {
   return (
     <div>
-      <Login />
-      {/* <Signup/> */}
+      {/* <Login /> */}
+      <Signup/>
       {/* <DataTable/> */}
     </div>
   );
