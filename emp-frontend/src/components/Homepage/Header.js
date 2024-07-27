@@ -8,9 +8,9 @@ const Header = () => {
       <div className="logo">ClassroomApp</div>
       <nav>
         <ul className="nav-links">
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/login">Login</Link></li>
-          <li><Link to="/register">Register</Link></li>
+          <li>Home</li>
+          <li>Login</li>
+          <li>Register</li>
         </ul>
       </nav>
     </header>
