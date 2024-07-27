@@ -2,30 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { Container, TextField, Button, MenuItem, Typography, Box, Link, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import './styles/login.css';
-import studentuserservice from '../services/studentuserservice';
+import userservice from '../services/userservice';
 
 
 const roles = [
   { value: 'student', label: 'Student' },
-  { value: 'teacher', label: 'Teacher' },
+  { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
 
 const Login = () => {
-  const [role, setRole] = useState('');
   const [user, setUser] = useState({
     email: '',
-    password: ''
+    password: '',
+    role: ''
   })
 
   const handleRoleChange = (event) => {
-    setRole(event.target.value);
+    setUser({...user, role: event.target.value});
   };
 
   const handleLogin = async () => {
-        let bool = await studentuserservice.checkstudentlogin(user.email, user.password);
+        let bool = await userservice.checkUser(user.email, user.password, user.role);
         console.log(bool);
-
   };
 
   return (
@@ -44,7 +43,7 @@ const Login = () => {
             fullWidth
             select
             label="Select Role"
-            value={role}
+            value={user.role}
             onChange={handleRoleChange}
             margin="normal"
             variant="outlined"

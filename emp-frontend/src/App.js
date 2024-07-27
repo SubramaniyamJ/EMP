@@ -10,10 +10,8 @@ import Header from './components/Homepage/Header';
 function App() {
   return (
     <div>
-      
-      <HomePage/>
       {/* <Login /> */}
-      {/* <Signup/> */}
+      <Signup/>
       {/* <DataTable/> */}
     </div>
   );

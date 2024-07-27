@@ -2,33 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { Container, TextField, Button, MenuItem, Typography, Box, Stack, Link, Divider } from '@mui/material';
 import { motion } from 'framer-motion';
 import './styles/login.css';
-import studentuserservice from '../services/studentuserservice';
+import userservice from '../services/userservice';
 
 
 const roles = [
   { value: 'student', label: 'Student' },
-  { value: 'teacher', label: 'Teacher' },
+  { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
 
 const Signup = () => {
-  const [role, setRole] = useState('');
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-    instituteName: ''
+    instituteName: '',
+    role: ''
   })
 
   const handleRoleChange = (event) => {
-    setRole(event.target.value);
+    setUser({...user, role: event.target.value});
   };
 
   const handleLogin = () => {
-    if(role === 'student'){
-        console.log(user);
-        studentuserservice.poststudentuser(user);
-    }
+      userservice.postUser(user);
   };
 
 
@@ -45,10 +42,11 @@ const Signup = () => {
             Register
           </Typography>
           <TextField
+            required
             fullWidth
             select
             label="Select Role"
-            value={role}
+            value={user.role}
             onChange={handleRoleChange}
             margin="normal"
             variant="outlined"
@@ -60,9 +58,10 @@ const Signup = () => {
             ))}
           </TextField>
           <TextField
+            required
             fullWidth
             label="Name"
-            // type="text"
+            type="text"
             value={user.name}
             onChange={(e) => setUser({...user, name: e.target.value})}
             margin="normal"
@@ -70,6 +69,7 @@ const Signup = () => {
           />
           <TextField
             fullWidth
+            required
             label="Email"
             value={user.email}
             onChange={(e) => setUser({...user, email: e.target.value})}
@@ -78,6 +78,7 @@ const Signup = () => {
           />
           <TextField
             fullWidth
+            required
             label="Password"
             type="password"
             value={user.password}
@@ -87,6 +88,7 @@ const Signup = () => {
           />
             <TextField
               fullWidth
+              required
               label="InstituteName"
             //   type="text"
               value={user.instituteName}
