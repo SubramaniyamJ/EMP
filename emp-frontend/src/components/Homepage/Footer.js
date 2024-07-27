@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-column">
-          <h3>ClassroomApp</h3>
+          <h3>EduManage</h3>
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/features">Features</a></li>
@@ -51,7 +51,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer-bottom">
-        <p>© 2024 ClassroomApp. All rights reserved.</p>
+        <p>© 2024 EduManage. All rights reserved.</p>
       </div>
     </footer>
   );

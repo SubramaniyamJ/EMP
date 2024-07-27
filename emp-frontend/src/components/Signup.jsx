@@ -39,7 +39,7 @@ const Signup = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" style={{marginTop:'100px',height:'fit-content'}}>
         <Box className="login-box" p={4} boxShadow={3} borderRadius={2}>
           <Typography variant="h4" gutterBottom padding={'0 0 20px 10px'}>
             Register
