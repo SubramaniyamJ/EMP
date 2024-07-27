@@ -1,0 +1,215 @@
+.homepage {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.introduction {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.introduction h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.introduction p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.sample-photos {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sample-photos h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.photo-gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  animation: slide 30s linear infinite;
+}
+
+.photo-gallery img {
+  width: 200px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.carousel-section {
+  text-align: center;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.carousel-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.quote-image {
+  width: 300px; /* Reduced size */
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.quote-image:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.carousel .legend {
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  padding: 10px;
+  font-size: 1.1em;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.testimonials {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.testimonials h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.testimonial {
+  background-color: #f4f4f4;
+  padding: 20px;
+  margin: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  font-size: 1.1em;
+  color: #555;
+}
+
+.testimonial span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.cta {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.cta h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.cta p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #0056b3;
+}
+
+.contact-info {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.contact-info h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.contact-info p {
+  font-size: 1.2em;
+  color: #555;
+}
+
+.contact-info a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .introduction h1 {
+    font-size: 2em;
+  }
+
+  .introduction p,
+  .cta p,
+  .contact-info p {
+    font-size: 1em;
+  }
+
+  .sample-photos h2,
+  .carousel-section h2,
+  .testimonials h2,
+  .cta h2,
+  .contact-info h2 {
+    font-size: 1.5em;
+  }
+
+  .cta-button {
+    font-size: 1em;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .photo-gallery img {
+    width: 150px;
+    height: 100px;
+  }
+
+  .carousel .legend {
+    font-size: 0.9em;
+    padding: 8px;
+  }
+}
