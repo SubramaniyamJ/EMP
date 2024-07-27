@@ -22,9 +22,7 @@ const route=createBrowserRouter(
 function App() {
   return (
     <div>
-      {/* <Login /> */}
-      <Signup/>
-      {/* <DataTable/> */}
+     <RouterProvider router={route} />
     </div>
   );
 }
