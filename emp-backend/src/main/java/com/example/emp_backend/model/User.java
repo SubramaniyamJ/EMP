@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class StudentUser {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -22,4 +22,5 @@ public class StudentUser {
     public String email;
     public String password;
     public String instituteName;
+    public String role;
 }
