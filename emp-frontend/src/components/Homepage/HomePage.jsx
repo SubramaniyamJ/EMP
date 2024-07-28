@@ -85,7 +85,7 @@ const HomePage = () => {
 
       <section className="aboutus">
         <h2>About Us</h2>
-        <p>
+          <p>
             EduManage is a cutting-edge school and college management platform designed to streamline educational administration. Our mission is to provide an intuitive and comprehensive solution that bridges the gap between students, teachers, administrators, and parents. Join us in revolutionizing education management and experience a seamless and efficient way to handle your educational institution's needs.
           </p>
       </section>

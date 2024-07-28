@@ -50,9 +50,13 @@
   width: 24px;
   height: 24px;
   margin-right: 8px;
+  mix-blend-mode: multiply;
 }
 
 .footer-bottom {
   text-align: center;
   margin-top: 20px;
+}
+h3 , a , p{
+   color: white;
 }
