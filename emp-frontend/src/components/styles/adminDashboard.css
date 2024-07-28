@@ -1,0 +1,38 @@
+.app-bar {
+    background-color: #3949ab;
+    box-shadow: none;
+  }
+  
+  .dashboard-container {
+    background-color: #f0f0f0;
+    padding: 50px 0;
+    margin-top: 50px;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: black;
+  }
+  
+  .action-card {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .action-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .action-button {
+    margin-top: 20px;
+    text-transform: uppercase;
+  }
+  

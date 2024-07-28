@@ -3,7 +3,7 @@ import { Container, TextField, Button, MenuItem, Typography, Box, Link, Stack } 
 import { motion } from 'framer-motion';
 import './styles/login.css';
 import userservice from '../services/userservice';
-
+import { useNavigate } from 'react-router-dom';
 
 const roles = [
   { value: 'student', label: 'Student' },
@@ -17,14 +17,17 @@ const Login = () => {
     password: '',
     role: ''
   })
-
+  const naviagate=useNavigate();
   const handleRoleChange = (event) => {
     setUser({...user, role: event.target.value});
   };
-
-  const handleLogin = async () => {
+  
+  const HandleLogin = async () => {
         let bool = await userservice.checkUser(user.email, user.password, user.role);
         console.log(bool);
+        if(bool.data){
+         naviagate("/admin");
+        }
   };
 
   return (
@@ -74,7 +77,7 @@ const Login = () => {
           <Button
             fullWidth
             variant="contained"
-            onClick={handleLogin}
+            onClick={HandleLogin}
             style={{ marginTop: '40px' }}
           >
             login

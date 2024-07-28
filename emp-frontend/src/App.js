@@ -8,6 +8,7 @@ import { Attendence } from './components/Attendence';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import HomePage from './components/Homepage/HomePage';
 import Appbar from './components/Homepage/Appbar';
+import Admindashboard from './components/Admindashboard';
 
 const route=createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,7 @@ const route=createBrowserRouter(
       <Route index element={<HomePage/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/register' element={<Signup/>} />
+      <Route path='/admin' element={<Admindashboard/>} />
     </Route>
   )
 )
