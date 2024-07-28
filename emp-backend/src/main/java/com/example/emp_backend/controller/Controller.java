@@ -1,8 +1,7 @@
 package com.example.emp_backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,14 +39,14 @@ public class Controller {
     }
 
     @GetMapping("/checkuser")
-    boolean checkStudentUser(@RequestParam String email, @RequestParam String password, @RequestParam String role){
+    User checkStudentUser(@RequestParam String email, @RequestParam String password, @RequestParam String role){
         User user = repo.findUserByEmail(email);
         if(user != null){
             if(user.password.equals(password) && user.role.equals(role)){
-                return true;
+                return user;
             }       
         }
-        return false;
+        return null;
     }
 
 

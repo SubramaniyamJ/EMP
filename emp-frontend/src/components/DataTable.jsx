@@ -25,15 +25,15 @@ const columns = [
 ];
 
 const rows = [
-  // { id: 1, lastName: 'Snow', firstName: 'Jon', registerNo: 35 , },
-  // { id: 2, lastName: 'Lannister', firstName: 'Cersei', registerNo: 42 },
-  // { id: 3, lastName: 'Lannister', firstName: 'Jaime', registerNo: 45 },
-  // { id: 4, lastName: 'Stark', firstName: 'Arya', registerNo: 16 },
-  // { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', registerNo: null },
-  // { id: 6, lastName: 'Melisandre', firstName: null, registerNo: 150 },
-  // { id: 7, lastName: 'Clifford', firstName: 'Ferrara', registerNo: 44 },
-  // { id: 8, lastName: 'Frances', firstName: 'Rossini', registerNo: 36 },
-  // { id: 9, lastName: 'Roxie', firstName: 'Harvey', registerNo: 65 },
+  { id: 1, lastName: 'Snow', firstName: 'Jon', registerNo: 35 , },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', registerNo: 42 },
+  { id: 3, lastName: 'Lannister', firstName: 'Jaime', registerNo: 45 },
+  { id: 4, lastName: 'Stark', firstName: 'Arya', registerNo: 16 },
+  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', registerNo: null },
+  { id: 6, lastName: 'Melisandre', firstName: null, registerNo: 150 },
+  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', registerNo: 44 },
+  { id: 8, lastName: 'Frances', firstName: 'Rossini', registerNo: 36 },
+  { id: 9, lastName: 'Roxie', firstName: 'Harvey', registerNo: 65 },
 ];
 
 export default function DataTable() {

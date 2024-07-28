@@ -1,19 +1,20 @@
 .footer {
-  background-color: #f8f8f8;
+  background-color: rgb(148, 7, 148);
   padding: 20px;
   border-top: 1px solid #ddd;
+  width: 100%;
 }
 
 .footer-content {
   display: flex;
-  flex-wrap: wrap; /* Ensures responsiveness */
+  flex-wrap: wrap; 
   justify-content: space-between;
 }
 
 .footer-column {
   flex: 1;
   padding: 10px;
-  min-width: 200px; /* Adjust as needed */
+  min-width: 200px; 
 }
 
 .footer-column h3 {
@@ -31,7 +32,7 @@
 
 .footer-column ul li a {
   text-decoration: none;
-  color: #333;
+  color: #ffffff;
 }
 
 .social-list {
@@ -49,9 +50,13 @@
   width: 24px;
   height: 24px;
   margin-right: 8px;
+  mix-blend-mode: multiply;
 }
 
 .footer-bottom {
   text-align: center;
   margin-top: 20px;
+}
+h3 , a , p{
+   color: white;
 }
