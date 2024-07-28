@@ -22,8 +22,8 @@ const route=createBrowserRouter(
 function App() {
   return (
     <div>
-     {/* <RouterProvider router={route} /> */}
-     <Attendence/>
+    {/*<Attendence/> */}
+    <RouterProvider router={route}/>
     </div>
   );
 }

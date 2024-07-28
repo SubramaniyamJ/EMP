@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.repository.UserRepo;
+import com.example.emp_backend.utility.Utility;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,11 +23,17 @@ public class Controller {
     @Autowired
     private UserRepo repo;
 
+    @Autowired
+    private Utility util;
+
     @PostMapping("/postuser")
     boolean postuser(@RequestBody User user){
         User ifUser = repo.findUserByEmail(user.email);
         if(ifUser != null){
             return false;
+        }
+        if(user.role.equals("admin")){
+            util.createInstituteTable(user.instituteName);
         }
         repo.save(user);
         return true;
