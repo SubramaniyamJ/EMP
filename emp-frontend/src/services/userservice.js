@@ -3,7 +3,13 @@ const API_URL = "http://localhost:8080/api"
 
 class userservice {
     async postUser(user){
-        await axios.post(API_URL + "/postuser", user)
+    try{
+        const response = await axios.post(API_URL + "/postuser", user)
+        return response;
+    }catch (error) {
+        console.log("There is a error!", error);
+        throw error;
+    }
     }
 
     async checkUser(email, password, role) {

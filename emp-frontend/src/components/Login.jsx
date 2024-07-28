@@ -3,6 +3,7 @@ import { Container, TextField, Button, MenuItem, Typography, Box, Link, Stack } 
 import { motion } from 'framer-motion';
 import './styles/login.css';
 import userservice from '../services/userservice';
+import { toast, ToastContainer } from 'react-toastify';
 
 
 const roles = [
@@ -12,6 +13,7 @@ const roles = [
 ];
 
 const Login = () => {
+  const [isValid, setValid] = useState(true);
   const [user, setUser] = useState({
     email: '',
     password: '',
@@ -23,8 +25,19 @@ const Login = () => {
   };
 
   const handleLogin = async () => {
-        let bool = await userservice.checkUser(user.email, user.password, user.role);
-        console.log(bool);
+    if(!user.role || !user.email || !user.password){
+      toast.warn('All fields required');
+      setValid(false);
+      return;
+    }
+        let response = await userservice.checkUser(user.email, user.password, user.role);
+        console.log(response.data);
+        if(response.data){
+          toast.success("Welcome to EduManage");
+        }else{
+          toast.error("Incorrect Details");  
+        }
+        
   };
 
   return (
@@ -47,6 +60,8 @@ const Login = () => {
             onChange={handleRoleChange}
             margin="normal"
             variant="outlined"
+            error = {!isValid && !user.role}
+            helperText = {!isValid && !user.role ? 'Role required' : ''}
           >
             {roles.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -61,6 +76,8 @@ const Login = () => {
             onChange={(e) => setUser({...user, email: e.target.value})}
             margin="normal"
             variant="outlined"
+            error = {!isValid && !user.email}
+            helperText = {!isValid && !user.email ? 'Email required' : ''}
           />
           <TextField
             fullWidth
@@ -70,6 +87,8 @@ const Login = () => {
             onChange={(e) => setUser({...user, password: e.target.value})}
             margin="normal"
             variant="outlined"
+            error = {!isValid && !user.password}
+            helperText = {!isValid && !user.password ? 'Password required' : ''}
           />
           <Button
             fullWidth
@@ -84,6 +103,7 @@ const Login = () => {
                 <Link underline='hover' component={'button'}><Typography>Signup</Typography></Link>
           </Stack>
         </Box>
+        <ToastContainer/>
       </Container>
     </motion.div>
   );
