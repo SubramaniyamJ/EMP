@@ -1,21 +1,81 @@
 .homepage {
   padding: 20px;
   font-family: Arial, sans-serif;
+  margin-top: 50px;
 }
-
-.introduction {
+.herocontainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  gap: 30px;
   text-align: center;
-  margin-bottom: 40px;
 }
 
-.introduction h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
+.getstartbtn {
+  margin-top: 10px;
 }
 
-.introduction p {
-  font-size: 1.2em;
-  color: #555;
+.hero-title{
+  font-size: 3rem;
+  animation-name: ani1;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes ani1 {
+  from{
+    transform: translateX(-3000px);
+  }
+  to{
+    transform: translateX(0);
+  }
+}
+
+.hero-img{
+  width: 80%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 50%;
+  transition: 1s;
+  animation-name: ani3;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+}
+
+.hero-img img {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+@keyframes ani3 {
+  from{
+    transform: translateY(-3000px);
+  }
+  to{
+    transform: translateY(0);
+  }
+}
+
+.hero-subtitle{
+  font-size: 2.5rem;
+  animation-name: ani2;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+}
+
+@keyframes ani2 {
+  from{
+    transform: translateX(-3000px);
+  }
+  to{
+    transform: translateX(0);
+  }
 }
 
 .sample-photos {
@@ -27,31 +87,33 @@
   font-size: 2em;
   margin-bottom: 20px;
 }
-
-.photo-gallery {
+.featurescontainer{
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  animation: slide 30s linear infinite;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
 }
-
-.photo-gallery img {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.feature{
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  max-width: 400px;
+  align-items: center;
+  height: 200px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  padding: 20px;
+  gap: 20px;
+  text-align: center;
 }
-
-@keyframes slide {
+/* @keyframes slide {
   0% {
     transform: translateX(0);
   }
   100% {
     transform: translateX(-100%);
   }
-}
+} */
 
 .carousel-section {
   text-align: center;
@@ -121,7 +183,26 @@
   font-weight: bold;
   color: #333;
 }
+.aboutus{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px;
+}
 
+.aboutus h2{
+  text-align: center;
+  font-size: 2rem;
+}
+
+.aboutus p{
+  text-align: center;
+  letter-spacing: 3px;
+  line-height: 30px;
+}
+
+/* 
 .cta {
   text-align: center;
   margin-bottom: 40px;
@@ -151,7 +232,7 @@
 
 .cta-button:hover {
   background-color: #0056b3;
-}
+} */
 
 .contact-info {
   text-align: center;

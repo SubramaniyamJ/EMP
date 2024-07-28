@@ -15,8 +15,6 @@ import com.example.emp_backend.repository.UserRepo;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api")
 @RestController
