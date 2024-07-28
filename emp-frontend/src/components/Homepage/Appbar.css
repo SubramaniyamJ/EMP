@@ -1,9 +1,9 @@
-.header {
+/* .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #333;
+    background-color: purple;
     color: #fff;
   }
   
@@ -28,4 +28,10 @@
   .nav-links a:hover {
     text-decoration: underline;
   }
+   */
+
+.app-bar {
+    background-color: purple;
+    box-shadow: none;
+}
   
