@@ -1,107 +1,100 @@
-import React from 'react';
-import { AppBar, Toolbar, Typography, Button, Container, Box, Grid, Card, CardContent, IconButton, Menu, MenuItem } from '@mui/material';
+import React, { useContext } from 'react';
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Container,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+  IconButton,
+  Menu,
+  MenuItem,
+} from '@mui/material';
 import { motion } from 'framer-motion';
-import { AccountCircle } from '@mui/icons-material';
 import './styles/adminDashboard.css';
+import { usercontext } from './Usercontext';
 
 const Admindashboard = () => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const[user,setuser]=useContext(usercontext);
+  const adminActions = [
+    {
+      title: 'Add Teachers',
+      description: 'Manage and add new teachers to the platform.',
+    },
+    {
+      title: 'Add Announcements',
+      description: 'Create and publish school-wide announcements.',
+    },
+    {
+      title: 'Create Circular',
+      description: 'Design and distribute circulars to students and staff.',
+    },
+    {
+      title: 'Manage Students',
+      description: 'View and manage student information.',
+    },
+    {
+      title: 'Manage Classes/Departments',
+      description: 'Add and manage different classes or departments.',
+    },
+    {
+      title: 'View Reports',
+      description: 'Generate and view various reports.',
+    },
+    {
+      title: 'Settings',
+      description: 'Adjust application settings and preferences.',
+    },
+    {
+      title: 'Messages/Notifications',
+      description: 'Send and view messages or notifications.',
+    },
+  ];
 
   return (
     <>
-      <AppBar position="static" className="app-bar">
-        <Toolbar>
-          <Typography variant="h6" style={{ flexGrow: 1 }}>
-            Admin Dashboard
-          </Typography>
-          <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={handleClose}>Profile Setting</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
+      <Container maxWidth="lg" className="dashboard-container" style={{marginTop:'100px'}}>
+        <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Typography variant="h4" component="h2" gutterBottom className="section-title">
+              Welcome, {user}!
+            </Typography>
+            <Typography variant="h6" component="p" className="welcome-message">
+              Here are your tasks for today. Manage your school effectively and ensure everything runs smoothly.
+            </Typography>
+          </motion.div>
+        <Box py={5} textAlign="center">
 
-      <Container maxWidth="lg" className="dashboard-container">
-        <Box py={5}>
-          <Typography variant="h4" component="h2" gutterBottom textAlign="center" className="section-title">
-            Admin Actions
-          </Typography>
           <Grid container spacing={4} justifyContent="center">
-            <Grid item xs={12} md={4}>
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Card className="action-card">
-                  <CardContent style={{display:'flex',flexDirection:'column',gap:'20px'}}>
-                    <Typography variant="h5" component="h3">
-                      Add Teachers
-                    </Typography>
-                    <Button variant="contained" color="secondary" className="action-button">
-                      Go
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Card className="action-card">
-                  <CardContent style={{display:'flex',flexDirection:'column',gap:'20px'}}>
-                    <Typography variant="h5" component="h3">
-                      Add Announcements
-                    </Typography>
-                    <Button variant="contained" color="secondary" className="action-button">
-                      Go
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <motion.div whileHover={{ scale: 1.05 }}>
-                <Card className="action-card">
-                  <CardContent style={{display:'flex',flexDirection:'column',gap:'20px'}}>
-                    <Typography variant="h5" component="h3">
-                      Create Circular
-                    </Typography>
-                    <Button variant="contained" color="secondary" className="action-button">
-                      Go
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
+            {adminActions.map((action, index) => (
+              <Grid item xs={12} md={4} key={index}>
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 300 }}
+                >
+                  <Card className="action-card">
+                    <CardContent style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'center',gap:'20px'}}>
+                      <Typography variant="h5" component="h3">
+                        {action.title}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary" component="p">
+                        {action.description}
+                      </Typography>
+                      <Button variant="contained" color="secondary" className="action-button">
+                        Go
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
           </Grid>
         </Box>
       </Container>
