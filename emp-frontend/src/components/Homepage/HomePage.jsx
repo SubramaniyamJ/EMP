@@ -10,10 +10,6 @@ import Footer from './Footer.js';
 const HomePage = () => {
   return (
     <div className="homepage">
-      {/* <section className="introduction">
-        <h1>Welcome to ClassroomApp</h1>
-        <p>ClassroomApp is designed to help you manage your classroom efficiently and effectively. Whether you're a teacher, student, or administrator, our app provides the tools you need to succeed.</p>
-      </section> */}
       <section className='herocontainer'>
         <h1 className="hero-title">
           Welcome to EduManage!

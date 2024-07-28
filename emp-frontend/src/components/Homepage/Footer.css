@@ -7,14 +7,14 @@
 
 .footer-content {
   display: flex;
-  flex-wrap: wrap; /* Ensures responsiveness */
+  flex-wrap: wrap; 
   justify-content: space-between;
 }
 
 .footer-column {
   flex: 1;
   padding: 10px;
-  min-width: 200px; /* Adjust as needed */
+  min-width: 200px; 
 }
 
 .footer-column h3 {

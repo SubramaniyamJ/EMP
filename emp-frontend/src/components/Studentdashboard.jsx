@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Box, Typography, Paper, Grid, Button, Card, CardContent, CardActions } from '@mui/material';
 import { styled } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
-import Chatbot from './Chatbot'; // Assume a basic chatbot component
+import Chatbot from './Chatbot'; 
 import { usercontext } from './Usercontext';
 
 const StyledBox = styled(Box)(({ theme }) => ({
