@@ -8,22 +8,45 @@ import { Attendence } from './components/Attendence';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import HomePage from './components/Homepage/HomePage';
 import Appbar from './components/Homepage/Appbar';
-
+import Admindashboard from './components/Admindashboard';
+import Studentdashboard from './components/Studentdashboard';
+import Teacherdashboard from './components/Teacherdashboard';
+import { useState } from 'react';
+import { usercontext } from './components/Usercontext';
+import { useEffect } from 'react';
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Appbar/>} >
       <Route index element={<HomePage/>} />
       <Route path='/login' element={<Login/>} />
       <Route path='/register' element={<Signup/>} />
+      <Route path='/admin' element={<Admindashboard/>} />
+      <Route path='/student' element={<Studentdashboard/>} />
+      <Route path='/teacher' element={<Teacherdashboard/>} />
+      <Route path='/attendance' element={<Attendence/>} />
+      
     </Route>
   )
 )
 
 function App() {
+  const [user,setuser]=useState(() => {
+    const saved = localStorage.getItem('myValue');
+    return saved !== null ? JSON.parse(saved) : '';
+  });
+  useEffect(() => {
+    localStorage.setItem('myValue', JSON.stringify(user));
+  }, [user]);
   return (
     <div>
-     {/* <RouterProvider router={route} /> */}
-     <Attendence/>
+     <usercontext.Provider value={[user,setuser]}>
+      <RouterProvider router={route} />
+     </usercontext.Provider>
+
+     {/* <Teacherdashboard/> */}
+     {/* <Studentdashboard/> */}
+     {/* <Admindashboard/> */}
+     {/* <Attendence/> */}
     </div>
   );
 }

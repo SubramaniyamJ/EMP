@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Container, TextField, Button, MenuItem, Typography, Box, Stack, Link, FormControl } from '@mui/material';
+import { Container, TextField, Button, MenuItem, Typography, Box, Stack, FormControl } from '@mui/material';
 import { motion } from 'framer-motion';
 import './styles/login.css';
 import userservice from '../services/userservice';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CircularProgress from '@mui/material/CircularProgress';
+import { useNavigate,Link } from 'react-router-dom';
 
 const roles = [
   { value: 'student', label: 'Student' },
@@ -13,6 +15,8 @@ const roles = [
 ];
 
 const Signup = () => {
+  const navigate=useNavigate();
+  const[loading,setLoading]=useState(false);
   const [isValid, setValid] = useState(true);
   const [user, setUser] = useState({
     name: '',
@@ -34,13 +38,24 @@ const Signup = () => {
     }
 
     try {
+      setLoading(true);
+      setTimeout(async () => {
       let response = await userservice.postUser(user);
       console.log(response.data);
-      if(response.data)
-        toast.success('Account created successfully!');
+      setLoading(false);
+      if(response.data){
+        toast.success('Account created successfully! Please Login to your account.',{
+          autoClose:500
+      });
+      setTimeout(() => {
+        navigate("/login")
+      },2000)
+    }
       else
         toast.error('Account already exists with given email');
-    } catch (error) {
+    },2000); 
+  }
+  catch (error) {
       console.error(error);
       toast.error('Failed to create account.');
     }
@@ -130,11 +145,11 @@ const Signup = () => {
               onClick={handleLogin}
               style={{ marginTop: '40px' }}
             >
-              Create Account
+              {loading ? <CircularProgress size={24} style={{ color: 'white', opacity: 1 }}/> : 'Create Account'}
             </Button>
             <Stack direction="row" justifyContent="end" gap="10px" margin={'20px'}>
               <Typography>Already have an account?</Typography>
-              <Link underline='hover' component={'button'}><Typography>Login</Typography></Link>
+              <Link to='/login'><Typography>Login</Typography></Link>
             </Stack>
           </Box>
         </FormControl>

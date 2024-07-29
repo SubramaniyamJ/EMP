@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Container, TextField, Button, MenuItem, Typography, Box, Link, Stack } from '@mui/material';
+import React, { useContext, useEffect, useState } from 'react';
+import { Container, TextField, Button, MenuItem, Typography, Box, Stack } from '@mui/material';
 import { motion } from 'framer-motion';
 import './styles/login.css';
 import userservice from '../services/userservice';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate,Link } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import { usercontext } from './Usercontext';
 
 
 const roles = [
@@ -11,32 +14,54 @@ const roles = [
   { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
-
 const Login = () => {
+  const[user,setuser]=useContext(usercontext);
+  const[loading,setLoading]=useState(false);
+  const navigate=useNavigate();
   const [isValid, setValid] = useState(true);
-  const [user, setUser] = useState({
+  const [userr, setUserr] = useState({
     email: '',
     password: '',
     role: ''
   })
-
   const handleRoleChange = (event) => {
-    setUser({...user, role: event.target.value});
+    setUserr({...userr, role: event.target.value});
   };
 
   const handleLogin = async () => {
-    if(!user.role || !user.email || !user.password){
-      toast.warn('All fields required');
+
+    
+    if(!userr.role || !userr.email || !userr.password){
+      toast.warn('All fields required', {
+        autoClose: 2500
+      });
       setValid(false);
       return;
-    }
-        let response = await userservice.checkUser(user.email, user.password, user.role);
-        console.log(response.data);
+    } 
+    setLoading(true);
+    setTimeout(async () => {
+        let response = await userservice.checkUser(userr.email, userr.password, userr.role);
+        console.log(response);
+        setLoading(false);
         if(response.data){
-          toast.success("Welcome to EduManage");
-        }else{
-          toast.error("Incorrect Details");  
+          setuser(response.data.name);
+          toast.success("Welcome to EduManage", {
+            autoClose: 150
+          });
+          setTimeout(() => {
+            if(response.data.role === 'student'){
+              navigate("/student")
+            }
+            else if(response.data.role ==='faculty'){
+              navigate("/teacher")
+            }
+            else navigate("/admin")
+          }, 1000);
         }
+        else{
+          toast.error("Incorrect Username / Password");  
+        }
+    }, 2000);
         
   };
 
@@ -56,12 +81,12 @@ const Login = () => {
             fullWidth
             select
             label="Select Role"
-            value={user.role}
+            value={userr.role}
             onChange={handleRoleChange}
             margin="normal"
             variant="outlined"
-            error = {!isValid && !user.role}
-            helperText = {!isValid && !user.role ? 'Role required' : ''}
+            error = {!isValid && !userr.role}
+            helperText = {!isValid && !userr.role ? 'Role required' : ''}
           >
             {roles.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -72,23 +97,23 @@ const Login = () => {
           <TextField
             fullWidth
             label="Email"
-            value={user.email}
-            onChange={(e) => setUser({...user, email: e.target.value})}
+            value={userr.email}
+            onChange={(e) => setUserr({...userr, email: e.target.value})}
             margin="normal"
             variant="outlined"
-            error = {!isValid && !user.email}
-            helperText = {!isValid && !user.email ? 'Email required' : ''}
+            error = {!isValid && !userr.email}
+            helperText = {!isValid && !userr.email ? 'Email required' : ''}
           />
           <TextField
             fullWidth
             label="Password"
             type="password"
-            value={user.password}
-            onChange={(e) => setUser({...user, password: e.target.value})}
+            value={userr.password}
+            onChange={(e) => setUserr({...userr, password: e.target.value})}
             margin="normal"
             variant="outlined"
-            error = {!isValid && !user.password}
-            helperText = {!isValid && !user.password ? 'Password required' : ''}
+            error = {!isValid && !userr.password}
+            helperText = {!isValid && !userr.password ? 'Password required' : ''}
           />
           <Button
             fullWidth
@@ -96,11 +121,11 @@ const Login = () => {
             onClick={handleLogin}
             style={{ marginTop: '40px' }}
           >
-            login
+            {loading ? <CircularProgress size={24} style={{ color: 'white', opacity: 1 }}/> : 'Login'}
           </Button>
           <Stack direction="row" justifyContent="end" gap="10px" margin={'20px'} >
             <Typography>doesn't have account? </Typography>
-                <Link underline='hover' component={'button'}><Typography>Signup</Typography></Link>
+              <Link to='/register'><Typography>Signup</Typography></Link>
           </Stack>
         </Box>
         <ToastContainer/>
