@@ -135,7 +135,7 @@ const Teacherdashboard = () => {
                   <Card>
                     <CardContent>
                       <Typography variant="h6">{cls.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography color={'textSecondary'}>
                         Students: {cls.studentsCount}
                       </Typography>
                     </CardContent>
@@ -212,7 +212,7 @@ const Teacherdashboard = () => {
             {messages.map((message) => (
               <Box key={message.id} sx={{ mb: 2 }}>
                 <Typography variant="h6">{message.title}</Typography>
-                <Typography variant="body2">{message.content}</Typography>
+                <Typography variant="body1" color={'textSecondary'}>{message.content}</Typography>
               </Box>
             ))}
           </Paper>

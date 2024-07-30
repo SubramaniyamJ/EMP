@@ -7,7 +7,7 @@ import { usercontext } from './Usercontext';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
-  color: 'white',
+  color: 'black',
   padding: theme.spacing(3),
   borderRadius: theme.shape.borderRadius,
   marginBottom: theme.spacing(2),
@@ -42,10 +42,10 @@ const Studentdashboard = () => {
   return (
     <div style={{marginTop:'100px',marginLeft:'25px',marginRight:'25px',marginBottom:'25px'}}>
       <StyledBox>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" color={'white'} gutterBottom>
           Welcome {user} !
         </Typography>
-        <Typography variant="h6">
+        <Typography variant="h6" color='white '>
           Here you can see your joined classes, overall attendance percentage, grades, messages, and access the chatbot.
         </Typography>
       </StyledBox>
@@ -62,7 +62,7 @@ const Studentdashboard = () => {
                   <Card>
                     <CardContent>
                       <Typography variant="h6">{cls.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography>
                         Teacher: {cls.teacher}
                       </Typography>
                     </CardContent>
@@ -74,7 +74,7 @@ const Studentdashboard = () => {
                     {selectedClass === cls.name && (
                       <Box sx={{ padding: 2 }}>
                         {cls.notes.map((note, index) => (
-                          <Typography key={index} variant="body2" color={'black'}>
+                          <Typography key={index}>
                             {note}
                           </Typography>
                         ))}
@@ -118,7 +118,7 @@ const Studentdashboard = () => {
             {messages.map((message) => (
               <Box key={message.id} sx={{ mb: 2 }}>
                 <Typography variant="h6">{message.title}</Typography>
-                <Typography variant="body2">{message.content}</Typography>
+                <Typography>{message.content}</Typography>
               </Box>
             ))}
           </Paper>

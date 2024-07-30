@@ -27,11 +27,16 @@ public class Controller {
 
     @PostMapping("/postuser")
     boolean postuser(@RequestBody User user){
-        User ifUser = repo.findUserByEmail(user.email);
-        if(ifUser != null){
+
+        User userWithSameEmail = repo.findUserByEmail(user.email);
+        if(userWithSameEmail != null){
             return false;
         }
         if(user.role.equals("admin")){
+            User adminWithSameInstitueName = repo.findUserByInstituteName(user.instituteName);
+            if(adminWithSameInstitueName.instituteName.equalsIgnoreCase(user.instituteName)){
+                return false;
+            }
             util.createInstituteTable(user.instituteName);
         }
         repo.save(user);
