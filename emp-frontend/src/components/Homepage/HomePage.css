@@ -109,6 +109,13 @@
     color: black;
   }
 }
+
+.feature h2 {
+  margin-bottom: 0;
+}
+.feature p {
+  color:#333;
+}
 /* @keyframes slide {
   0% {
     transform: translateX(0);
@@ -204,6 +211,7 @@ p{
 
 .aboutus p{
   text-align: center;
+  color: #333;
   letter-spacing: 3px;
   line-height: 30px;
 }

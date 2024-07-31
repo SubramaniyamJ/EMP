@@ -117,6 +117,7 @@ const Teacherdashboard = () => {
       <StyledBox>
         <Typography variant="h4" gutterBottom>
           Welcome {user.name} !
+          Welcome {user.name} !
         </Typography>
         <Typography variant="h6">
           Manage your classes, mark attendance, and stay updated with messages from the admin.
@@ -135,7 +136,7 @@ const Teacherdashboard = () => {
                   <Card>
                     <CardContent>
                       <Typography variant="h6">{cls.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography color={'textSecondary'}>
                         Students: {cls.studentsCount}
                       </Typography>
                     </CardContent>

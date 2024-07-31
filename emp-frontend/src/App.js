@@ -19,6 +19,7 @@ import ManageStudents from './components/adminactions/ManageStudents';
 
 
 
+import AddAnnouncement from './components/adminactions/AddAnnouncement';
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Appbar/>} >
@@ -53,7 +54,7 @@ function App() {
      <usercontext.Provider value={[user,setuser]}>
       <RouterProvider router={route} />
      </usercontext.Provider>
-
+      {/* <AddAnnouncement/> */}
      {/* <Teacherdashboard/> */}
      {/* <Studentdashboard/> */}
      {/* <Admindashboard/> */}

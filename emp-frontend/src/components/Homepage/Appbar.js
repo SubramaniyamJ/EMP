@@ -22,7 +22,6 @@ const Appbar = () => {
   };
   const handlelogout = () => {
     setAnchorEl(null);
-    // localStorage.clear();
     setuser({});
     navigate("/");
   };
@@ -43,9 +42,9 @@ const Appbar = () => {
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+              >
+              <AccountCircle style={{fontSize: '40px'}}/>
+            </IconButton>            
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
@@ -70,6 +69,7 @@ const Appbar = () => {
       <main>
         <Outlet/>
       </main>
+
       </div>
   )
 }

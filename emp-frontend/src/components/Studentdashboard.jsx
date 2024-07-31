@@ -7,7 +7,7 @@ import { usercontext } from './Usercontext';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
-  color: 'white',
+  color: 'black',
   padding: theme.spacing(3),
   borderRadius: theme.shape.borderRadius,
   marginBottom: theme.spacing(2),
@@ -45,7 +45,7 @@ const Studentdashboard = () => {
         <Typography variant="h4" gutterBottom>
           Welcome {user.name} !
         </Typography>
-        <Typography variant="h6">
+        <Typography variant="h6" color='white '>
           Here you can see your joined classes, overall attendance percentage, grades, messages, and access the chatbot.
         </Typography>
       </StyledBox>
@@ -62,7 +62,7 @@ const Studentdashboard = () => {
                   <Card>
                     <CardContent>
                       <Typography variant="h6">{cls.name}</Typography>
-                      <Typography variant="body2" color="textSecondary">
+                      <Typography>
                         Teacher: {cls.teacher}
                       </Typography>
                     </CardContent>

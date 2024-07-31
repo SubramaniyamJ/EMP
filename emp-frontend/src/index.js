@@ -11,9 +11,12 @@ const theme = createTheme({
     fontFamily: [
       'Poppins',
       'sans-serif'
-    ].join(','),
+    ].join(',')
   },
   palette: {
+    text: {
+      primary: '#000000'
+    },
     primary : {
       main: '#9c27b0',
       light: '#d05ce3',

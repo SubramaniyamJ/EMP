@@ -13,6 +13,7 @@ import com.example.emp_backend.model.User;
 public interface UserRepo extends JpaRepository<User, Integer> {
 
 	User findUserByEmail(String email);
+    User findUserByInstituteNameAndRole(String instituteName, String role);
 
     List<User> findByInstituteNameAndRole(String instituteName, String role);
 
