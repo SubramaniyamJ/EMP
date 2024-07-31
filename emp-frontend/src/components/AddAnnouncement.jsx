@@ -1,43 +1,117 @@
-import { Typography, Box, Divider, TextField, MenuItem } from '@mui/material'
-import React, { useState } from 'react'
+// src/pages/AddAnnouncement.js
+
+import React, { useState } from 'react';
+import {
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Box,
+  Grid,
+  Paper,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl
+} from '@mui/material';
+import SaveIcon from '@mui/icons-material/Save';
 
 const AddAnnouncement = () => {
-    const [title, setTitle] = useState('');
-    const [accessGroup, setAccessGroup] = useState([]);
-    const handleTitle = (e) => {
-        setTitle(e.target.value);
-    }
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [date, setDate] = useState('');
+  const [accessGroup, setAccessGroup] = useState('');
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const announcement = { title, description, date, accessGroup };
+
+    // Replace this with your API call
+    console.log('Announcement submitted:', announcement);
+
+    // Reset form
+    setTitle('');
+    setDescription('');
+    setDate('');
+    setAccessGroup('');
+  };
+
   return (
-    <>
-        <Box padding='40px'>
-            <Typography variant='h3'>Add Announcement</Typography>
-            <Typography variant='h4'>Announcement Details</Typography>
-            <Divider/>
-            <TextField
-            fullWidth
-            required
-            type='input'
-            value={title}
-            onChange={handleTitle}
-            label='Announcement Title'
-            variant='filled'
-            />
-            <TextField
-            select
-            variant='filled'
-            label='Access group'
-            >
-            {/* {accessGroup.map((option) => (
-              <MenuItem key={option.value}>
-                option
-              </MenuItem>
-            ))} */}
-            </TextField>
-        </Box>
+    <Container maxWidth="sm">
+      <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
+        <Typography variant="h5" gutterBottom>
+          Add Announcement
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Title"
+                variant="outlined"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Description"
+                variant="outlined"
+                multiline
+                rows={4}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                label="Date"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                required
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormControl fullWidth variant="outlined" required>
+                <InputLabel>Access Group</InputLabel>
+                <Select
+                  value={accessGroup}
+                  onChange={(e) => setAccessGroup(e.target.value)}
+                  label="Access Group"
+                >
+                  <MenuItem value=""><em>None</em></MenuItem>
+                  <MenuItem value="students">Students</MenuItem>
+                  <MenuItem value="teachers">Teachers</MenuItem>
+                  <MenuItem value="staff">Staff</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="center">
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  endIcon={<SaveIcon />}
+                >
+                  Save Announcement
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
+  );
+};
 
-
-    </>
-  )
-}
-
-export default AddAnnouncement
+export default AddAnnouncement;

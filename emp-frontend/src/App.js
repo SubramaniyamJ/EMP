@@ -45,10 +45,10 @@ function App() {
   }, [user]);
   return (
     <div>
-     <usercontext.Provider value={[user,setuser]}>
+     {/* <usercontext.Provider value={[user,setuser]}>
       <RouterProvider router={route} />
-     </usercontext.Provider>
-      {/* <AddAnnouncement/> */}
+     </usercontext.Provider> */}
+      <AddAnnouncement/>
      {/* <Teacherdashboard/> */}
      {/* <Studentdashboard/> */}
      {/* <Admindashboard/> */}

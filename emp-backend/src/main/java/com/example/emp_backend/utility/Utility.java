@@ -49,22 +49,22 @@ public class Utility {
                 "faculty_address VARCHAR(255) , "+
                 "faculty_specializations VARCHAR(255) , "+
                 "faculty_doj VARCHAR(255) , "+
-                "PRIMARY KEY (faculty_id)), ";
+                "PRIMARY KEY (faculty_id));";
 
         String queryStudent = "CREATE TABLE IF NOT EXISTS " + instituteName + "_students" + " (" +
                 "student_id BIGINT, " +
                 "reg_no VARCHAR(255) NOT NULL, " +
                 "student_name VARCHAR(255) NOT NULL," +
                 "student_email VARCHAR(255) NOT NULL, "+
-                "student_department_id BIGINT" +
+                "student_department_id BIGINT ," +
                 "student_gender VARCHAR(255), "+
                 "student_dob VARCHAR(255), "+
                 "student_phone_no VARCHAR(255), "+
                 "student_address VARCHAR(255), "+
                 "student_specializations VARCHAR(255), "+
-                "student_class_id BIGINT NOT NULL"+
+                "student_class_id BIGINT NOT NULL, "+
                 "student_doj VARCHAR(255), "+
-                "PRIMARY KEY (student_id))";
+                "PRIMARY KEY (student_id));";
 
         String queryDept = "CREATE TABLE IF NOT EXISTS " + instituteName + "_departments" + " (" +
                             "department_Id BIGINT AUTOINCREAMENT, "+ 
@@ -84,7 +84,7 @@ public class Utility {
 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
-        jdbcTemplate.execute(queryDept);
+        // jdbcTemplate.execute(queryDept);
 
 
     }
