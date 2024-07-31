@@ -23,7 +23,17 @@ class userservice {
             throw error;
         }
     }
-
+    async manageteachersandstudents(instituteName,role){
+        try{
+            const response=await axios.get(API_URL + "/manageteachersandstudents",{
+                params: {instituteName,role}
+            });
+            return response.data;
+        } catch(error){
+            console.log("Therre was an error !",error);
+            throw error;
+        }
+    }
     
 }
 

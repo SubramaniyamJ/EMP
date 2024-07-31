@@ -43,7 +43,7 @@ const Studentdashboard = () => {
     <div style={{marginTop:'100px',marginLeft:'25px',marginRight:'25px',marginBottom:'25px'}}>
       <StyledBox>
         <Typography variant="h4" gutterBottom>
-          Welcome {user} !
+          Welcome {user.name} !
         </Typography>
         <Typography variant="h6">
           Here you can see your joined classes, overall attendance percentage, grades, messages, and access the chatbot.
@@ -74,7 +74,7 @@ const Studentdashboard = () => {
                     {selectedClass === cls.name && (
                       <Box sx={{ padding: 2 }}>
                         {cls.notes.map((note, index) => (
-                          <Typography key={index} variant="body2">
+                          <Typography key={index} variant="body2" color={'black'}>
                             {note}
                           </Typography>
                         ))}
@@ -93,7 +93,7 @@ const Studentdashboard = () => {
               Overall Attendance & Grades
             </Typography>
             <Box sx={{ mb: 2 }}>
-              <Typography variant="body1">
+              <Typography variant="body1" color={'black'}>
                 Overall Attendance: 85%
               </Typography>
             </Box>
@@ -117,8 +117,8 @@ const Studentdashboard = () => {
             </Typography>
             {messages.map((message) => (
               <Box key={message.id} sx={{ mb: 2 }}>
-                <Typography variant="h6">{message.title}</Typography>
-                <Typography variant="body2">{message.content}</Typography>
+                <Typography variant="h6" color={'black'}>{message.title}</Typography>
+                <Typography variant="body2" color={'black'}>{message.content}</Typography>
               </Box>
             ))}
           </Paper>

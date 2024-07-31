@@ -22,7 +22,8 @@ const Appbar = () => {
   };
   const handlelogout = () => {
     setAnchorEl(null);
-    setuser("");
+    // localStorage.clear();
+    setuser({});
     navigate("/");
   };
   return (
@@ -32,10 +33,10 @@ const Appbar = () => {
           <Typography variant="h6" style={{ flexGrow: 1 }}>
             EduManage
           </Typography>
-          {!user ? <Link to='/' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Home</Button></Link> :null}
-          {!user ? <Link to='/login' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Login</Button></Link> :null}
-          {!user ? <Link to='/register' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Register</Button></Link> :null}
-          { user ?<div>
+          {!user.name ? <Link to='/' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Home</Button></Link> :null}
+          {!user.name ? <Link to='/login' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Login</Button></Link> :null}
+          {!user.name ? <Link to='/register' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Register</Button></Link> :null}
+          { user.name ?<div>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"

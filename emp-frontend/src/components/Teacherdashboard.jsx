@@ -116,7 +116,7 @@ const Teacherdashboard = () => {
     <div style={{ marginTop: '100px', marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}>
       <StyledBox>
         <Typography variant="h4" gutterBottom>
-          Welcome {user} !
+          Welcome {user.name} !
         </Typography>
         <Typography variant="h6">
           Manage your classes, mark attendance, and stay updated with messages from the admin.
@@ -169,7 +169,7 @@ const Teacherdashboard = () => {
                         <Button onClick={() => handleAddNote(cls.id)}>Add Note</Button>
                         <Typography variant="h6">Students</Typography>
                         {cls.students.map((student, index) => (
-                          <Typography key={index} variant="body2">
+                          <Typography key={index} variant="body2" color={'black'}>
                             {student}
                           </Typography>
                         ))}
@@ -207,17 +207,16 @@ const Teacherdashboard = () => {
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>
-              Messages
+              Messages 
             </Typography>
             {messages.map((message) => (
               <Box key={message.id} sx={{ mb: 2 }}>
-                <Typography variant="h6">{message.title}</Typography>
-                <Typography variant="body2">{message.content}</Typography>
+                <Typography variant="h6" color={'black'}>{message.title}</Typography>
+                <Typography variant="body2" color={'black'}>{message.content}</Typography>
               </Box>
             ))}
           </Paper>
         </Grid>
-
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>

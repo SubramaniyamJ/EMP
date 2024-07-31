@@ -44,7 +44,12 @@ const Login = () => {
         console.log(response);
         setLoading(false);
         if(response.data){
-          setuser(response.data.name);
+          console.log(response.data);
+          setuser({email:response.data.email,
+                    instituteName:response.data.instituteName,
+                    name:response.data.name,
+                    password:response.data.password,
+                    role:response.data.role}); 
           toast.success("Welcome to EduManage", {
             autoClose: 150
           });
@@ -124,8 +129,8 @@ const Login = () => {
             {loading ? <CircularProgress size={24} style={{ color: 'white', opacity: 1 }}/> : 'Login'}
           </Button>
           <Stack direction="row" justifyContent="end" gap="10px" margin={'20px'} >
-            <Typography>doesn't have account? </Typography>
-              <Link to='/register'><Typography>Signup</Typography></Link>
+            <Typography color={'black'}>doesn't have account? </Typography>
+              <Link to='/register'><Typography color={'blue'}>Signup</Typography></Link>
           </Stack>
         </Box>
         <ToastContainer/>
