@@ -63,7 +63,7 @@ const Admindashboard = () => {
             transition={{ duration: 0.5 }}
           >
             <Typography variant="h4" component="h2" gutterBottom className="section-title">
-              Welcome, {user}!
+              Welcome, {user.name}!
             </Typography>
             <Typography variant="h6" component="p" className="welcome-message">
               Here are your tasks for today. Manage your school effectively and ensure everything runs smoothly.

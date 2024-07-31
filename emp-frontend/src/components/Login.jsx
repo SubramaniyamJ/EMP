@@ -44,7 +44,13 @@ const Login = () => {
         console.log(response);
         setLoading(false);
         if(response.data){
-          setuser(response.data.name);
+          setuser({
+            name: response.data.name,
+            email: response.data.email,
+            password: response.data.password,
+            instituteName: response.data.instituteName,
+            role: response.data.role
+          });
           toast.success("Welcome to EduManage", {
             autoClose: 150
           });

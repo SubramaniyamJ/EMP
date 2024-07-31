@@ -33,8 +33,8 @@ public class Controller {
             return false;
         }
         if(user.role.equals("admin")){
-            User adminWithSameInstitueName = repo.findUserByInstituteName(user.instituteName);
-            if(adminWithSameInstitueName.instituteName.equalsIgnoreCase(user.instituteName)){
+            User adminWithSameInstitueName = repo.findUserByInstituteNameAndRole(user.instituteName, "admin");
+            if(adminWithSameInstitueName != null){
                 return false;
             }
             util.createInstituteTable(user.instituteName);

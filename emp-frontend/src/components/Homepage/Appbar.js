@@ -22,7 +22,7 @@ const Appbar = () => {
   };
   const handlelogout = () => {
     setAnchorEl(null);
-    setuser("");
+    setuser(null);
     navigate("/");
   };
   return (
@@ -35,16 +35,20 @@ const Appbar = () => {
           {!user ? <Link to='/' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Home</Button></Link> :null}
           {!user ? <Link to='/login' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Login</Button></Link> :null}
           {!user ? <Link to='/register' style={{textDecoration:'none',color:'white'}}><Button color="inherit" >Register</Button></Link> :null}
-          { user ?<div>
+          { user ? <div>
+            <Box display={'flex'} justifyContent={'center'} alignItems={'center'}>
+            <Typography>{user.name}</Typography>
             <IconButton
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleMenu}
               color="inherit"
-            >
-              <AccountCircle />
+              >
+              <AccountCircle style={{fontSize: '40px'}}/>
             </IconButton>
+            </Box>
+            
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}

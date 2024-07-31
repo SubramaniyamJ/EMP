@@ -116,7 +116,7 @@ const Teacherdashboard = () => {
     <div style={{ marginTop: '100px', marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}>
       <StyledBox>
         <Typography variant="h4" gutterBottom>
-          Welcome {user} !
+          Welcome {user.name} !
         </Typography>
         <Typography variant="h6">
           Manage your classes, mark attendance, and stay updated with messages from the admin.

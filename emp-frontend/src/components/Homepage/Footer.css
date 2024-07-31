@@ -30,7 +30,7 @@
   margin-bottom: 5px;
 }
 
-.footer-column ul li a, h3, p {
+.footer-column ul li a, .footer-column h3, .footer-column p {
   text-decoration: none;
   color: #ffffff;
 }

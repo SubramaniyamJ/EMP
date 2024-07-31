@@ -43,7 +43,7 @@ const Studentdashboard = () => {
     <div style={{marginTop:'100px',marginLeft:'25px',marginRight:'25px',marginBottom:'25px'}}>
       <StyledBox>
         <Typography variant="h4" color={'white'} gutterBottom>
-          Welcome {user} !
+          Welcome {user.name} !
         </Typography>
         <Typography variant="h6" color='white '>
           Here you can see your joined classes, overall attendance percentage, grades, messages, and access the chatbot.

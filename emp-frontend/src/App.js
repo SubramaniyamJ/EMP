@@ -14,6 +14,7 @@ import Teacherdashboard from './components/Teacherdashboard';
 import { useState } from 'react';
 import { usercontext } from './components/Usercontext';
 import { useEffect } from 'react';
+import AddAnnouncement from './components/AddAnnouncement';
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Appbar/>} >
@@ -24,7 +25,6 @@ const route=createBrowserRouter(
       <Route path='/student' element={<Studentdashboard/>} />
       <Route path='/teacher' element={<Teacherdashboard/>} />
       <Route path='/attendance' element={<Attendence/>} />
-      
     </Route>
   )
 )
@@ -32,7 +32,13 @@ const route=createBrowserRouter(
 function App() {
   const [user,setuser]=useState(() => {
     const saved = localStorage.getItem('myValue');
-    return saved !== null ? JSON.parse(saved) : '';
+    return saved !== null ? JSON.parse(saved) : {
+      name: '',
+      email: '',
+      password: '',
+      insituteName: '',
+      role: ''
+    };
   });
   useEffect(() => {
     localStorage.setItem('myValue', JSON.stringify(user));
@@ -42,7 +48,7 @@ function App() {
      <usercontext.Provider value={[user,setuser]}>
       <RouterProvider router={route} />
      </usercontext.Provider>
-
+      {/* <AddAnnouncement/> */}
      {/* <Teacherdashboard/> */}
      {/* <Studentdashboard/> */}
      {/* <Admindashboard/> */}
