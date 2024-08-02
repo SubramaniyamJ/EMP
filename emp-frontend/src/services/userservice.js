@@ -23,8 +23,27 @@ class userservice {
             throw error;
         }
     }
-    
+    async manageteachersandstudents(instituteName,role){
+        try{
+            const response=await axios.get(API_URL + "/manageteachersandstudents",{
+                params: {instituteName,role}
+            });
+            return response.data;
+        } catch(error){
+            console.log("Therre was an error !",error);
+            throw error;
+        }
+    }
 
+    async addTeachers(user){
+        try{
+            const response = await axios.post(API_URL + "/admin/addfaculty", user)
+            return response.data;
+        }catch(error){
+            console.log("add teachers error");
+            throw error;
+        }
+    }
     
 }
 

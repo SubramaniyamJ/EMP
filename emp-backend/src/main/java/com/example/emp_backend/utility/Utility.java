@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.emp_backend.repository.UserRepo;
+import com.example.emp_backend.model.User;
 
 public class Utility {
 
@@ -38,8 +39,8 @@ public class Utility {
 
     public void createInstituteTable(String instituteName){
         String queryFaculty = "CREATE TABLE IF NOT EXISTS " + instituteName + "_faculties" + " (" +
-                "faculty_id BIGINT, " +
-                "facult_name VARCHAR(255) NOT NULL," +
+                "faculty_id INT NOT NULL, " +
+                "faculty_name VARCHAR(255) NOT NULL," +
                 "faculty_email VARCHAR(255) NOT NULL, "+
                 "faculty_department_id BIGINT, " +
                 "faculty_class_id BIGINT," +
@@ -86,8 +87,17 @@ public class Utility {
         jdbcTemplate.execute(queryStudent);
         // jdbcTemplate.execute(queryDept);
 
-
     }
 
+    public boolean addTeachers(User faculty){  
+        try{
+            String tableName = (faculty.instituteName) + "_faculties";
+            String nquery = "INSERT INTO " + tableName + " (faculty_id, faculty_name, faculty_email) VALUES (?, ?, ?)";
+            jdbcTemplate.update(nquery, faculty.id, faculty.name, faculty.email);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 
 }

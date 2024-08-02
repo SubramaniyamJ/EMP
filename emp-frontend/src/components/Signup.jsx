@@ -148,8 +148,8 @@ const Signup = () => {
               {loading ? <CircularProgress size={24} style={{ color: 'white', opacity: 1 }}/> : 'Create Account'}
             </Button>
             <Stack direction="row" justifyContent="end" gap="10px" margin={'20px'}>
-              <Typography>Already have an account?</Typography>
-              <Link to='/login'><Typography>Login</Typography></Link>
+              <Typography color={'black'}>Already have an account?</Typography>
+              <Link to='/login'><Typography color={'blue'}>Login</Typography></Link>
             </Stack>
           </Box>
         </FormControl>

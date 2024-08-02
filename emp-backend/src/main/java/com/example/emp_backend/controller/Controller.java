@@ -1,10 +1,13 @@
 package com.example.emp_backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -52,6 +55,16 @@ public class Controller {
             }       
         }
         return null;
+    }
+    @GetMapping("/manageteachersandstudents")
+    List<User> manageteachersandstudents(@RequestParam String instituteName,@RequestParam String role){
+        List<User>users=repo.findByInstituteNameAndRole(instituteName,role);
+        return users;
+    }
+
+    @PostMapping("/admin/addfaculty")
+    boolean addTeachers(@RequestBody User user){
+        return util.addTeachers(user);
     }
 
 

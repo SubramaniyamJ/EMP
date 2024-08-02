@@ -105,6 +105,9 @@
   padding: 20px;
   gap: 20px;
   text-align: center;
+  p{
+    color: black;
+  }
 }
 
 .feature h2 {
@@ -181,7 +184,10 @@
 
 .testimonial p {
   font-size: 1.1em;
-  color: #555;
+  color: black;
+}
+p{
+  color: black;
 }
 
 .testimonial span {

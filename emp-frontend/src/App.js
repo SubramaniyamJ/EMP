@@ -14,7 +14,12 @@ import Teacherdashboard from './components/Teacherdashboard';
 import { useState } from 'react';
 import { usercontext } from './components/Usercontext';
 import { useEffect } from 'react';
-import AddAnnouncement from './components/AddAnnouncement';
+import ManageTeachers from './components/adminactions/ManageTeachers';
+import ManageStudents from './components/adminactions/ManageStudents';
+
+
+
+import AddAnnouncement from './components/adminactions/AddAnnouncement';
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Appbar/>} >
@@ -22,6 +27,8 @@ const route=createBrowserRouter(
       <Route path='/login' element={<Login/>} />
       <Route path='/register' element={<Signup/>} />
       <Route path='/admin' element={<Admindashboard/>} />
+      <Route path='admin/ManageTeachers' element={<ManageTeachers/>}/>
+      <Route path='admin/ManageStudents' element={<ManageStudents/>} />
       <Route path='/student' element={<Studentdashboard/>} />
       <Route path='/teacher' element={<Teacherdashboard/>} />
       <Route path='/attendance' element={<Attendence/>} />
@@ -33,22 +40,21 @@ function App() {
   const [user,setuser]=useState(() => {
     const saved = localStorage.getItem('myValue');
     return saved !== null ? JSON.parse(saved) : {
-      name: '',
-      email: '',
-      password: '',
-      insituteName: '',
-      role: ''
-    };
-  });
+    email:'',
+    instituteName:'', 
+    name:'',
+    password:'',
+    role:''
+  }});
   useEffect(() => {
     localStorage.setItem('myValue', JSON.stringify(user));
   }, [user]);
   return (
     <div>
-     {/* <usercontext.Provider value={[user,setuser]}>
+     <usercontext.Provider value={[user,setuser]}>
       <RouterProvider router={route} />
-     </usercontext.Provider> */}
-      <AddAnnouncement/>
+     </usercontext.Provider>
+      {/* <AddAnnouncement/> */}
      {/* <Teacherdashboard/> */}
      {/* <Studentdashboard/> */}
      {/* <Admindashboard/> */}

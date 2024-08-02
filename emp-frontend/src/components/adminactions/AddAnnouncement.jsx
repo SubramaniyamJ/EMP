@@ -14,7 +14,7 @@ import {
   InputLabel,
   FormControl
 } from '@mui/material';
-import SaveIcon from '@mui/icons-material/Save';
+import PublishIcon from '@mui/icons-material/Publish';
 
 const AddAnnouncement = () => {
   const [title, setTitle] = useState('');
@@ -37,14 +37,14 @@ const AddAnnouncement = () => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
-        <Typography variant="h5" gutterBottom>
+    <Container maxWidth="ms">
+        <Typography variant="h4" gutterBottom padding={'20px'} paddingBottom={'0'}>
           Add Announcement
         </Typography>
+      <Paper elevation={3} style={{ padding: '20px', marginTop: '20px' }}>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item sm={12} paddingBottom={'10px'}>
               <TextField
                 fullWidth
                 label="Title"
@@ -54,19 +54,7 @@ const AddAnnouncement = () => {
                 required
               />
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                label="Description"
-                variant="outlined"
-                multiline
-                rows={4}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-              />
-            </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} paddingBottom={'10px'} justifyContent={'space-around'}>
               <TextField
                 fullWidth
                 label="Date"
@@ -80,7 +68,7 @@ const AddAnnouncement = () => {
                 required
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} paddingBottom={'10px'}>
               <FormControl fullWidth variant="outlined" required>
                 <InputLabel>Access Group</InputLabel>
                 <Select
@@ -96,12 +84,24 @@ const AddAnnouncement = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Description"
+                variant="outlined"
+                multiline
+                rows={10}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </Grid>
+            <Grid item xs={12}>
               <Box display="flex" justifyContent="center">
                 <Button
                   type="submit"
                   variant="contained"
                   color="primary"
-                  endIcon={<SaveIcon />}
+                  endIcon={<PublishIcon/>}
                 >
                   Save Announcement
                 </Button>
