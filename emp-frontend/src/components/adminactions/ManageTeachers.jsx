@@ -3,20 +3,25 @@ import { usercontext } from '../Usercontext';
 import userservice from '../../services/userservice';
 import { Box, Button, Chip , Typography} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import {useNavigate} from 'react-router-dom'
 import {toast, ToastContainer} from 'react-toastify'
 
 
 
 
 const ManageTeachers = () => {
+  const navigate = useNavigate();
   const [user]=useContext(usercontext);
   const [res,setres]=useState([{id:'',name: '', email: '', instituteName: ''}]);
  
+  const handleFaculty = () => {
+    navigate('/admin/ManagableFacuties')
+  }
   const columns =[
     {field:'id',headerName:'Id',flex:1},
     {field:'name',headerName:'Facultyname',flex:1},
     {field:'email',headerName:'Email',flex:1},
-    {field:'acceptorreact',headerName:'Accept/React',flex:1,renderCell: (param)=>
+    {field:'acceptorreact', headerName:'Accept/React', flex:1, renderCell: (param)=>
       <>
       <Chip onClick={() => handleAccept(param)}label='Accept' color='success'  style={{marginRight:'20px'}} />
       <Chip label='Reject' onClick={() => removeRow(param)} color='error' />
@@ -31,10 +36,7 @@ const ManageTeachers = () => {
     }else{
       toast.success("faculty added successfully");
     }
-
     removeRow(param);
-
-    // e.
   }
 
   const removeRow = (param) => {
@@ -52,7 +54,7 @@ const ManageTeachers = () => {
       console.log(error);
     }
   };
-      
+
   useEffect(() => {
     response();
   }, []);
@@ -62,8 +64,9 @@ const ManageTeachers = () => {
     <>
       <Box sx={{marginTop:'100px'}}> 
         <Typography variant='h3'>Manage Teachers</Typography>
+        <Button variant="contained" onClick={handleFaculty}>Faculties</Button>
         <DataGrid 
-          stikyHeader
+          stickyHeader
           rows={res}
           columns={columns}
           style={{padding:'20px'}}

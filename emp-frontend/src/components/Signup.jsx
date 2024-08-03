@@ -38,6 +38,7 @@ const Signup = () => {
     }
 
     try {
+      console.log("here");
       setLoading(true);
       setTimeout(async () => {
       let response = await userservice.postUser(user);
@@ -49,7 +50,7 @@ const Signup = () => {
       });
       setTimeout(() => {
         navigate("/login")
-      },2000)
+      },5000)
     }
       else
         toast.error('Account already exists with given email');

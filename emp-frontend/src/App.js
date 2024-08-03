@@ -16,10 +16,9 @@ import { usercontext } from './components/Usercontext';
 import { useEffect } from 'react';
 import ManageTeachers from './components/adminactions/ManageTeachers';
 import ManageStudents from './components/adminactions/ManageStudents';
-
-
-
 import AddAnnouncement from './components/adminactions/AddAnnouncement';
+import { ManagableFaculties } from './components/adminactions/ManagableFaculties';
+
 const route=createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Appbar/>} >
@@ -28,6 +27,7 @@ const route=createBrowserRouter(
       <Route path='/register' element={<Signup/>} />
       <Route path='/admin' element={<Admindashboard/>} />
       <Route path='admin/ManageTeachers' element={<ManageTeachers/>}/>
+      <Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
       <Route path='admin/ManageStudents' element={<ManageStudents/>} />
       <Route path='/student' element={<Studentdashboard/>} />
       <Route path='/teacher' element={<Teacherdashboard/>} />

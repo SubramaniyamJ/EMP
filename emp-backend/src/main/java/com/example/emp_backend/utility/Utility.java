@@ -1,12 +1,12 @@
 package com.example.emp_backend.utility;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.model.User;
+import java.util.*;;
 
 public class Utility {
 
@@ -28,6 +28,7 @@ public class Utility {
 
 
     }
+
 
     // public String generateClassCode(){
     //     String uniqueClassCode = "";
@@ -98,6 +99,28 @@ public class Utility {
         }catch(Exception e){
             return false;
         }
+    }
+
+    public List<User> checkFacultyAlreadyAdded(List<User>users, String instituteName){
+        List<User>nonAddedFaculties = new ArrayList<>();
+        String tableName = instituteName + "_faculties";
+        for(User user : users){
+            String query = "SELECT COUNT(*) FROM " + tableName + " WHERE faculty_email = ?";
+            Integer count = jdbcTemplate.queryForObject(query, new Object[]{user.getEmail()}, Integer.class);
+
+            if(count == null || count == 0){    
+                nonAddedFaculties.add(user);
+            }
+        }
+        return nonAddedFaculties;
+    }
+
+    public List<?> managedFacultiesList(String instituteName){
+        String tableName = instituteName + "_faculties";
+        String query = "SELECT * FROM " + tableName;
+        List<Map<String, Object>> facultyList = jdbcTemplate.queryForList(query);
+        return facultyList;
+
     }
 
 }
