@@ -24,8 +24,6 @@ public class Utility {
             s.append(candites.charAt(random.nextInt(len)));
         }
         return s.toString();
-
-
     }
 
     // public String generateClassCode(){
@@ -80,13 +78,11 @@ public class Utility {
                             "class_name VARCHAR(255) NOT NULL, "+
                             "class_incharge VARCHAR(255) NOT NULL, "+
                             "faculty_in_charge_id BIGINT NOT NULL, ";
-
+        
 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
         // jdbcTemplate.execute(queryDept);
-
-
     }
 
 

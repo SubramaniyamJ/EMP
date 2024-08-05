@@ -13,6 +13,9 @@ const roles = [
   { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
+const institutes= [
+  {value:'skcet',label:'skcet'}
+]
 
 const Signup = () => {
   const navigate=useNavigate();
@@ -127,7 +130,7 @@ const Signup = () => {
               error={!isValid && !user.password}
               helperText={!isValid && !user.password ? 'Password is required' : ''}
             />
-            <TextField
+            {user.role==='admin' ? <TextField
               fullWidth
               required
               label="Institute Name"
@@ -137,7 +140,24 @@ const Signup = () => {
               variant="outlined"
               error={!isValid && !user.instituteName}
               helperText={!isValid && !user.instituteName ? 'Institute name is required' : ''}
-            />
+            /> : <TextField
+            required
+            fullWidth
+            select
+            label="Select Institute"
+            value={user.instituteName}
+            onChange={handleRoleChange}    // need to handle institute names
+            margin="normal"
+            variant="outlined"
+            error={!isValid && !user.instituteName}
+            helperText={!isValid && !user.role ? 'Institute is required' : ''}
+          >
+            {institutes.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>}
             <Button
               fullWidth
               variant="contained"
