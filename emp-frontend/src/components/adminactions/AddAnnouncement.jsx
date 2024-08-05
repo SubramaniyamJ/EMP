@@ -37,7 +37,7 @@ const AddAnnouncement = () => {
   };
 
   return (
-    <Container maxWidth="ms">
+    <Container maxWidth="ms" style={{marginTop: '80px'}}>
         <Typography variant="h4" gutterBottom padding={'20px'} paddingBottom={'0'}>
           Add Announcement
         </Typography>

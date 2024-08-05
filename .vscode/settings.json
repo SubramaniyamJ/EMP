@@ -6,4 +6,5 @@
     "editor.fontLigatures": true,
     "terminal.integrated.fontFamily": "'JetBrains Mono', monospace",
     "terminal.integrated.lineHeight": 1.5,
+
 }

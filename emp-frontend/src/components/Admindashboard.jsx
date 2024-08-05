@@ -35,6 +35,7 @@ const Admindashboard = () => {
     {
       title: 'Add Announcements',
       description: 'Create and publish school-wide announcements.',
+      operation: 'AddAnnouncement'
     },
     {
       title: 'Create Circular',

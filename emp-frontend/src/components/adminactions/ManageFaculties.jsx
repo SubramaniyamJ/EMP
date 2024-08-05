@@ -9,7 +9,7 @@ import {toast, ToastContainer} from 'react-toastify'
 
 
 
-const ManageTeachers = () => {
+const ManageFaculties = () => {
   const navigate = useNavigate();
   const [user]=useContext(usercontext);
   const [res,setres]=useState([{id:'',name: '', email: '', instituteName: ''}]);
@@ -63,24 +63,28 @@ const ManageTeachers = () => {
   return (
     <>
       <Box sx={{marginTop:'100px'}}> 
-        <Typography variant='h3'>Manage Teachers</Typography>
-        <Button variant="contained" onClick={handleFaculty}>Faculties</Button>
-        <DataGrid 
-          stickyHeader
-          rows={res}
-          columns={columns}
-          style={{padding:'20px'}}
-          initialState={{
-            pagination: {
-              paginationModel: { page: 0, pageSize: 10 },
-            },
-          }}
-          pageSizeOptions={[10, 20]}
-        />
-        <ToastContainer/>
+        <Box display={'flex'} justifyContent={'space-between'}>
+        <Typography variant='h4' padding={"0px 40px 40px"}>Manage Teachers</Typography>
+        <Button variant='contained' onClick={handleFaculty} style={{height: '40px', margin: '20px 40px 30px'}}>Faculties</Button>
+        </Box>
+        <Box padding={'30px'}>
+          <DataGrid 
+            stickyHeader
+            rows={res}
+            columns={columns}
+            style={{padding:'20px'}}
+            initialState={{
+              pagination: {
+                paginationModel: { page: 0, pageSize: 10 },
+              },
+            }}
+            pageSizeOptions={[10, 20]}
+          />
+        </Box>
       </Box>
+      <ToastContainer/>
     </>
   )
 }
 
-export default ManageTeachers;
+export default ManageFaculties;

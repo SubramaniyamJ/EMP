@@ -14,6 +14,27 @@ export const ManagableFaculties = () => {
         {field:'faculty_id',headerName:'FacultyId',flex:1},
         {field:'faculty_name',headerName:'Facultyname',flex:1},
         {field:'faculty_email',headerName:'Email',flex:1},
+        {field: 'faculty_department_id', headerName: 'Department/Grade', flex: 1,
+        valueGetter: (params) => {
+            if (!params || !params.row) {
+                return 'N/A';
+              }
+            return params.row.faculty_department_id === null ? 'Not Assigned' : params.row.faculty_department_id }
+        },
+        {field: 'faculty_class_id', headerName: 'Classes', flex: 1,
+            valueGetter: (params) => { 
+                if (!params || !params.row) {
+                    return 'N/A';
+                  }
+                return params.row.faculty_class_id === null ? 'Not Assigned' : params.row.faculty_class_id}
+        },
+        {field: 'faculty_specializations', headerName: 'Specialization', flex: 1,
+            valueGetter: (params) => { 
+                if (!params || !params.row) {
+                    return 'N/A';
+                  }
+                return params.row.faculty_specialization === null ? 'Not Assigned' : params.row.faculty_specialization}
+        }
         // {field:'acceptorreact', headerName:'Accept/React', flex:1, renderCell: (param)=>
         //   <>
         //   <Chip onClick={() => handleAccept(param)}label='Accept' color='success'  style={{marginRight:'20px'}} />
@@ -40,7 +61,7 @@ export const ManagableFaculties = () => {
 
   return (
 
-    <Box marginTop={'100px'}>
+    <Box marginTop={'100px'} padding={'30px'}>
         <DataGrid
         stikyHeader
         rows={res}

@@ -56,7 +56,7 @@ const messages = [
 const loggedInTeacherId = 1;
 
 const Teacherdashboard = () => {
-  const[user,setuser]=useContext(usercontext);
+  const [user,setuser] = useContext(usercontext);
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
   const [open, setOpen] = useState(false);
