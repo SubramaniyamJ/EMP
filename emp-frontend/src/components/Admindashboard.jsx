@@ -35,6 +35,7 @@ const Admindashboard = () => {
     {
       title: 'Add Announcements',
       description: 'Create and publish school-wide announcements.',
+      operation: 'AddAnnouncement'
     },
     {
       title: 'Create Circular',
@@ -43,6 +44,7 @@ const Admindashboard = () => {
     {
       title: 'Manage Classes/Departments',
       description: 'Add and manage different classes or departments.',
+      operation:'DepartmentsandClasses'
     },
     {
       title: 'View Reports',

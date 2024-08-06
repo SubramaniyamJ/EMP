@@ -56,7 +56,7 @@ const messages = [
 const loggedInTeacherId = 1;
 
 const Teacherdashboard = () => {
-  const[user,setuser]=useContext(usercontext);
+  const [user,setuser] = useContext(usercontext);
   const [classes, setClasses] = useState([]);
   const [selectedClass, setSelectedClass] = useState(null);
   const [open, setOpen] = useState(false);
@@ -116,7 +116,6 @@ const Teacherdashboard = () => {
     <div style={{ marginTop: '100px', marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}>
       <StyledBox>
         <Typography variant="h4" gutterBottom>
-          Welcome {user.name} !
           Welcome {user.name} !
         </Typography>
         <Typography variant="h6">

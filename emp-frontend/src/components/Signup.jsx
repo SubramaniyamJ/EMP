@@ -13,10 +13,19 @@ const roles = [
   { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
-const institutes= [
-  {value:'skcet',label:'skcet'}
-]
-
+let institutes;
+const ins = async () => {
+  try {
+    const i = await userservice.getInstitutes();
+    console.log(i);
+    institutes = i.map(instituteName => ({ value: instituteName, label: instituteName }));
+    console.log(institutes);
+    
+  } catch (error) {
+    console.error('Error fetching institutes:', error);
+  }
+};
+ins();
 const Signup = () => {
   const navigate=useNavigate();
   const[loading,setLoading]=useState(false);
@@ -33,6 +42,10 @@ const Signup = () => {
     setUser({ ...user, role: event.target.value });
   };
 
+  const handleinstitutechange = (event) =>{
+    setUser({...user,instituteName:event.target.value});
+  }
+
   const handleLogin = async () => {
     if (!user.name || !user.email || !user.password || !user.instituteName || !user.role) {
       toast.error('All fields are required.');
@@ -41,6 +54,7 @@ const Signup = () => {
     }
 
     try {
+      console.log("here");
       setLoading(true);
       setTimeout(async () => {
       let response = await userservice.postUser(user);
@@ -52,7 +66,7 @@ const Signup = () => {
       });
       setTimeout(() => {
         navigate("/login")
-      },2000)
+      },5000)
     }
       else
         toast.error('Account already exists with given email');
@@ -146,7 +160,7 @@ const Signup = () => {
             select
             label="Select Institute"
             value={user.instituteName}
-            onChange={handleRoleChange}    // need to handle institute names
+            onChange={handleinstitutechange}    // need to handle institute names
             margin="normal"
             variant="outlined"
             error={!isValid && !user.instituteName}

@@ -1,19 +1,17 @@
 package com.example.emp_backend.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.utility.Utility;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,8 +56,32 @@ public class Controller {
     @GetMapping("/manageteachersandstudents")
     List<User> manageteachersandstudents(@RequestParam String instituteName,@RequestParam String role){
         List<User>users=repo.findByInstituteNameAndRole(instituteName,role);
-        return users;
+        return util.checkFacultyAlreadyAdded(users, instituteName);
     }
 
+    @PostMapping("/admin/addfaculty")
+    boolean addTeachers(@RequestBody User user){
+        return util.addTeachers(user);
+    }
+
+    @GetMapping("/admin/managedfaculties")
+    List<?> managedFacultyList(@RequestParam String instituteName){
+        List<?> facultyList = util.managedFacultiesList(instituteName);
+        return facultyList;
+    }
+    @PostMapping("/admin/addStudent")
+    boolean addStudents(@RequestBody User user){
+        return util.addStudents(user);
+    }
+
+    @PostMapping("/admin/createdepartment")
+    boolean createdept(@RequestBody Department dept){
+        return util.createdept(dept);
+    }
+    @GetMapping("/institutes")
+    List<String> getInstitutes(){
+        List<String> institutes = repo.findInstituteNames();
+        return institutes;
+    }
 
 }
