@@ -105,6 +105,16 @@
   padding: 20px;
   gap: 20px;
   text-align: center;
+  p{
+    color: black;
+  }
+}
+
+.feature h2 {
+  margin-bottom: 0;
+}
+.feature p {
+  color:#333;
 }
 /* @keyframes slide {
   0% {
@@ -174,7 +184,10 @@
 
 .testimonial p {
   font-size: 1.1em;
-  color: #555;
+  color: black;
+}
+p{
+  color: black;
 }
 
 .testimonial span {
@@ -198,6 +211,7 @@
 
 .aboutus p{
   text-align: center;
+  color: #333;
   letter-spacing: 3px;
   line-height: 30px;
 }

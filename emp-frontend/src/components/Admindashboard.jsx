@@ -16,25 +16,30 @@ import {
 import { motion } from 'framer-motion';
 import './styles/adminDashboard.css';
 import { usercontext } from './Usercontext';
+import { Outlet, useNavigate } from 'react-router-dom';
 
 const Admindashboard = () => {
+  const navigate=useNavigate();
   const[user,setuser]=useContext(usercontext);
   const adminActions = [
     {
-      title: 'Add Teachers',
+      title: 'Manage Teachers',
       description: 'Manage and add new teachers to the platform.',
-    },
-    {
-      title: 'Add Announcements',
-      description: 'Create and publish school-wide announcements.',
-    },
-    {
-      title: 'Create Circular',
-      description: 'Design and distribute circulars to students and staff.',
+      operation:'ManageTeachers'
     },
     {
       title: 'Manage Students',
       description: 'View and manage student information.',
+      operation:'ManageStudents'
+    },
+    {
+      title: 'Add Announcements',
+      description: 'Create and publish school-wide announcements.',
+      operation: 'AddAnnouncement'
+    },
+    {
+      title: 'Create Circular',
+      description: 'Design and distribute circulars to students and staff.',
     },
     {
       title: 'Manage Classes/Departments',
@@ -63,7 +68,8 @@ const Admindashboard = () => {
             transition={{ duration: 0.5 }}
           >
             <Typography variant="h4" component="h2" gutterBottom className="section-title">
-              Welcome, {user}!
+              Welcome, {user.name}!
+              
             </Typography>
             <Typography variant="h6" component="p" className="welcome-message">
               Here are your tasks for today. Manage your school effectively and ensure everything runs smoothly.
@@ -81,13 +87,15 @@ const Admindashboard = () => {
                 >
                   <Card className="action-card">
                     <CardContent style={{display:'flex',flexDirection:'column',justifyContent:'space-between',alignItems:'center',gap:'20px'}}>
-                      <Typography variant="h5" component="h3">
+                      <Typography variant="h5" component="h3" color={'black'}>
                         {action.title}
                       </Typography>
                       <Typography variant="body2" color="textSecondary" component="p">
                         {action.description}
                       </Typography>
-                      <Button variant="contained" color="secondary" className="action-button">
+                      <Button variant="contained" color="secondary" className="action-button" onClick={() => {
+                        navigate(action.operation)
+                      }}>
                         Go
                       </Button>
                     </CardContent>
@@ -98,6 +106,7 @@ const Admindashboard = () => {
           </Grid>
         </Box>
       </Container>
+      <Outlet/>
     </>
   );
 };

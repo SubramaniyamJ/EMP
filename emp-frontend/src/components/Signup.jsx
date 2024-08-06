@@ -38,6 +38,7 @@ const Signup = () => {
     }
 
     try {
+      console.log("here");
       setLoading(true);
       setTimeout(async () => {
       let response = await userservice.postUser(user);
@@ -49,7 +50,7 @@ const Signup = () => {
       });
       setTimeout(() => {
         navigate("/login")
-      },2000)
+      },5000)
     }
       else
         toast.error('Account already exists with given email');
@@ -148,8 +149,8 @@ const Signup = () => {
               {loading ? <CircularProgress size={24} style={{ color: 'white', opacity: 1 }}/> : 'Create Account'}
             </Button>
             <Stack direction="row" justifyContent="end" gap="10px" margin={'20px'}>
-              <Typography>Already have an account?</Typography>
-              <Link to='/login'><Typography>Login</Typography></Link>
+              <Typography color={'black'}>Already have an account?</Typography>
+              <Link to='/login'><Typography color={'blue'}>Login</Typography></Link>
             </Stack>
           </Box>
         </FormControl>

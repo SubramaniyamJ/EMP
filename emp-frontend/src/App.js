@@ -14,41 +14,55 @@ import Teacherdashboard from './components/Teacherdashboard';
 import { useState } from 'react';
 import { usercontext } from './components/Usercontext';
 import { useEffect } from 'react';
+import ManageFaculties from './components/adminactions/ManageFaculties';
+import ManageStudents from './components/adminactions/ManageStudents';
+import AddAnnouncement from './components/adminactions/AddAnnouncement';
+import { ManagableFaculties } from './components/adminactions/ManagableFaculties';
+
 const route=createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' element={<Appbar/>} >
-      <Route index element={<HomePage/>} />
-      <Route path='/login' element={<Login/>} />
-      <Route path='/register' element={<Signup/>} />
-      <Route path='/admin' element={<Admindashboard/>} />
-      <Route path='/student' element={<Studentdashboard/>} />
-      <Route path='/teacher' element={<Teacherdashboard/>} />
-      <Route path='/attendance' element={<Attendence/>} />
-      
-    </Route>
-  )
+	createRoutesFromElements(
+		<Route path='/' element={<Appbar/>} >
+			<Route index element={<HomePage/>} />
+			<Route path='/login' element={<Login/>} />
+			<Route path='/register' element={<Signup/>} />
+			<Route path='/admin' element={<Admindashboard/>} />
+			<Route path='admin/AddAnnouncement' element={<AddAnnouncement/>}/>
+			<Route path='admin/ManageTeachers' element={<ManageFaculties/>}/>
+			<Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
+			<Route path='admin/ManageStudents' element={<ManageStudents/>} />
+			<Route path='/student' element={<Studentdashboard/>} />
+			<Route path='/teacher' element={<Teacherdashboard/>} />
+			<Route path='/attendance' element={<Attendence/>} />
+		</Route>
+	)
 )
 
 function App() {
-  const [user,setuser]=useState(() => {
-    const saved = localStorage.getItem('myValue');
-    return saved !== null ? JSON.parse(saved) : '';
-  });
-  useEffect(() => {
-    localStorage.setItem('myValue', JSON.stringify(user));
-  }, [user]);
-  return (
-    <div>
-     <usercontext.Provider value={[user,setuser]}>
-      <RouterProvider router={route} />
-     </usercontext.Provider>
+	const [user,setuser] = useState(() => {
+		const saved = localStorage.getItem('myValue');
+		return saved !== null ? JSON.parse(saved) : {
+		email:'',
+		instituteName:'', 
+		name:'',
+		password:'',
+		role:''
+	}});
 
-     {/* <Teacherdashboard/> */}
-     {/* <Studentdashboard/> */}
-     {/* <Admindashboard/> */}
-     {/* <Attendence/> */}
-    </div>
-  );
+	useEffect(() => {
+		localStorage.setItem('myValue', JSON.stringify(user));
+	}, [user]);
+	return (
+		<div>
+		 <usercontext.Provider value={[user,setuser]}>
+			<RouterProvider router={route} />
+		 </usercontext.Provider>
+			{/* <AddAnnouncement/> */}
+		 {/* <Teacherdashboard/> */}
+		 {/* <Studentdashboard/> */}
+		 {/* <Admindashboard/> */}
+		 {/* <Attendence/> */}
+		</div>
+	);
 }
 
 export default App;

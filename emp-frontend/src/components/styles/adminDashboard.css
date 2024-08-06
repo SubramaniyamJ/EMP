@@ -9,6 +9,7 @@
   font-weight: bold;
   font-size: 1.5rem;
 }
+
 .section-title {
   font-size: 2.5rem;
   margin-bottom: 10px;
@@ -29,7 +30,6 @@
 .section-title {
   font-size: 2.5rem;
   margin-bottom: 30px;
-  color: #3949ab;
 }
 
 .action-card {
