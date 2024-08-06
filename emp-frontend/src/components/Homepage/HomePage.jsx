@@ -10,6 +10,10 @@ import Footer from './Footer.js';
 const HomePage = () => {
   return (
     <div className="homepage">
+      {/* <section className="introduction">
+        <h1>Welcome to ClassroomApp</h1>
+        <p>ClassroomApp is designed to help you manage your classroom efficiently and effectively. Whether you're a teacher, student, or administrator, our app provides the tools you need to succeed.</p>
+      </section> */}
       <section className='herocontainer'>
         <h1 className="hero-title">
           Welcome to EduManage!
@@ -67,6 +71,7 @@ const HomePage = () => {
           </div>
         </Carousel>
       </section>
+
       <section className="testimonials">
         <h2>Testimonials</h2>
         <div className="testimonial">
@@ -85,10 +90,15 @@ const HomePage = () => {
 
       <section className="aboutus">
         <h2>About Us</h2>
-          <p>
+        <p>
             EduManage is a cutting-edge school and college management platform designed to streamline educational administration. Our mission is to provide an intuitive and comprehensive solution that bridges the gap between students, teachers, administrators, and parents. Join us in revolutionizing education management and experience a seamless and efficient way to handle your educational institution's needs.
           </p>
       </section>
+
+      {/* <section className="contact-info">
+        <h2>Contact Us</h2>
+        <p>Have any questions? Reach out to us at <a href="mailto:info@classroomapp.com">info@classroomapp.com</a></p>
+      </section> */}
       <Footer />
     </div>
   );
