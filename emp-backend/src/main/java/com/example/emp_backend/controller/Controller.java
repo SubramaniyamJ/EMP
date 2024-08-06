@@ -84,4 +84,10 @@ public class Controller {
         return institutes;
     }
 
+    @GetMapping("/departmentList")
+    List<?> existedDepartments(@RequestParam String instituteName){
+        List<?> deptList=util.existedDepartments(instituteName);
+        return deptList;
+    }
+
 }

@@ -142,6 +142,11 @@ public class Utility {
         List<Map<String, Object>> facultyList = jdbcTemplate.queryForList(query);
         return facultyList;
     }
-
+    public List<?> existedDepartments(String instituteName){
+        String tableName=instituteName + "_departments";
+        String query = "SELECT * FROM " + tableName;
+        List<Map<String,Object>> deptList=jdbcTemplate.queryForList(query);
+        return deptList;
+    }
 
 }

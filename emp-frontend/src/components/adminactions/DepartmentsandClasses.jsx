@@ -17,9 +17,19 @@ const DepartmentsandClasses = () => {
     const[depts,setDepts]=useState([]);
 
     useEffect(() => {
-        setDept(prevDept => ({ ...prevDept, instituteName: user.instituteName }));
-    }, [user.instituteName]);
+        const fetchDepartments = async () => {
+            setDept(prevDept => ({ ...prevDept, instituteName: user.instituteName }));
+            try {
+                const deptList = await userservice.existingDepartments(user.instituteName);
+                setDepts(deptList.data);
+            } catch (error) {
+                toast.error("Failed to fetch departments: " + error.message);
+            }
+        };
 
+        fetchDepartments();
+    }, [user.instituteName]);
+    
     const handlecreatedept = async () => {
         if (!dept.dept_id || !dept.dept_name) {
             toast.warn("Please fill the required fields");
@@ -36,7 +46,7 @@ const DepartmentsandClasses = () => {
             const response = await userservice.createdept(updatedDept);
             if (response) {
                 toast.success("Department Created Successfully");
-                setDepts([...depts, updatedDept]);
+                console.log(depts);
                 setDept({ 
                     dept_id: '', 
                     dept_name: '', 
@@ -61,20 +71,20 @@ const DepartmentsandClasses = () => {
                     <Button variant='contained' color='secondary' onClick={() => setOpen(true)}>Create Dept</Button>
                 </Box>
                 <Box display="flex" flexWrap="wrap" gap="16px" padding='20px'>
-                    {depts.map((dept) => (
-                        <Card key={dept.dept_id} sx={{ minWidth: 275, marginBottom: '16px', boxShadow: 3 }}>
+                    {depts.map((dept,index) => (
+                        <Card key={dept.department_Id} sx={{ minWidth: 275, marginBottom: '16px', boxShadow: 3 }}>
                             <CardContent>
                                 <Typography variant="h5" component="div" textAlign='center'>
-                                    {dept.dept_name}
+                                    {dept.department_name}
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    Incharge: {dept.dept_incharge_name} (ID: {dept.dept_incharge_id})
+                                    Incharge: {dept.department_incharge_name} (ID: {dept.department_incharge_id})
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    Department ID: {dept.dept_id}
+                                    Department ID: {dept.department_id}
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    Institute: {dept.instituteName}
+                                    Institute: {user.instituteName}
                                 </Typography>
                             </CardContent>
                             <CardActions>

@@ -88,6 +88,14 @@ class userservice {
       console.log(error);
     }
    }
+   async existingDepartments(instituteName) {
+      try{
+        const response=axios.get(API_URL + "/departmentList",{params: {instituteName},});
+        return response;
+      }catch(error){
+        throw error;
+      }
+   }
 }
 
 export default new userservice();

@@ -47,7 +47,6 @@ export const ManagableFaculties = () => {
         const response = await userservice.manageTeacher(instituteName);
         setRes(response.data);
         console.log(response);
-
     }
 
     useEffect(() => {
