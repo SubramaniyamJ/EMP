@@ -37,6 +37,10 @@ const Signup = () => {
     instituteName: '',
     role: ''
   });
+  const [verifyUser,setVerifyUser]=useState({
+    email:'',
+    verified:false
+  });
 
   const handleRoleChange = (event) => {
     setUser({ ...user, role: event.target.value });
@@ -58,6 +62,8 @@ const Signup = () => {
       setLoading(true);
       setTimeout(async () => {
       let response = await userservice.postUser(user);
+      let response1=await userservice.verifyUser(verifyUser,user.instituteName);
+      console.log(response1.data);
       console.log(response.data);
       setLoading(false);
       if(response.data){
@@ -66,7 +72,7 @@ const Signup = () => {
       });
       setTimeout(() => {
         navigate("/login")
-      },5000)
+      },2000)
     }
       else
         toast.error('Account already exists with given email');
@@ -116,6 +122,7 @@ const Signup = () => {
               type="text"
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
+
               margin="normal"
               variant="outlined"
               error={!isValid && !user.name}
@@ -126,7 +133,7 @@ const Signup = () => {
               required
               label="Email"
               value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              onChange={(e) => {setUser({ ...user, email: e.target.value });setVerifyUser({...verifyUser,email:e.target.value})}}
               margin="normal"
               variant="outlined"
               error={!isValid && !user.email}

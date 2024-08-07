@@ -24,6 +24,10 @@ const Login = () => {
     password: '',
     role: ''
   })
+  const [verified,setVerified]=useState(false);
+  useEffect(()=> {
+      
+  },[]);
   const handleRoleChange = (event) => {
     setUserr({...userr, role: event.target.value});
   };

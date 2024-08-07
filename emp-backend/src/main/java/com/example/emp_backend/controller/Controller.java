@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
+import com.example.emp_backend.model.VerifyUser;
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.utility.Utility;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -78,6 +79,11 @@ public class Controller {
     boolean createdept(@RequestBody Department dept){
         return util.createdept(dept);
     }
+    @PostMapping("/admin/verifystatus")
+    boolean createverifuUser(@RequestBody VerifyUser user,@RequestParam String instituteName){
+        return util.addRequest(instituteName, user);
+    }
+    
     @GetMapping("/institutes")
     List<String> getInstitutes(){
         List<String> institutes = repo.findInstituteNames();

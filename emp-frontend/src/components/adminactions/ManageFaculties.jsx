@@ -41,7 +41,7 @@ const ManageFaculties = () => {
     const newRes = res.filter((row) => row.id !== param.row.id);
     setres(newRes);
   }
-
+  
   const response = async () => {
     try{
       const result = await userservice.manageteachersandstudents(user.instituteName,"faculty");

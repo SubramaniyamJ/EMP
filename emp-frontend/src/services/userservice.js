@@ -46,6 +46,16 @@ class userservice {
     }
   }
 
+  async addStudents(user){
+   try{
+     const response= await axios.post(API_URL + "/admin/addStudent",user);
+     return response.data;
+   }
+   catch(error){
+     console.log(error);
+     throw error;
+   }
+  }
   async manageTeacher(instituteName) {
     try {
       const response = await axios.get(API_URL + "/admin/managedfaculties", {
@@ -60,16 +70,6 @@ class userservice {
       throw error;
     }
   }
-   async addStudents(user){
-    try{
-      const response= await axios.post(API_URL + "/admin/addStudent",);
-      return response.data;
-    }
-    catch(error){
-      console.log(error);
-      throw error;
-    }
-   }
 
    async createdept(dept){
     try{
@@ -95,6 +95,14 @@ class userservice {
       }catch(error){
         throw error;
       }
+   }
+   async verifyUser(user,instituteName) {
+    try{
+      const response=await axios.post(API_URL + "/admin/verifystatus",user,{params: {instituteName},});
+      return response.data;
+    }catch(error){
+      throw error;
+    }
    }
 }
 

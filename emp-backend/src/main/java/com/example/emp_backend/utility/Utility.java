@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
+import com.example.emp_backend.model.VerifyUser;
+
 import java.util.*;;
 
 public class Utility {
@@ -83,10 +85,16 @@ public class Utility {
                             "class_incharge VARCHAR(255) NOT NULL, "+
                             "faculty_in_charge_id BIGINT NOT NULL, ";
 
+        String queryRequest= "CREATE TABLE IF NOT EXISTS " + instituteName + "_requests" + " ("+
+                             "email VARCHAR(255) NOT NULL, " +
+                             "verified BOOLEAN NOT  NULL, " +
+                             "PRIMARY KEY (email)); ";
+
 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
         jdbcTemplate.execute(queryDept);
+        jdbcTemplate.execute(queryRequest);
 
     }
 
@@ -122,6 +130,16 @@ public class Utility {
             return false;
         }
     }
+    public boolean addRequest(String instituteName,VerifyUser user){
+        try{
+            String tableName=instituteName + "_requests";
+            String query="INSERT INTO "+ tableName + " (email, verified) VALUES(?,?)";
+            jdbcTemplate.update(query,user.email,user.verified);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
     public List<User> checkFacultyAlreadyAdded(List<User>users, String instituteName){
         List<User>nonAddedFaculties = new ArrayList<>();
         String tableName = instituteName + "_faculties";
@@ -148,5 +166,7 @@ public class Utility {
         List<Map<String,Object>> deptList=jdbcTemplate.queryForList(query);
         return deptList;
     }
+    
+    
 
 }
