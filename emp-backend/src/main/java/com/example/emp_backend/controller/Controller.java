@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.utility.Utility;
@@ -67,6 +69,19 @@ public class Controller {
         List<?> facultyList = util.managedFacultiesList(instituteName);
         return facultyList;
     }
+    @PostMapping("/admin/addStudent")
+    boolean addStudents(@RequestBody User user){
+        return util.addStudents(user);
+    }
 
+    @PostMapping("/admin/createdepartment")
+    boolean createdept(@RequestBody Department dept){
+        return util.createdept(dept);
+    }
+    @GetMapping("/institutes")
+    List<String> getInstitutes(){
+        List<String> institutes = repo.findInstituteNames();
+        return institutes;
+    }
 
 }

@@ -19,5 +19,4 @@ const Chatbot = () => {
     </Box>
   );
 };
-
 export default Chatbot;

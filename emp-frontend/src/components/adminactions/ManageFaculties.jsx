@@ -7,8 +7,6 @@ import {useNavigate} from 'react-router-dom'
 import {toast, ToastContainer} from 'react-toastify'
 
 
-
-
 const ManageFaculties = () => {
   const navigate = useNavigate();
   const [user]=useContext(usercontext);
@@ -17,7 +15,7 @@ const ManageFaculties = () => {
   const handleFaculty = () => {
     navigate('/admin/ManagableFacuties')
   }
-  const columns =[
+  const columns = [
     {field:'id',headerName:'Id',flex:1},
     {field:'name',headerName:'Facultyname',flex:1},
     {field:'email',headerName:'Email',flex:1},

@@ -18,6 +18,7 @@ import ManageFaculties from './components/adminactions/ManageFaculties';
 import ManageStudents from './components/adminactions/ManageStudents';
 import AddAnnouncement from './components/adminactions/AddAnnouncement';
 import { ManagableFaculties } from './components/adminactions/ManagableFaculties';
+import DepartmentsandClasses from './components/adminactions/DepartmentsandClasses';
 
 const route=createBrowserRouter(
 	createRoutesFromElements(
@@ -30,6 +31,7 @@ const route=createBrowserRouter(
 			<Route path='admin/ManageTeachers' element={<ManageFaculties/>}/>
 			<Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
 			<Route path='admin/ManageStudents' element={<ManageStudents/>} />
+			<Route path='/admin/DepartmentsandClasses' element={<DepartmentsandClasses/>} />
 			<Route path='/student' element={<Studentdashboard/>} />
 			<Route path='/teacher' element={<Teacherdashboard/>} />
 			<Route path='/attendance' element={<Attendence/>} />
@@ -56,11 +58,7 @@ function App() {
 		 <usercontext.Provider value={[user,setuser]}>
 			<RouterProvider router={route} />
 		 </usercontext.Provider>
-			{/* <AddAnnouncement/> */}
-		 {/* <Teacherdashboard/> */}
-		 {/* <Studentdashboard/> */}
-		 {/* <Admindashboard/> */}
-		 {/* <Attendence/> */}
+		 
 		</div>
 	);
 }

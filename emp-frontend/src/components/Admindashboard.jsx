@@ -44,6 +44,7 @@ const Admindashboard = () => {
     {
       title: 'Manage Classes/Departments',
       description: 'Add and manage different classes or departments.',
+      operation:'DepartmentsandClasses'
     },
     {
       title: 'View Reports',

@@ -13,7 +13,19 @@ const roles = [
   { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
-
+let institutes;
+const ins = async () => {
+  try {
+    const i = await userservice.getInstitutes();
+    console.log(i);
+    institutes = i.map(instituteName => ({ value: instituteName, label: instituteName }));
+    console.log(institutes);
+    
+  } catch (error) {
+    console.error('Error fetching institutes:', error);
+  }
+};
+ins();
 const Signup = () => {
   const navigate=useNavigate();
   const[loading,setLoading]=useState(false);
@@ -29,6 +41,10 @@ const Signup = () => {
   const handleRoleChange = (event) => {
     setUser({ ...user, role: event.target.value });
   };
+
+  const handleinstitutechange = (event) =>{
+    setUser({...user,instituteName:event.target.value});
+  }
 
   const handleLogin = async () => {
     if (!user.name || !user.email || !user.password || !user.instituteName || !user.role) {
@@ -128,7 +144,7 @@ const Signup = () => {
               error={!isValid && !user.password}
               helperText={!isValid && !user.password ? 'Password is required' : ''}
             />
-            <TextField
+            {user.role==='admin' ? <TextField
               fullWidth
               required
               label="Institute Name"
@@ -138,7 +154,24 @@ const Signup = () => {
               variant="outlined"
               error={!isValid && !user.instituteName}
               helperText={!isValid && !user.instituteName ? 'Institute name is required' : ''}
-            />
+            /> : <TextField
+            required
+            fullWidth
+            select
+            label="Select Institute"
+            value={user.instituteName}
+            onChange={handleinstitutechange}    // need to handle institute names
+            margin="normal"
+            variant="outlined"
+            error={!isValid && !user.instituteName}
+            helperText={!isValid && !user.role ? 'Institute is required' : ''}
+          >
+            {institutes.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>}
             <Button
               fullWidth
               variant="contained"

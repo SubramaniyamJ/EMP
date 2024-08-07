@@ -17,6 +17,9 @@ public interface UserRepo extends JpaRepository<User, Integer> {
 
     List<User> findByInstituteNameAndRole(String instituteName, String role);
 
+    @Query(value="SELECT DISTINCT institute_name FROM user",nativeQuery=true)
+    List<String> findInstituteNames();
+
     // @Query(value = "SELECT * FROM user WHERE institute_name = :instituteName AND role = :role", nativeQuery = true)
     // List<User> findUsersByInstituteNameAndRole(@Param("instituteName") String instituteName, @Param("role") String role);
     

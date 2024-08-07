@@ -60,6 +60,34 @@ class userservice {
       throw error;
     }
   }
+   async addStudents(user){
+    try{
+      const response= await axios.post(API_URL + "/admin/addStudent",);
+      return response.data;
+    }
+    catch(error){
+      console.log(error);
+      throw error;
+    }
+   }
+
+   async createdept(dept){
+    try{
+      console.log(dept);
+      const response=await axios.post(API_URL + "/admin/createdepartment",dept)
+      return response.data;
+    }catch(error){
+      console.log(error);
+    }
+   }
+   async getInstitutes(){
+    try{
+      const response=await axios.get(API_URL + "/institutes");
+      return response.data;
+    }catch(error){
+      console.log(error);
+    }
+   }
 }
 
 export default new userservice();
