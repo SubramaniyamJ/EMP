@@ -76,4 +76,4 @@ const ManageStudents = () => {
   )
 }
 
-export default ManageStudents
+export default ManageStudents;
