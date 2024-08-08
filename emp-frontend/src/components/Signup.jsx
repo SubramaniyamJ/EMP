@@ -63,7 +63,7 @@ const Signup = () => {
       setTimeout(async () => {
       let response = await userservice.postUser(user);
       let response1=await userservice.verifyUser(verifyUser,user.instituteName);
-      console.log(response1.data);
+      console.log(response1);
       console.log(response.data);
       setLoading(false);
       if(response.data){

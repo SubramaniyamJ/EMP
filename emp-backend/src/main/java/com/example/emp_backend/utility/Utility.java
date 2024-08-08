@@ -166,7 +166,17 @@ public class Utility {
         List<Map<String,Object>> deptList=jdbcTemplate.queryForList(query);
         return deptList;
     }
-    
+    public List<?> checkverifiedstatus(String email,String instituteName){
+        String tableName=instituteName + "_requests";
+        String query="SELECT verified FROM "+ tableName +" WHERE email=?";
+        List<Map<String,Object>> verified=jdbcTemplate.queryForList(query,email);
+        return verified;
+    }
+    public void updateVerifyStatus(String email,String instituteName){  
+        String tableName=instituteName + "_requests";
+        String updateQuery="UPDATE "+tableName+" SET verified = TRUE WHERE email=?";
+        jdbcTemplate.update(updateQuery,email);      
+    }
     
 
 }

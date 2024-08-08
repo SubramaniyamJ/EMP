@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,7 +84,7 @@ public class Controller {
     boolean createverifuUser(@RequestBody VerifyUser user,@RequestParam String instituteName){
         return util.addRequest(instituteName, user);
     }
-    
+
     @GetMapping("/institutes")
     List<String> getInstitutes(){
         List<String> institutes = repo.findInstituteNames();
@@ -95,5 +96,13 @@ public class Controller {
         List<?> deptList=util.existedDepartments(instituteName);
         return deptList;
     }
-
+    @GetMapping("/verifiedStatus")
+    List<?> checkverified(@RequestParam String email,@RequestParam String instituteName){
+        List<?> verified=util.checkverifiedstatus(email, instituteName);
+        return verified;
+    }
+    @PutMapping("/updateVerifyStatus")
+    void updateVerifyStatus(@RequestBody User user){
+        util.updateVerifyStatus(user.email,user.instituteName);
+    }
 }

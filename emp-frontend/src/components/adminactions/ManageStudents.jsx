@@ -25,6 +25,8 @@ const ManageStudents = () => {
     ]
     const handleAccept = async(param) =>{
        const result=await userservice.addStudents(param.row);
+       await userservice.updateVerifyStatus(param.row);
+       
        if(!result){
         toast.warn("Student already exists");
        }else{

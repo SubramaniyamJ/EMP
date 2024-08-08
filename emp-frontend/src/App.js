@@ -33,6 +33,7 @@ const route=createBrowserRouter(
 			<Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
 			<Route path='admin/ManageStudents' element={<ManageStudents/>} />
 			<Route path='/admin/DepartmentsandClasses' element={<DepartmentsandClasses/>} />
+			<Route path='/RequestUnderProcessing' element={<NotVerified/>}/>
 			<Route path='/student' element={<Studentdashboard/>} />
 			<Route path='/teacher' element={<Teacherdashboard/>} />
 			<Route path='/attendance' element={<Attendence/>} />

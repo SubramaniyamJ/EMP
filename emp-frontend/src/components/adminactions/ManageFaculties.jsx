@@ -29,6 +29,8 @@ const ManageFaculties = () => {
   const handleAccept = async (param) => {
     console.log(param.row);
     const result = await userservice.addTeachers(param.row);
+    await userservice.updateVerifyStatus(param.row);
+
     if(!result){
       toast.warn("faculty already exists");
     }else{

@@ -104,6 +104,21 @@ class userservice {
       throw error;
     }
    }
+   async verifiedStatus(email,instituteName){
+    try{
+      const response=await axios.get(API_URL + "/verifiedStatus",{params:{email,instituteName}});
+      return response.data;
+    }catch(error){
+      throw error;
+    }
+   }
+   async updateVerifyStatus(user){
+      try{
+        await axios.put(API_URL + "/updateVerifyStatus",user);
+      }catch(error){
+        throw error;
+      }
+   }
 }
 
 export default new userservice();

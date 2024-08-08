@@ -242,7 +242,7 @@ const HomePage = () => {
       </section>
 
       {/* Portals Section */}
-      <section>
+      <section className='portalsection'>
         <h1>Portal For Every User Personal</h1>
       <section className="portals-section">
         <div className="portals-menu">
@@ -257,7 +257,7 @@ const HomePage = () => {
             </div>
           ))}
         </div>
-        <div className="portal-details" width="415" height="210">
+        <div className="portal-details">
           <img src={portalsData[selectedPortal].image} alt={`${selectedPortal} portal`} />
         </div>
       </section>

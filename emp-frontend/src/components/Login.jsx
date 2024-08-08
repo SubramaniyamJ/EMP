@@ -25,15 +25,16 @@ const Login = () => {
     role: ''
   })
   const [verified,setVerified]=useState(false);
-  useEffect(()=> {
-      
-  },[]);
+  let v=false;
+  
   const handleRoleChange = (event) => {
     setUserr({...userr, role: event.target.value});
   };
 
-  const handleLogin = async () => {
-
+  const  handleLogin = async () => {
+    
+      
+      
     
     if(!userr.role || !userr.email || !userr.password){
       toast.warn('All fields required', {
@@ -45,24 +46,43 @@ const Login = () => {
     setLoading(true);
     setTimeout(async () => {
         let response = await userservice.checkUser(userr.email, userr.password, userr.role);
-        console.log(response);
+        // console.log(response);
         setLoading(false);
         if(response.data){
-          console.log(response.data);
-          setuser({email:response.data.email,
-                    instituteName:response.data.instituteName,
-                    name:response.data.name,
-                    password:response.data.password,
-                    role:response.data.role}); 
-          toast.success("Welcome to EduManage", {
-            autoClose: 150
-          });
+          // console.log(response.data);
+            const verifyResponse= await userservice.verifiedStatus(response.data.email,response.data.instituteName);
+            if(verifyResponse[0].verified){
+                 setVerified(true);
+                 v=true;
+            }
+
+            console.log(verifyResponse[0].verified);
+            setuser({email:response.data.email,
+            instituteName:response.data.instituteName,
+            name:response.data.name,
+            password:response.data.password,
+            role:response.data.role}); 
+            toast.success("Welcome to EduManage", {
+              autoClose: 150
+            });
+           
           setTimeout(() => {
             if(response.data.role === 'student'){
+              if(v){
               navigate("/student")
+              }
+              else{
+                navigate("/RequestUnderProcessing")
+              }
             }
             else if(response.data.role ==='faculty'){
-              navigate("/teacher")
+              console.log(verified);
+              if(v){
+                navigate("/teacher")
+                }
+                else{
+                  navigate("/RequestUnderProcessing")
+                }
             }
             else navigate("/admin")
           }, 1000);
@@ -71,9 +91,10 @@ const Login = () => {
           toast.error("Incorrect Username / Password");  
         }
     }, 2000);
+    
         
   };
-
+  
   return (
     <motion.div
       className="login-page"
