@@ -69,6 +69,5 @@ export const ManagableFaculties = () => {
         getRowId={getRowId}
     />
     </Box>
-    
   )
 }

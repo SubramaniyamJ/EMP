@@ -1,12 +1,12 @@
 package com.example.emp_backend.utility;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
+// import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.model.User;
-import java.util.*;;
+import java.util.*;
 
 public class Utility {
 
@@ -25,8 +25,6 @@ public class Utility {
             s.append(candites.charAt(random.nextInt(len)));
         }
         return s.toString();
-
-
     }
 
 
