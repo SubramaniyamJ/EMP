@@ -9,6 +9,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 import HomePage from './components/Homepage/HomePage';
 import ManageClasses from './components/adminactions/ManageClasses';
 import Appbar from './components/Homepage/Appbar';
+import ManagableStudents from './components/adminactions/ManagableStudents';
 import Admindashboard from './components/Admindashboard';
 import Studentdashboard from './components/Studentdashboard';
 import Teacherdashboard from './components/Teacherdashboard';
@@ -21,6 +22,7 @@ import AddAnnouncement from './components/adminactions/AddAnnouncement';
 import { ManagableFaculties } from './components/adminactions/ManagableFaculties';
 import DepartmentsandClasses from './components/adminactions/DepartmentsandClasses';
 import NotVerified from './components/NotVerified';
+import { DepartmentDashboard } from './components/adminactions/deptdashboard/DepartmentDashboard';
 
 
 
@@ -36,13 +38,14 @@ const route=createBrowserRouter(
 			<Route path='admin/AddAnnouncement' element={<AddAnnouncement/>}/>
 			<Route path='RequestUnderProcessing/ManageTeachers' element={<ManageFaculties/>}/>
 			<Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
+			<Route path='admin/ManagableStudents' element={<ManagableStudents/>} />
 			<Route path='RequestUnderProcessing/ManageStudents' element={<ManageStudents/>} />
 			<Route path='RequestUnderProcessing/DepartmentsandClasses' element={<DepartmentsandClasses/>} />
 			<Route path='admin/ManageClasses' element={<ManageClasses/>} />
 			<Route path='/RequestUnderProcessing' element={<NotVerified/>}/>
 			<Route path='/student' element={<Studentdashboard/>} />
 			<Route path='/teacher' element={<Teacherdashboard/>} />
-			<Route path='/attendance' element={<Attendence/>} />
+			<Route path='/admin/DepartmentDashboard' element={<DepartmentDashboard/>} />
 		</Route>
 	)
 )

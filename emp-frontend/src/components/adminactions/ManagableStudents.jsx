@@ -6,34 +6,19 @@ import { useState } from 'react';
 import userservice from '../../services/userservice';
 import { isPasteShortcut } from '@mui/x-data-grid/internals';
 
-export const ManagableFaculties = () => {
+const ManagableStudents = () => {
     const [res, setRes] = useState([]);
     const [user] = useContext(usercontext); 
 
     const columns =[
-        {field:'student_id',headerName:'FacultyId',flex:1},
-        {field:'student_name',headerName:'Facultyname',flex:1},
-        {field:'student_email',headerName:'Email',flex:1},
+        {field:'student_id',headerName:'Student Id',flex:1},
+        {field:'student_name',headerName:'Student name',flex:1},
+        {field:'student_email',headerName:'Student Email',flex:1},
         {field: 'student_department_id', headerName: 'Department/Grade', flex: 1,
-        valueGetter: (params) => {
-            if (!params || !params.row) {
-                return 'N/A';
-              }
-            return params.row.student_department_id === null ? 'Not Assigned' : params.row.student_department_id }
+        valueGetter: (id) => id || "Not assigned"
         },
         {field: 'student_class_id', headerName: 'Classes', flex: 1,
-            valueGetter: (params) => { 
-                if (!params || !params.row) {
-                    return 'N/A';
-                  }
-                return params.row.student_class_id === null ? 'Not Assigned' : params.row.student_class_id}
-        },
-        {field: 'student_specializations', headerName: 'Specialization', flex: 1,
-            valueGetter: (params) => { 
-                if (!params || !params.row) {
-                    return 'N/A';
-                  }
-                return params.row.student_specialization === null ? 'Not Assigned' : params.row.student_specialization}
+            valueGetter: (id) => id || "Not assigned"
         }
         // {field:'acceptorreact', headerName:'Accept/React', flex:1, renderCell: (param)=>
         //   <>
@@ -44,9 +29,8 @@ export const ManagableFaculties = () => {
     ]  
 
     const getResponse = async (instituteName) => {
-        const response = await userservice.manageTeacher(instituteName);
-        setRes(response.data);
-        console.log(response);
+        const response = await userservice.getStudents(instituteName);
+        setRes(response);
     }
 
     useEffect(() => {
@@ -70,3 +54,5 @@ export const ManagableFaculties = () => {
     </Box>
   )
 }
+
+export default ManagableStudents;

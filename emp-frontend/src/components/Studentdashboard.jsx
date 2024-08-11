@@ -42,7 +42,7 @@ const Studentdashboard = () => {
   return (
     <div style={{marginTop:'100px',marginLeft:'25px',marginRight:'25px',marginBottom:'25px'}}>
       <StyledBox>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" color="white" gutterBottom>
           Welcome {user.name} !
         </Typography>
         <Typography variant="h6" color='white '>

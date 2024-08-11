@@ -16,6 +16,7 @@ const NotVerified = () => {
   const [isVerified, setVerified] = useState(false);
 
   async function requestProcessing() {
+
     const response = await userservice.manageTeacher(user.instituteName);
     console.log(response);
     response.data.forEach(faculty => {
@@ -24,7 +25,16 @@ const NotVerified = () => {
         return;
       }
     });
+
+    const response1 = await userservice.getStudents(user.instituteName);
+    response1.forEach(student => {
+      if(student.student_email === user.email){
+        setVerified(true);
+        return;
+      }
+    })
   }
+  
 
   useEffect(() => {
    requestProcessing();
