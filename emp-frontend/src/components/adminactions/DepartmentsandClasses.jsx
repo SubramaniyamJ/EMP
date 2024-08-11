@@ -1,27 +1,32 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Box, Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, TextField, Typography } from '@mui/material';
+import { Autocomplete, Box, Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogTitle, IconButton, MenuItem, TextField, Typography } from '@mui/material';
 import { toast, ToastContainer } from 'react-toastify';
 import userservice from '../../services/userservice';
 import { usercontext } from '../Usercontext';
+import { useNavigate } from 'react-router-dom';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const DepartmentsandClasses = () => {
     const [user] = useContext(usercontext);
     const [open, setOpen] = useState(false);
     const [dept, setDept] = useState({ 
-        dept_id: '', 
+        dept_id: '',
         dept_name: '', 
         dept_incharge_id: '', 
-        dept_incharge_name: '', 
-        instituteName: '' 
+        dept_incharge_name: '',
+        instituteName: ''
     });
-    const[depts,setDepts]=useState([]);
+    const [depts,setDepts]=useState([]);
+    const [faculties, setFaculties] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchDepartments = async () => {
             setDept(prevDept => ({ ...prevDept, instituteName: user.instituteName }));
             try {
                 const deptList = await userservice.existingDepartments(user.instituteName);
-                setDepts(deptList.data);
+                setDepts(deptList.data);    
+                console.log(deptList.data);
             } catch (error) {
                 toast.error("Failed to fetch departments: " + error.message);
             }
@@ -29,7 +34,34 @@ const DepartmentsandClasses = () => {
 
         fetchDepartments();
     }, [user.instituteName]);
+
     
+
+    useEffect(() => {
+        const getFaculties = async () => {
+            const facultyResponse = await userservice.manageTeacher(user.instituteName);
+            setFaculties(facultyResponse.data);
+        };
+        getFaculties();
+        console.log(faculties); 
+    },[])
+    
+    async function handleDelete(deptId, instituteName){
+        try{    
+            await userservice.deleteDepartment(deptId, instituteName);
+        }catch(error){
+            console.log("Error deleting");
+            throw error;
+        }
+        removeDepartment(deptId);
+    }
+
+
+    const removeDepartment = (deptId) => {  
+        const newDepts = depts.filter(dept => dept.department_Id !== deptId);
+        setDepts(newDepts);
+    }
+
     const handlecreatedept = async () => {
         if (!dept.dept_id || !dept.dept_name) {
             toast.warn("Please fill the required fields");
@@ -39,7 +71,7 @@ const DepartmentsandClasses = () => {
         const updatedDept = { 
             ...dept, 
             dept_id: parseInt(dept.dept_id, 10), 
-            dept_incharge_id: dept.dept_incharge_id ? parseInt(dept.dept_incharge_id, 10) : null 
+            dept_incharge_id: dept.dept_incharge_id ? parseInt(dept.dept_incharge_id, 10) : null
         };
 
         try {
@@ -47,21 +79,32 @@ const DepartmentsandClasses = () => {
             if (response) {
                 toast.success("Department Created Successfully");
                 console.log(depts);
+                console.log(dept);
                 setDept({ 
                     dept_id: '', 
                     dept_name: '', 
                     dept_incharge_id: '', 
-                    dept_incharge_name: '', 
-                    instituteName: user.instituteName 
+                    instituteName: user.instituteName
                 });
                 setOpen(false);
 
+                try{    
+                    await userservice.facultyDeptAssignment(dept);
+                }
+                catch(error){
+                    console.log("Error in departmentandclassescomponent");
+                    throw error;
+                }
+                
             } else {
                 toast.error("There was an error.");
             }
         } catch (error) {
             toast.error("There was an error: " + error.message);
         }
+
+       
+
     };
 
     return (
@@ -81,16 +124,19 @@ const DepartmentsandClasses = () => {
                                     Incharge: {dept.department_incharge_name} (ID: {dept.department_incharge_id})
                                 </Typography>
                                 <Typography color="textSecondary">
-                                    Department ID: {dept.department_id}
+                                    Department ID: {dept.department_Id}
                                 </Typography>
                                 <Typography color="textSecondary">
                                     Institute: {user.instituteName}
                                 </Typography>
                             </CardContent>
-                            <CardActions>
-                                <Button size="small" color="primary" onClick={() => {/* Handle view department action */}}>
+                            <CardActions style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <Button size="small" color="primary" onClick={() => navigate('/admin/ManageClasses')}>
                                     View Department
                                 </Button>
+                                <IconButton onClick={() => handleDelete(dept.department_Id, user.instituteName)}>
+                                    <DeleteIcon color='error'/>
+                                </IconButton>
                             </CardActions>
                         </Card>
                     ))}
@@ -117,22 +163,29 @@ const DepartmentsandClasses = () => {
                         fullWidth
                         style={{ marginBottom: '20px' }}
                     />
-                    <TextField 
+                    <TextField
+                        required
+                        fullWidth
+                        select
                         variant='outlined'
+                        label="Department_Incharge"
                         value={dept.dept_incharge_id}
-                        label="Incharge_Id"
-                        onChange={(e) => { setDept({ ...dept, dept_incharge_id: e.target.value }) }}
-                        fullWidth
-                        style={{ marginBottom: '20px' }}
-                    />
-                    <TextField 
-                        variant='outlined'
-                        value={dept.dept_incharge_name}
-                        label="Incharge_Name"
-                        onChange={(e) => { setDept({ ...dept, dept_incharge_name: e.target.value }) }}
-                        fullWidth
-                        style={{ marginBottom: '20px' }}
-                    />
+                        onChange={(e) => {
+                            const selectedFaculty = faculties.find(faculty => faculty.faculty_id === e.target.value);
+                            setDept({
+                                ...dept,
+                                dept_incharge_id: selectedFaculty?.faculty_id,
+                                dept_incharge_name: selectedFaculty?.faculty_name
+                            });
+                        }}
+                    >
+                        {faculties.map((option) => (
+                            <MenuItem key={option.faculty_id} value={option.faculty_id}>
+                                {option.faculty_name + " (" + option.faculty_id + ")"}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handlecreatedept}>Create Dept</Button>

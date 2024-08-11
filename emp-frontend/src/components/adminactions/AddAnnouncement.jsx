@@ -76,7 +76,7 @@ const AddAnnouncement = () => {
                   onChange={(e) => setAccessGroup(e.target.value)}
                   label="Access Group"
                 >
-                  <MenuItem value=""><em>None</em></MenuItem>
+                  <MenuItem value=""><em>All</em></MenuItem>
                   <MenuItem value="students">Students</MenuItem>
                   <MenuItem value="teachers">Teachers</MenuItem>
                   <MenuItem value="staff">Staff</MenuItem>

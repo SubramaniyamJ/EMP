@@ -30,12 +30,8 @@ const Login = () => {
   const handleRoleChange = (event) => {
     setUserr({...userr, role: event.target.value});
   };
-
-  const  handleLogin = async () => {
-    
-      
-      
-    
+  
+  const handleLogin = async () => {
     if(!userr.role || !userr.email || !userr.password){
       toast.warn('All fields required', {
         autoClose: 2500
@@ -49,14 +45,7 @@ const Login = () => {
         // console.log(response);
         setLoading(false);
         if(response.data){
-          // console.log(response.data);
-            const verifyResponse= await userservice.verifiedStatus(response.data.email,response.data.instituteName);
-            if(verifyResponse[0].verified){
-                 setVerified(true);
-                 v=true;
-            }
-
-            console.log(verifyResponse[0].verified);
+          // console.log(response.data)
             setuser({email:response.data.email,
             instituteName:response.data.instituteName,
             name:response.data.name,
@@ -65,27 +54,8 @@ const Login = () => {
             toast.success("Welcome to EduManage", {
               autoClose: 150
             });
-           
-          setTimeout(() => {
-            if(response.data.role === 'student'){
-              if(v){
-              navigate("/student")
-              }
-              else{
-                navigate("/RequestUnderProcessing")
-              }
-            }
-            else if(response.data.role ==='faculty'){
-              console.log(verified);
-              if(v){
-                navigate("/teacher")
-                }
-                else{
-                  navigate("/RequestUnderProcessing")
-                }
-            }
-            else navigate("/admin")
-          }, 1000);
+
+            navigate('/RequestUnderProcessing');
         }
         else{
           toast.error("Incorrect Username / Password");  

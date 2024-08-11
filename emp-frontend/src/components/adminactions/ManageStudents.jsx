@@ -21,10 +21,11 @@ const ManageStudents = () => {
         {field:'Accept/Reject',headerName:'Accept/Reject',flex:1,renderCell:(param) => 
         <>
         <Chip onClick={() => handleAccept(param)} label='Accept' color='success' style={{marginRight:'20px'}}/>
-        <Chip label='Reject' color='error' onClick={() => removeRow(param)} /></>}
+        <Chip label='Reject' color='error' onClick={() => removeRow(param)} />
+          </>},
     ]
     const handleAccept = async(param) =>{
-       const result=await userservice.addStudents(param.row);
+       const result = await userservice.addStudents(param.row);
        await userservice.updateVerifyStatus(param.row);
        
        if(!result){
@@ -34,21 +35,25 @@ const ManageStudents = () => {
        }
        removeRow(param);
     }
+
     const removeRow = (param) => {
       const newRes = res.filter((row) => row.id !== param.row.id);
       setres(newRes);
     }
-    const response = async() =>{
+
+    const response = async() => {
         try{
-        const result=await userservice.manageteachersandstudents(user.instituteName,"student");
-        setres(result);
+          const result = await userservice.manageteachersandstudents(user.instituteName,"student");
+          setres(result);
         }catch(error){
-            console.log(error);
-            throw error;
+          console.log(error);
+          throw error;
         }
     }
+
     useEffect(()=>{
         response();
+        console.log(res);
     },[])
 
   return (
@@ -60,8 +65,7 @@ const ManageStudents = () => {
     </Box>
     <Box padding={'30px'}>
         <DataGrid 
-        
-            stikyHeader
+        stikyHeader
             rows={res}
             columns={columns}
             initialState={{

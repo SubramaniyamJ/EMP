@@ -13,20 +13,10 @@ const roles = [
   { value: 'faculty', label: 'Faculty' },
   { value: 'admin', label: 'Admin' },
 ];
-let institutes;
-const ins = async () => {
-  try {
-    const i = await userservice.getInstitutes();
-    console.log(i);
-    institutes = i.map(instituteName => ({ value: instituteName, label: instituteName }));
-    console.log(institutes);
-    
-  } catch (error) {
-    console.error('Error fetching institutes:', error);
-  }
-};
-ins();
+
+
 const Signup = () => {
+  const [institutes, setInstitutes] = useState([{value: '', label: ''}]);
   const navigate=useNavigate();
   const[loading,setLoading]=useState(false);
   const [isValid, setValid] = useState(true);
@@ -41,6 +31,21 @@ const Signup = () => {
     email:'',
     verified:false
   });
+
+  const ins = async () => {
+    try {
+      const i = await userservice.getInstitutes();
+      console.log(i);
+      setInstitutes(i.map(instituteName => ({ value: instituteName, label: instituteName })));
+      
+    } catch (error) {
+      console.error('Error fetching institutes:', error);
+    }
+  };  
+
+  useEffect(() => {
+    ins();
+  }, []);
 
   const handleRoleChange = (event) => {
     setUser({ ...user, role: event.target.value });

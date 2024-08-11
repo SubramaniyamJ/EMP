@@ -53,11 +53,11 @@ const ManageFaculties = () => {
       }catch(error){
       console.log(error);
     }
-  };
+  }
 
   useEffect(() => {
     response();
-  }, []);
+  }, [])
 
  
   return (
