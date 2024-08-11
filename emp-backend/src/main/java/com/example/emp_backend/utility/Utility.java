@@ -12,7 +12,6 @@ import com.example.emp_backend.model.VerifyUser;
 import java.util.*;;
 
 public class Utility {
-
     @Autowired
     private UserRepo repo;
 
@@ -80,10 +79,10 @@ public class Utility {
                             "PRIMARY KEY (department_Id)); ";
 
         String queryClass = "CREATE TABLE IF NOT EXISTS " + instituteName + "_classes" + " (" + 
-                            "class_id BIGINT AUTOINCREAMENT, "+
+                            "class_id INT NOT NULL, "+
                             "class_name VARCHAR(255) NOT NULL, "+
-                            "class_incharge VARCHAR(255) NOT NULL, "+
-                            "faculty_in_charge_id BIGINT NOT NULL, ";
+                            "class_incharge_name VARCHAR(255) , "+
+                            "class_incharge_id INT , ";
 
         String queryRequest= "CREATE TABLE IF NOT EXISTS " + instituteName + "_requests" + " ("+
                              "email VARCHAR(255) NOT NULL, " +

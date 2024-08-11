@@ -20,6 +20,7 @@ import AddAnnouncement from './components/adminactions/AddAnnouncement';
 import { ManagableFaculties } from './components/adminactions/ManagableFaculties';
 import DepartmentsandClasses from './components/adminactions/DepartmentsandClasses';
 import NotVerified from './components/NotVerified';
+import StudentDetails from './components/StudentDetails';
 
 const route=createBrowserRouter(
 	createRoutesFromElements(
@@ -60,7 +61,9 @@ function App() {
 		 <usercontext.Provider value={[user,setuser]}>
 			<RouterProvider router={route} />
 		 </usercontext.Provider>
+		 
 		 {/* <NotVerified/> */}
+		 {/* <StudentDetails/> */}
 		 
 		</div>
 	);

@@ -17,7 +17,7 @@ import {
 import { styled } from '@mui/system';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './Chatbot';
+import Chatbot from './chatbot/Chatbot';
 import { usercontext } from './Usercontext';
 
 const StyledBox = styled(Box)(({ theme }) => ({
@@ -219,9 +219,6 @@ const Teacherdashboard = () => {
         </Grid>
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom>
-              Chatbot
-            </Typography>
             <Chatbot />
           </Paper>
         </Grid>

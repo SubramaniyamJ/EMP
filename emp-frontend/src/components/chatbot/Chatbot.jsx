@@ -5,7 +5,7 @@ import ChatHistory from "./ChatHistory";
 import Loading from "./Loading";
 import './Chatbot.css';
 
-const App = () => {
+const Chatbot = () => {
   const [userInput, setUserInput] = useState("");
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,4 +70,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Chatbot;
