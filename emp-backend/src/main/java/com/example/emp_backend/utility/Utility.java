@@ -1,12 +1,15 @@
 package com.example.emp_backend.utility;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.emp_backend.repository.UserRepo;
+import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
-import java.util.*;
+import com.example.emp_backend.model.VerifyUser;
+
+import java.util.*;;
 
 public class Utility {
 
@@ -15,6 +18,7 @@ public class Utility {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
 
     String candites = "ABCDEFGHIJKLMNOPQRSTUVYXZabcdefghijklmnopqrstuvxyz1234567890";
     public String tryCode(){
@@ -36,6 +40,7 @@ public class Utility {
     //     return uniqueClassCode;
     // }
 
+    
     public void createInstituteTable(String instituteName){
         String queryFaculty = "CREATE TABLE IF NOT EXISTS " + instituteName + "_faculties" + " (" +
                 "faculty_id INT NOT NULL, " +
@@ -51,9 +56,10 @@ public class Utility {
                 "faculty_doj VARCHAR(255) , "+
                 "PRIMARY KEY (faculty_id));";
 
+            
         String queryStudent = "CREATE TABLE IF NOT EXISTS " + instituteName + "_students" + " (" +
-                "student_id BIGINT, " +
-                "reg_no VARCHAR(255) NOT NULL, " +
+                "student_id INT NOT NULL, " +
+                "reg_no VARCHAR(255) , " +
                 "student_name VARCHAR(255) NOT NULL," +
                 "student_email VARCHAR(255) NOT NULL, "+
                 "student_department_id BIGINT ," +
@@ -62,18 +68,16 @@ public class Utility {
                 "student_phone_no VARCHAR(255), "+
                 "student_address VARCHAR(255), "+
                 "student_specializations VARCHAR(255), "+
-                "student_class_id BIGINT NOT NULL, "+
+                "student_class_id BIGINT , "+
                 "student_doj VARCHAR(255), "+
                 "PRIMARY KEY (student_id));";
 
         String queryDept = "CREATE TABLE IF NOT EXISTS " + instituteName + "_departments" + " (" +
-                            "department_Id BIGINT AUTOINCREAMENT, "+ 
+                            "department_Id INT AUTOINCREAMENT, "+ 
                             "department_name VARCHAR(255) NOT NULL, " +
-                            "department_incharge VARCHAR(255) NOT NULL" + 
-                            "department_incharge_id BIGINT NOT NULL, "+
-                            // "batch_year VARCHAR(255) NOT NULL, " + 
-                            "PRIMARY KEY (department_id), "+
-                            "";
+                            "department_incharge_name VARCHAR(255) , " + 
+                            "department_incharge_id INT , "+
+                            "PRIMARY KEY (department_Id)); ";
 
         String queryClass = "CREATE TABLE IF NOT EXISTS " + instituteName + "_classes" + " (" + 
                             "class_id BIGINT AUTOINCREAMENT, "+
@@ -81,10 +85,16 @@ public class Utility {
                             "class_incharge VARCHAR(255) NOT NULL, "+
                             "faculty_in_charge_id BIGINT NOT NULL, ";
 
+        String queryRequest= "CREATE TABLE IF NOT EXISTS " + instituteName + "_requests" + " ("+
+                             "email VARCHAR(255) NOT NULL, " +
+                             "verified BOOLEAN NOT  NULL, " +
+                             "PRIMARY KEY (email)); ";
+
 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
-        // jdbcTemplate.execute(queryDept);
+        jdbcTemplate.execute(queryDept);
+        jdbcTemplate.execute(queryRequest);
 
     }
 
@@ -98,19 +108,54 @@ public class Utility {
             return false;
         }
     }
+    public boolean addStudents(User student){
+        try{
+            String tableName=(student.instituteName) + "_students";
+            String nquery="INSERT INTO " + tableName + " (student_id, student_name, student_email) VALUES (?, ?, ?)";
+            jdbcTemplate.update(nquery, student.id,student.name,student.email);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
 
-    public List<User> checkFacultyAlreadyAdded(List<User>users, String instituteName){
-        List<User>nonAddedFaculties = new ArrayList<>();
-        String tableName = instituteName + "_faculties";
+    public boolean createdept(Department dept){
+        try{
+            String tableName=(dept.instituteName) + "_departments";
+            String nquery="INSERT INTO "+ tableName + " (department_id, department_name, department_incharge_name, department_incharge_id) VALUES(?, ?, ?, ?)";
+            jdbcTemplate.update(nquery,dept.dept_id, dept.dept_name,dept.dept_incharge_name,dept.dept_incharge_id);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    public boolean addRequest(String instituteName,VerifyUser user){
+        try{
+            String tableName=instituteName + "_requests";
+            String query="INSERT INTO "+ tableName + " (email, verified) VALUES(?,?)";
+            jdbcTemplate.update(query,user.email,user.verified);
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+    public List<User> checkAlreadyAdded(List<User>users, String instituteName, String role){
+        List<User>nonAddedUsers = new ArrayList<>();
+        String tableName = "";
+        if(role.equals("student")){
+            tableName = instituteName + "_students"; 
+        }else if(role.equals("faculty")){
+            tableName = instituteName + "_faculties";
+        }
         for(User user : users){
-            String query = "SELECT COUNT(*) FROM " + tableName + " WHERE faculty_email = ?";
+            String query = "SELECT COUNT(*) FROM " + tableName + " WHERE " + role + "_email = ?";
             Integer count = jdbcTemplate.queryForObject(query, new Object[]{user.getEmail()}, Integer.class);
 
             if(count == null || count == 0){    
-                nonAddedFaculties.add(user);
+                nonAddedUsers.add(user);
             }
         }
-        return nonAddedFaculties;
+        return nonAddedUsers;
     }
 
     public List<?> managedFacultiesList(String instituteName){
@@ -118,7 +163,47 @@ public class Utility {
         String query = "SELECT * FROM " + tableName;
         List<Map<String, Object>> facultyList = jdbcTemplate.queryForList(query);
         return facultyList;
-
     }
 
+    public List<?> existedDepartments(String instituteName){
+        String tableName=instituteName + "_departments";
+        String query = "SELECT * FROM " + tableName;
+        List<Map<String,Object>> deptList = jdbcTemplate.queryForList(query);
+        return deptList;
+    }
+
+
+    public List<?> checkverifiedstatus(String email,String instituteName){
+        String tableName=instituteName + "_requests";
+        String query="SELECT verified FROM "+ tableName +" WHERE email=?";
+        List<Map<String,Object>> verified=jdbcTemplate.queryForList(query,email);
+        return verified;
+    }
+
+
+    public void updateVerifyStatus(String email,String instituteName){  
+        String tableName=instituteName + "_requests";
+        String updateQuery="UPDATE "+tableName+" SET verified = TRUE WHERE email=?";
+        jdbcTemplate.update(updateQuery,email);      
+    }
+
+
+    public void assignFacultyToDept(Department dept){
+        String tableName = dept.instituteName + "_faculties";
+        String query = "UPDATE " + tableName + " SET faculty_department_id = " + dept.dept_id +  " WHERE faculty_id = " + dept.dept_incharge_id;
+        jdbcTemplate.update(query);
+    }
+
+    public String getDepartmentNameById(int deptId, String instituteName) {
+        String tableName = instituteName + "_departments";
+        String sql = "SELECT department_name FROM " + tableName +" WHERE department_id = ?";
+        return jdbcTemplate.queryForObject(sql, new Object[]{deptId}, String.class);
+    }
+
+
+    public void deleteDepartment(int deptId, String instituteName){
+        String tableName = (instituteName) + "_departments";
+        String sql = "DELETE FROM " + tableName + " WHERE department_id = ?";
+        jdbcTemplate.update(sql, deptId);
+    }
 }

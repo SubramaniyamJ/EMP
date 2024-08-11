@@ -7,8 +7,6 @@ import {useNavigate} from 'react-router-dom'
 import {toast, ToastContainer} from 'react-toastify'
 
 
-
-
 const ManageFaculties = () => {
   const navigate = useNavigate();
   const [user]=useContext(usercontext);
@@ -17,7 +15,7 @@ const ManageFaculties = () => {
   const handleFaculty = () => {
     navigate('/admin/ManagableFacuties')
   }
-  const columns =[
+  const columns = [
     {field:'id',headerName:'Id',flex:1},
     {field:'name',headerName:'Facultyname',flex:1},
     {field:'email',headerName:'Email',flex:1},
@@ -31,6 +29,8 @@ const ManageFaculties = () => {
   const handleAccept = async (param) => {
     console.log(param.row);
     const result = await userservice.addTeachers(param.row);
+    await userservice.updateVerifyStatus(param.row);
+
     if(!result){
       toast.warn("faculty already exists");
     }else{
@@ -43,7 +43,7 @@ const ManageFaculties = () => {
     const newRes = res.filter((row) => row.id !== param.row.id);
     setres(newRes);
   }
-
+  
   const response = async () => {
     try{
       const result = await userservice.manageteachersandstudents(user.instituteName,"faculty");
@@ -53,11 +53,11 @@ const ManageFaculties = () => {
       }catch(error){
       console.log(error);
     }
-  };
+  }
 
   useEffect(() => {
     response();
-  }, []);
+  }, [])
 
  
   return (

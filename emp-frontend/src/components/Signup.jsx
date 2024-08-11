@@ -14,7 +14,9 @@ const roles = [
   { value: 'admin', label: 'Admin' },
 ];
 
+
 const Signup = () => {
+  const [institutes, setInstitutes] = useState([{value: '', label: ''}]);
   const navigate=useNavigate();
   const[loading,setLoading]=useState(false);
   const [isValid, setValid] = useState(true);
@@ -25,10 +27,33 @@ const Signup = () => {
     instituteName: '',
     role: ''
   });
+  const [verifyUser,setVerifyUser]=useState({
+    email:'',
+    verified:false
+  });
+
+  const ins = async () => {
+    try {
+      const i = await userservice.getInstitutes();
+      console.log(i);
+      setInstitutes(i.map(instituteName => ({ value: instituteName, label: instituteName })));
+      
+    } catch (error) {
+      console.error('Error fetching institutes:', error);
+    }
+  };  
+
+  useEffect(() => {
+    ins();
+  }, []);
 
   const handleRoleChange = (event) => {
     setUser({ ...user, role: event.target.value });
   };
+
+  const handleinstitutechange = (event) =>{
+    setUser({...user,instituteName:event.target.value});
+  }
 
   const handleLogin = async () => {
     if (!user.name || !user.email || !user.password || !user.instituteName || !user.role) {
@@ -42,6 +67,8 @@ const Signup = () => {
       setLoading(true);
       setTimeout(async () => {
       let response = await userservice.postUser(user);
+      let response1=await userservice.verifyUser(verifyUser,user.instituteName);
+      console.log(response1);
       console.log(response.data);
       setLoading(false);
       if(response.data){
@@ -50,7 +77,7 @@ const Signup = () => {
       });
       setTimeout(() => {
         navigate("/login")
-      },5000)
+      },2000)
     }
       else
         toast.error('Account already exists with given email');
@@ -100,6 +127,7 @@ const Signup = () => {
               type="text"
               value={user.name}
               onChange={(e) => setUser({ ...user, name: e.target.value })}
+
               margin="normal"
               variant="outlined"
               error={!isValid && !user.name}
@@ -110,7 +138,7 @@ const Signup = () => {
               required
               label="Email"
               value={user.email}
-              onChange={(e) => setUser({ ...user, email: e.target.value })}
+              onChange={(e) => {setUser({ ...user, email: e.target.value });setVerifyUser({...verifyUser,email:e.target.value})}}
               margin="normal"
               variant="outlined"
               error={!isValid && !user.email}
@@ -128,7 +156,7 @@ const Signup = () => {
               error={!isValid && !user.password}
               helperText={!isValid && !user.password ? 'Password is required' : ''}
             />
-            <TextField
+            {user.role==='admin' ? <TextField
               fullWidth
               required
               label="Institute Name"
@@ -138,7 +166,24 @@ const Signup = () => {
               variant="outlined"
               error={!isValid && !user.instituteName}
               helperText={!isValid && !user.instituteName ? 'Institute name is required' : ''}
-            />
+            /> : <TextField
+            required
+            fullWidth
+            select
+            label="Select Institute"
+            value={user.instituteName}
+            onChange={handleinstitutechange}    // need to handle institute names
+            margin="normal"
+            variant="outlined"
+            error={!isValid && !user.instituteName}
+            helperText={!isValid && !user.role ? 'Institute is required' : ''}
+          >
+            {institutes.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>}
             <Button
               fullWidth
               variant="contained"

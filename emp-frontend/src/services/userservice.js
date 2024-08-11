@@ -1,3 +1,4 @@
+import { Details } from "@mui/icons-material";
 import { findHeaderElementFromField } from "@mui/x-data-grid/utils/domUtils";
 import axios from "axios";
 const API_URL = "http://localhost:8080/api";
@@ -31,7 +32,7 @@ class userservice {
       });
       return response.data;
     } catch (error) {
-      console.log("Therre was an error !", error);
+      console.log("There was an error !", error);
       throw error;
     }
   }
@@ -46,6 +47,16 @@ class userservice {
     }
   }
 
+  async addStudents(user){
+   try{
+     const response= await axios.post(API_URL + "/admin/addStudent",user);
+     return response.data;
+   }
+   catch(error){
+     console.log(error);
+     throw error;
+   }
+  }
   async manageTeacher(instituteName) {
     try {
       const response = await axios.get(API_URL + "/admin/managedfaculties", {
@@ -60,6 +71,82 @@ class userservice {
       throw error;
     }
   }
+
+   async createdept(dept){
+    try{
+      const response=await axios.post(API_URL + "/admin/createdepartment",dept)
+      return response.data;
+    }catch(error){
+      console.log(error);
+    }
+   }
+
+   async getInstitutes(){
+    try{
+      const response = await axios.get(API_URL + "/institutes");
+      return response.data;
+    }catch(error){
+      console.log(error);
+    }
+   }
+
+   async existingDepartments(instituteName) {
+      try{
+        const response=axios.get(API_URL + "/departmentList",{params: {instituteName},});
+        return response;
+      }catch(error){
+        throw error;
+      }
+   }
+
+   async verifyUser(user,instituteName) {
+    try{
+      const response=await axios.post(API_URL + "/admin/verifystatus",user,{params: {instituteName},});
+      return response.data;
+    }catch(error){
+      throw error;
+    }
+   }
+
+   async verifiedStatus(email,instituteName){
+    try{
+      const response=await axios.get(API_URL + "/verifiedStatus",{params:{email,instituteName}});
+      return response.data;
+    }catch(error){
+      throw error;
+    }
+   }
+   async updateVerifyStatus(user){
+      try{
+        await axios.put(API_URL + "/updateVerifyStatus",user);
+      }catch(error){
+        throw error;
+      }
+   }
+
+   async facultyDeptAssignment(dept){
+      try{
+        await axios.put(API_URL + "/assignFacultyToDept", dept);
+      }catch(error){
+        console.log("Error assigning the Incharge to dept");
+        throw error;
+      }
+   }
+
+   async deleteDepartment(deptId, instituteName){
+      try{
+        console.log(deptId)
+        console.log(instituteName)
+        await axios.delete(API_URL + "/deleteDepartment", {
+          params : {
+            deptId, instituteName
+          }
+        });
+      }catch(error){
+        console.log("Error deleting the department", error.message);
+        throw error;
+      }
+   }
 }
 
 export default new userservice();
