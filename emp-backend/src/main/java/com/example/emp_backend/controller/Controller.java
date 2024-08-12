@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.emp_backend.model.Department;
+import com.example.emp_backend.model.Student;
 import com.example.emp_backend.model.VerifyUser;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.model.Class;
@@ -159,5 +160,15 @@ public class Controller {
     List<?> getStudentDetails(@RequestParam String instituteName,@RequestParam int student_id){
         return util.getStudentDetails(instituteName, student_id);
     }
+
+    @PutMapping("/updateStudentDetails")
+    void updateStudentDetails(@RequestBody Student student,@RequestParam String instituteName,@RequestParam int student_id){
+        util.updateStudentDetails(student,instituteName, student_id);
+    } 
+    @GetMapping("/getStudentsByClass")
+    List<?> getStudentsByClass (@RequestParam String instituteName,@RequestParam int class_id){
+        return util.fetchStudentsbyClass(instituteName, class_id);
+    }
+
 
 }

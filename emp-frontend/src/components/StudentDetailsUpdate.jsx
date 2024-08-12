@@ -3,32 +3,42 @@ import { Box, Button, Container, FormControl, MenuItem, TextField, Typography } 
 import userservice from '../services/userservice';
 import { usercontext } from './Usercontext';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 const StudentDetailsUpdate = () => {
     const [user,setuser]=useContext(usercontext);
+    const navigate=useNavigate();
     const [isValid,setisValid]=useState(true);
     const [classes,setClasses]=useState([{value:'',label:''}]);
+    const [depts,setDepts]=useState([{value:'',label:''}]);
     const [student, setstudent] = useState({
         student_id: null,
         reg_no:'',
         student_name: '',
         student_email: '',
-        stuent_department_id: null,
+        student_department_id: null,
         student_gender: '',
         student_dob: '',
-        stuent_phone_no: '',
+        student_phone_no: '',
         student_address: '',
         student_specializations: '',
         student_class_id: null,
         student_doj: ''
     });
     const HandleUpdate = async()=>{
-        if(!student.reg_no || !student.stuent_department_id || !student.student_class_id){
+        if(!student.reg_no || !student.student_department_id || !student.student_class_id){
             toast.warn("Please fill the mandatory fields");
             setisValid(false);
             return;
         }
-        
+       try{
+          await userservice.updateStudentDetails(student,user.instituteName,user.id);
+          toast.success("Updated Successfully");
+          navigate("/profileSettings");
+       }catch(error){
+        console.log(error);
+       }       
 
+       console.log(student);
     }
     useEffect(() => {
         const fetchStudentDetails =async()=>{
@@ -52,8 +62,20 @@ const StudentDetailsUpdate = () => {
                 throw(error);
             }
         }
+        const fetchDepts = async () =>{
+            try{
+                const response=await userservice.existingDepartments(user.instituteName);
+                console.log(response.data);
+                const depts=response.data;
+                setDepts(depts.map(d => ({ value: d.department_Id,label:d.department_Id})));
+            }catch(error){
+                console.log(error);
+                throw(error);
+            }
+        }
         fetchStudentDetails();
         fetchClasses();
+        fetchDepts();
     },[])
     return (
         <>
@@ -70,11 +92,12 @@ const StudentDetailsUpdate = () => {
                             label="student_id"
                             onChange={(e) => setstudent({ ...student, student_id: e.target.value })}
                             variant="outlined"
+                            InputLabelProps={{
+                                shrink: true,
+                              }}
                             style={{ width: '45%' }}
-                            
                              />
                         <TextField
-                            type=''
                             required
                             value={student.reg_no}
                             label="reg_no"
@@ -101,17 +124,26 @@ const StudentDetailsUpdate = () => {
                             label="student_email"
                             onChange={(e) => setstudent({ ...student,student_email:e.target.value })}
                             variant="outlined"
+                            InputLabelProps={student.student_email ? { shrink: true } : undefined}
                             style={{ width: '45%' }} />
                         <TextField
                             
-                            value={student.stuent_department_id}
-                            label="stuent_department_id"
-                            onChange={(e) => setstudent({ ...student, stuent_department_id: e.target.value })}
+                            value={student.student_department_id}
+                            label="student_department_id"
+                            onChange={(e) => setstudent({ ...student, student_department_id: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} 
                             error={!isValid}
-                            helperText={!isValid && !student.stuent_department_id ? 'Department Id is Required' : ''}
-                            />
+                            helperText={!isValid && !student.student_department_id ? 'Department Id is Required' : ''}
+                            InputLabelProps={student.student_department_id ? { shrink: true } : undefined}
+                            select
+                            >
+                                {depts.map((option) => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
                         <TextField
                             
                             value={student.student_gender}
@@ -122,15 +154,18 @@ const StudentDetailsUpdate = () => {
                         <TextField
                             type='date'
                             value={student.student_dob}
-                            
+                            label="student_dob"
                             onChange={(e) => setstudent({ ...student, student_dob: e.target.value })}
                             variant="outlined"
+                            InputLabelProps={{
+                                shrink: true,
+                              }}
                             style={{ width: '45%' }} />
                         <TextField
                             
-                            value={student.stuent_phone_no}
+                            value={student.student_phone_no}
                             label="stuent_phone_no"
-                            onChange={(e) => setstudent({ ...student, stuent_phone_no: e.target.value })}
+                            onChange={(e) => setstudent({ ...student, student_phone_no: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
                         <TextField
@@ -165,11 +200,14 @@ const StudentDetailsUpdate = () => {
                                 ))}
                             </TextField>
                         <TextField
-                            
+                            type='date'
                             value={student.student_doj}
                             label="student_doj"
                             onChange={(e) => setstudent({ ...student, student_doj: e.target.value })}
                             variant="outlined"
+                            InputLabelProps={{
+                                shrink: true,
+                              }}
                             style={{ width: '45%' }} />
                         <Button fullWidth variant="contained" color="primary" style={{ marginTop: '40px', width: '30%' }} onClick={HandleUpdate}>Update</Button>
                     </Box>

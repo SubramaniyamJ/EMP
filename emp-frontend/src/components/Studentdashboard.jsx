@@ -51,6 +51,24 @@ const Studentdashboard = () => {
       </StyledBox>
 
       <Grid container spacing={3}>
+      {/* <Grid item xs={12}>
+              <Paper elevation={3} sx={{padding:2}} style={{display:'flex',justifyContent:'center', flexDirection:'column',alignItems:'center',gap:'10px'}}>
+                <Typography variant='h4' >Your Class</Typography>
+                <Card style={{display:'flex',flexDirection:'column',alignItems:'center',width:'300px',justifyContent:'center'}}>
+                    <CardContent style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'10px'}}>
+                      <Typography variant="h4" textAlign='center'>{yourClass.class_name ? yourClass.class_name : 'Not Assigned'}</Typography>
+                      <Typography color={'textSecondary'}>
+                        DepartmentID:{yourClass.department_id ? yourClass.department_id : 'null'}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small"onClick={yourClass.class_name ? handleViewClass : null}>
+                        View Class
+                      </Button>
+                    </CardActions>
+                    </Card>
+              </Paper>
+        </Grid> */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>

@@ -4,40 +4,40 @@ import userservice from '../services/userservice';
 import { usercontext } from './Usercontext';
 import { useNavigate } from 'react-router-dom';
 const StudentDetails = () => {
-    const [user,setuser]=useContext(usercontext);
-    const navigate=useNavigate();
+    const [user, setuser] = useContext(usercontext);
+    const navigate = useNavigate();
     const [student, setstudent] = useState({
         student_id: null,
         reg_no: null,
         student_name: '',
         student_email: '',
-        stuent_department_id: null,
+        student_department_id: null,
         student_gender: '',
         student_dob: '',
-        stuent_phone_no: '',
+        student_phone_no: '',
         student_address: '',
         student_specializations: '',
         student_class_id: null,
         student_doj: ''
     });
-    const HandleEdit = () =>{
+    const HandleEdit = () => {
         navigate("/EditDetails");
     }
     useEffect(() => {
-        const fetchStudentDetails =async()=>{
-            try{
-                const response=await userservice.getStudentDetails(user.instituteName,user.id);
+        const fetchStudentDetails = async () => {
+            try {
+                const response = await userservice.getStudentDetails(user.instituteName, user.id);
                 console.log(response);
                 setstudent(response[0]);
-            }catch(error){
+            } catch (error) {
                 console.log(error);
-                throw(error);
+                throw (error);
             }
         }
         fetchStudentDetails();
-    },[])
+    }, [])
 
-    const handleupdate = () =>{
+    const handleupdate = () => {
         console.log(student)
     }
     return (
@@ -53,14 +53,18 @@ const StudentDetails = () => {
                             required
                             value={student.student_id}
                             label="student_id"
+                            InputLabelProps={student.student_id ? { shrink: true } : undefined}
+
                             onChange={(e) => setstudent({ ...student, student_id: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
                         <TextField
-                            disabled    
+                            disabled
                             required
                             value={student.reg_no}
                             label="reg_no"
+                            InputLabelProps={student.reg_no ? { shrink: true } : undefined}
+
                             onChange={(e) => setstudent({ ...student, reg_no: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
@@ -78,14 +82,15 @@ const StudentDetails = () => {
                             required
                             value={student.student_email}
                             label="student_email"
-                            onChange={(e) => setstudent({ ...student,student_email:e.target.value })}
+                            onChange={(e) => setstudent({ ...student, student_email: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
                         <TextField
                             disabled
-                            value={student.stuent_department_id}
-                            label="stuent_department_id"
-                            onChange={(e) => setstudent({ ...student, stuent_department_id: e.target.value })}
+                            value={student.student_department_id}
+                            label="student_department_id"
+                            InputLabelProps={student.student_department_id ? { shrink: true } : undefined}
+                            onChange={(e) => setstudent({ ...student, student_department_id: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
                         <TextField
@@ -104,9 +109,9 @@ const StudentDetails = () => {
                             style={{ width: '45%' }} />
                         <TextField
                             disabled
-                            value={student.stuent_phone_no}
+                            value={student.student_phone_no}
                             label="stuent_phone_no"
-                            onChange={(e) => setstudent({ ...student, stuent_phone_no: e.target.value })}
+                            onChange={(e) => setstudent({ ...student, student_phone_no: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />
                         <TextField
@@ -128,6 +133,8 @@ const StudentDetails = () => {
                             required
                             value={student.student_class_id}
                             label="student_class_id"
+                            InputLabelProps={student.student_class_id ? { shrink: true } : undefined}
+
                             onChange={(e) => setstudent({ ...student, student_class_id: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />

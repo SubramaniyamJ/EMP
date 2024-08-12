@@ -72,7 +72,7 @@ const Teacherdashboard = () => {
       try{
         const urclass= await userservice.getYourClass(user.instituteName,user.id);
         console.log(urclass);
-        
+        if(urclass.length>0)
         setYourClass(urclass[0]);
         
       }catch(error){
@@ -127,6 +127,9 @@ const Teacherdashboard = () => {
   const handleMarkAttendance = () => {
     navigate('/attendance');
   };
+  const handleViewClass = () =>{
+    navigate('/YourClass');
+  }
 
   return (
     <div style={{ marginTop: '100px', marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}>
@@ -151,7 +154,7 @@ const Teacherdashboard = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" >
+                      <Button size="small"onClick={yourClass.class_name ? handleViewClass : null}>
                         View Class
                       </Button>
                     </CardActions>

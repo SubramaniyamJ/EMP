@@ -231,6 +231,26 @@ class userservice {
       throw error;
     }
   }
+  async updateStudentDetails(student,instituteName,student_id) {
+    try{
+      await axios.put(API_URL + "/updateStudentDetails",student,{
+        params : {instituteName:instituteName,student_id:student_id}
+      });
+    }catch(error){
+      throw error;
+    }
+  }
+  async getStudentsByClass(instituteName,class_id){
+    try{
+      const response = await axios.get(API_URL + "/getStudentByClass",{
+        params:{instituteName:instituteName,class_id:class_id},
+      });
+      console.log(response.data);
+      return response.data;
+    }catch(error){
+      throw error;
+    }
+  }
 }
 
 export default new userservice();
