@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Line } from 'react-chartjs-2';
+// import { Line } from 'react-chartjs-2';
 // import attendanceService from '../services/attendanceService';
 // import MarksPercentage from './MarksPercentage';
 

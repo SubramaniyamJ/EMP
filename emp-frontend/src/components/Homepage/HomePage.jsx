@@ -269,10 +269,10 @@ const HomePage = () => {
         </Box>
         <Grid container spacing={2} className="features-container">
           <Grid item xs={12} md={6} container alignItems="center">
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <img src="https://cdn-icons-png.flaticon.com/256/1283/1283187.png" alt="Customizable Icon" className="feature-icon" />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={5}>
               <h2>Customizable</h2>
               <p>Edumanage education ERP adapts to your unique requirements. It works the way you do, ensuring a seamless fit for your institution.</p>
             </Grid>
@@ -287,10 +287,10 @@ const HomePage = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={6} container alignItems="center">
-            <Grid item xs={4}>
+            <Grid item xs={5}>
               <img src="https://cdn-icons-png.flaticon.com/256/9104/9104585.png" alt="Highly Integrable Icon" className="feature-icon" />
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={5}>
               <h2>Highly integrable</h2>
               <p>Easily integrate over 650+ applications on a visual drag-and-drop interface and automate tasks effortlessly.</p>
             </Grid>

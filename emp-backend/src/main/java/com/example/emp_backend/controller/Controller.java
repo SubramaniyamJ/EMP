@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.VerifyUser;
 import com.example.emp_backend.model.User;
+import com.example.emp_backend.model.Announcement;
 import com.example.emp_backend.model.Class;
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.utility.Utility;
@@ -148,6 +149,26 @@ public class Controller {
     @GetMapping("/getStudents")
     List<?> getStudents(@RequestParam String instituteName){
         return util.getStudents(instituteName);
+    }
+
+    @GetMapping("/yourclass")
+    List<?> yourClass(@RequestParam String instituteName,@RequestParam int faculty_id){
+        return util.getYourClass(instituteName, faculty_id);
+    }
+
+    @GetMapping("/profileSettings")
+    List<?> getStudentDetails(@RequestParam String instituteName,@RequestParam int student_id){
+        return util.getStudentDetails(instituteName, student_id);
+    }
+
+    @PostMapping("/addAnnouncement")
+    boolean addAnnouncement(@RequestBody Announcement announcement, @RequestParam String instituteName){
+        return util.addAnnouncement(announcement, instituteName);
+    }
+
+    @GetMapping("/fetchAnnouncements")
+    List<?> fetchAnnouncements(@RequestParam String instituteName){
+        return util.fetchAnnouncements(instituteName);
     }
 
 }

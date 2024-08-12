@@ -17,31 +17,34 @@ import {
 import PublishIcon from "@mui/icons-material/Publish";
 import userservice from "../../services/userservice";
 import { usercontext } from "../Usercontext";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddAnnouncement = () => {
   const [user] = useContext(usercontext);
   const [depts, setDepts] = useState([]);
-  const [clas, setClas] = useState([]);
+  const [clases, setClases] = useState([]);
   const [announcement, setAnnouncement] = useState({
     title: "",
     description: "",
     date: "",
     role: "",
     accessGroup: "",
-    deptId: null,
-    classId: null
+    deptId: 0,
+    classId: 0,
   });
 
-  const handleSubmit = (event) => {
-    // event.preventDefault();
-    // const announcement = { title, description, date, accessGroup };
-    // // Replace this with your API call
-    // console.log('Announcement submitted:', announcement);
-    // // Reset form
-    // setTitle('');
-    // setDescription('');
-    // setDate('');
-    // setAccessGroup('');
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await userservice.addAnnouncement(
+      announcement,
+      user.instituteName
+    );
+
+    if (response) {
+      toast.success("Announcement published Successfully");
+    } else {
+      toast.error("There is was an error");
+    }
   };
 
   useEffect(() => {
@@ -54,6 +57,18 @@ const AddAnnouncement = () => {
     getResponse();
     console.log(depts);
   }, []);
+
+  useEffect(() => {
+    const getClasses = async () => {
+      const response = await userservice.fetchClasses(
+        user.instituteName,
+        announcement.deptId
+      );
+      setClases(response);
+    };
+    getClasses();
+    console.log(clases);
+  }, [announcement.deptId]);
 
   return (
     <Container maxWidth="ms" style={{ marginTop: "80px" }}>
@@ -136,47 +151,56 @@ const AddAnnouncement = () => {
                 </Select>
               </FormControl>
             </Grid>
-            {
-              (announcement.accessGroup === 'Departments' || announcement.accessGroup === 'Class') ? 
+            {announcement.accessGroup === "Departments" ||
+            announcement.accessGroup === "Class" ? (
               <Grid item xs={4} paddingBottom={"10px"}>
-              <FormControl fullWidth variant="outlined" required>
-                <InputLabel>Select Department</InputLabel>
-                <Select
-                  onChange={(e) =>
-                    setAnnouncement({
-                      ...announcement,
-                      deptId: e.target.value,
-                    })
-                  }
-                  label="Access Group"
-                >
-                  {
-                    depts.map(dept => (
-                      <MenuItem key = {dept.department_Id} value = {dept.department_Id}>{dept.department_name + " (" + dept.department_Id + ")"}</MenuItem>
-                    ))
-                  }
-                </Select>
-              </FormControl>
-            </Grid>
-            : null 
-          }
-          {announcement.accessGroup === 'Class' ?
-            <Grid item xs={4} paddingBottom={"10px"}>
-              <FormControl fullWidth variant="outlined" required>
-                <InputLabel>Select Class</InputLabel>
-                <Select
-                  value={announcement.classId}
-                  onChange={(e) =>
-                    setAnnouncement({
-                      ...announcement,
-                      classid: e.target.value,
-                    })
-                  }
-                  label="Access Group"
-                ></Select>
-              </FormControl>
-            </Grid> : null
-            }
+                <FormControl fullWidth variant="outlined" required>
+                  <InputLabel>Select Department</InputLabel>
+                  <Select
+                    value={announcement.deptId}
+                    onChange={(e) =>
+                      setAnnouncement({
+                        ...announcement,
+                        deptId: e.target.value,
+                      })
+                    }
+                    label="Department"
+                  >
+                    {depts.map((dept) => (
+                      <MenuItem
+                        key={dept.department_Id}
+                        value={dept.department_Id}
+                      >
+                        {dept.department_name + " (" + dept.department_Id + ")"}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            ) : null}
+            {announcement.accessGroup === "Class" ? (
+              <Grid item xs={4} paddingBottom={"10px"}>
+                <FormControl fullWidth variant="outlined" required>
+                  <InputLabel>Select Class</InputLabel>
+                  <Select
+                    value={announcement.classId}
+                    onChange={(e) =>
+                      setAnnouncement({
+                        ...announcement,
+                        classId: e.target.value,
+                      })
+                    }
+                    label="Class"
+                  >
+                    {clases.map((clas) => (
+                      <MenuItem key={clas.class_id} value={clas.class_id}>
+                        {clas.class_name + " (" + clas.class_id + ")"}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Grid>
+            ) : null}
             <Grid item xs={12}>
               <TextField
                 fullWidth
@@ -185,7 +209,12 @@ const AddAnnouncement = () => {
                 multiline
                 rows={10}
                 value={announcement.description}
-                onChange={(e) => setAnnouncement(e.target.value)}
+                onChange={(e) =>
+                  setAnnouncement({
+                    ...announcement,
+                    description: e.target.value,
+                  })
+                }
                 required
               />
             </Grid>
@@ -194,16 +223,18 @@ const AddAnnouncement = () => {
                 <Button
                   type="submit"
                   variant="contained"
+                  onClick={handleSubmit}
                   color="primary"
                   endIcon={<PublishIcon />}
                 >
-                  Save Announcement
+                  Publish Announcement
                 </Button>
               </Box>
             </Grid>
           </Grid>
         </form>
       </Paper>
+      <ToastContainer />
     </Container>
   );
 };

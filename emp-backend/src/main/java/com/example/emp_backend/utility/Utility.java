@@ -8,11 +8,11 @@ import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.model.Department;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.model.VerifyUser;
+import com.example.emp_backend.model.Announcement;
 import com.example.emp_backend.model.Class;
 import java.util.*;;
 
 public class Utility {
-
     @Autowired
     private UserRepo repo;
 
@@ -51,7 +51,7 @@ public class Utility {
                 "faculty_phone_no VARCHAR(255) , " +
                 "faculty_address VARCHAR(255) , " +
                 "faculty_specializations VARCHAR(255) , " +
-                "faculty_doj VARCHAR(255) , " +
+                "faculty_doj DATE , " +
                 "PRIMARY KEY (faculty_id));";
 
         String queryStudent = "CREATE TABLE IF NOT EXISTS " + instituteName + "_students" + " (" +
@@ -66,7 +66,7 @@ public class Utility {
                 "student_address VARCHAR(255), " +
                 "student_specializations VARCHAR(255), " +
                 "student_class_id BIGINT , " +
-                "student_doj VARCHAR(255), " +
+                "student_doj DATE, " +
                 "PRIMARY KEY (student_id));";
 
         String queryDept = "CREATE TABLE IF NOT EXISTS " + instituteName + "_departments" + " (" +
@@ -87,13 +87,25 @@ public class Utility {
         String queryRequest = "CREATE TABLE IF NOT EXISTS " + instituteName + "_requests" + " (" +
                 "email VARCHAR(255) NOT NULL, " +
                 "verified BOOLEAN NOT  NULL, " +
-                "PRIMARY KEY (email));";    
+                "PRIMARY KEY (email));";
+
+        String queryAnnouncement = "CREATE TABLE IF NOT EXISTS " + instituteName + "_announcement ( "
+                + "announcement_id INT NOT NULL AUTO_INCREMENT , " +
+                "title VARCHAR(255) NOT NULL, " +
+                "description TEXT NOT NULL, " +
+                "date VARCHAR(255) NOT NULL, " +
+                "role VARCHAR(255) NOT NULL, " +
+                "access_group VARCHAR(255) NOT NULL, " +
+                "dept_id INT ," +
+                "class_id INT, " +
+                "PRIMARY KEY (announcement_id));";
 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
         jdbcTemplate.execute(queryDept);
         jdbcTemplate.execute(queryClass);
         jdbcTemplate.execute(queryRequest);
+        jdbcTemplate.execute(queryAnnouncement);
 
     }
 
@@ -242,5 +254,51 @@ public class Utility {
         List<Map<String, Object>> studentList = jdbcTemplate.queryForList(query);
         return studentList;
     }
-    
-}
+
+    public List<?> getYourClass(String instituteName, int faculty_id) {
+        String tableName = instituteName + "_classes";
+        String query = "SELECT * FROM " + tableName + " WHERE faculty_in_charge_id = ?";
+        List<Map<String, Object>> yourClass = jdbcTemplate.queryForList(query, faculty_id);
+        return yourClass;
+    }
+
+    public List<?> getStudentDetails(String instituteName, int student_id) {
+        String tableName = instituteName + "_students";
+        String query = "SELECT * FROM " + tableName + " WHERE student_id = ?";
+        List<Map<String, Object>> studentDetails = jdbcTemplate.queryForList(query, student_id);
+        return studentDetails;
+    }
+
+    public boolean addAnnouncement(Announcement announcement, String instituteName) {
+        String tableName = instituteName + "_announcement";
+        String query = "INSERT INTO " + tableName
+                + " (title, description, date, role, access_group, dept_id, class_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try{
+            jdbcTemplate.update(query, announcement.getTitle(), announcement.getDescription(),  announcement.getDate(),
+            announcement.getRole(), announcement.getAccessGroup(), announcement.getDeptId(),
+            announcement.getClassId());
+           return true;
+        }catch(Exception e){
+            return false;
+      }
+      
+    }
+
+
+    public List<?> fetchAnnouncements(String instituteName){
+        String tableName = instituteName + "_announcement";
+        String query = "SELECT * FROM " + tableName +"_announcement";
+        List<Map<String, Object>> announcements =  jdbcTemplate.queryForList(query);
+        return announcements;
+    }
+}// "CREATE TABLE IF NOT EXISTS " + instituteName + "_announcements (" +
+ // "announcement_id int NOT NULL AUTO_INCREAMENT, " +
+ // "title VARCHAR(255) NOT NULL, " +
+ // "description VARCHAR NOT NULL, "+
+ // "date VARCHAR(255) NOT NULL, " +
+ // "role VARCHAR(255) NOT NULL, " +
+ // "access_group VARCHAR(255) NOT NULL, "+
+ // "dept_id int ,"+
+ // "class_id int, " +
+ // "PRIMARY KEY (announcement_id)"e

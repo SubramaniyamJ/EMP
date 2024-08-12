@@ -23,6 +23,8 @@ import { ManagableFaculties } from './components/adminactions/ManagableFaculties
 import DepartmentsandClasses from './components/adminactions/DepartmentsandClasses';
 import NotVerified from './components/NotVerified';
 import { DepartmentDashboard } from './components/adminactions/deptdashboard/DepartmentDashboard';
+import StudentDetails from './components/StudentDetails';
+import StudentDetailsUpdate from './components/StudentDetailsUpdate';
 
 
 
@@ -45,6 +47,8 @@ const route=createBrowserRouter(
 			<Route path='/RequestUnderProcessing' element={<NotVerified/>}/>
 			<Route path='/student' element={<Studentdashboard/>} />
 			<Route path='/teacher' element={<Teacherdashboard/>} />
+			<Route path='/profileSettings' element={<StudentDetails/>} />
+			<Route path='/EditDetails' element={<StudentDetailsUpdate/>} />
 			<Route path='/admin/DepartmentDashboard' element={<DepartmentDashboard/>} />
 		</Route>
 	)
@@ -54,6 +58,7 @@ function App() {
 	const [user,setuser] = useState(() => {
 		const saved = localStorage.getItem('myValue');
 		return saved !== null ? JSON.parse(saved) : {
+			id:null,
 			email:'',
 			instituteName:'', 
 			name:'',
@@ -69,7 +74,9 @@ function App() {
 		 <usercontext.Provider value={[user,setuser]}>
 			<RouterProvider router={route} />
 		 </usercontext.Provider>
+		 
 		 {/* <NotVerified/> */}
+		 {/* <StudentDetails/> */}
 		 
 		</div>
 	);

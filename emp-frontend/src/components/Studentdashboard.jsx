@@ -1,9 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Typography, Paper, Grid, Button, Card, CardContent, CardActions } from '@mui/material';
 import { styled } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
-import Chatbot from './Chatbot'; 
+import Chatbot from './chatbot/Chatbot'; 
 import { usercontext } from './Usercontext';
+import userservice from '../services/userservice';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -31,6 +32,7 @@ const messages = [
   { id: 3, title: 'Event Notification', content: 'Join us for the annual sports day event next month.' },
 ];
 
+
 const Studentdashboard = () => {
   const[user,setuser]=useContext(usercontext);
   const [selectedClass, setSelectedClass] = useState(null);
@@ -38,6 +40,14 @@ const Studentdashboard = () => {
   const handleClassClick = (className) => {
     setSelectedClass(className === selectedClass ? null : className);
   };
+
+  // useEffect(() => {
+  //   const getAnnouncement = async () => {
+  //     const response = await userservice.fetchAnnouncements(user.instituteName);
+  //     newResponse = response.filter(anc => )
+  //   }
+
+  // }, []);
 
   return (
     <div style={{marginTop:'100px',marginLeft:'25px',marginRight:'25px',marginBottom:'25px'}}>
@@ -126,9 +136,7 @@ const Studentdashboard = () => {
 
         <Grid item xs={12}>
           <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom>
-              Chatbot
-            </Typography>
+            
             <Chatbot />
           </Paper>
         </Grid>

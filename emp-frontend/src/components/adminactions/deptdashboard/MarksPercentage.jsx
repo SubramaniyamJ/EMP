@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Bar } from 'react-chartjs-2';
+// import { Bar } from 'react-chartjs-2';
 // import marksService from '../services/marksService';
 
 const MarksPercentage = () => {
   const [marksData, setMarksData] = useState([]);
-
+  
 //   useEffect(() => {
 //     marksService.getMarksPercentage().then(response => {
 //       setMarksData(response.data);

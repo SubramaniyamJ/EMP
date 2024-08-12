@@ -1,4 +1,5 @@
 import { Details, Insights } from "@mui/icons-material";
+import { responsiveFontSizes } from "@mui/material";
 import { findHeaderElementFromField } from "@mui/x-data-grid/utils/domUtils";
 import axios from "axios";
 const API_URL = "http://localhost:8080/api";
@@ -184,7 +185,7 @@ class userservice {
           deptId : deptId
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error.message);
@@ -199,12 +200,69 @@ class userservice {
           instituteName: instituteName,
         },
       });
-      console.log(response.data);
+      // console.log(response.data);
       return response.data;
     } catch (error) {
       console.log(error.message);
       throw error;
     }
+  }
+  async getYourClass(instituteName,faculty_id){
+    try{
+      const response = await axios.get(API_URL + "/yourclass", {
+        params:{
+          instituteName:instituteName,
+          faculty_id:faculty_id,
+        },
+      });
+      // console.log(response.data);
+      return response.data;
+    } catch(error){
+      console.log(error.message);
+      throw error;
+    }
+  }
+  async getStudentDetails(instituteName,student_id){
+    try{
+      const response = await axios.get(API_URL + "/profileSettings", {
+        params : {instituteName:instituteName,student_id:student_id},
+      });
+      return response.data;
+    }catch(error){
+      console.log(error);
+      throw error;
+    }
+  }
+  
+  async addAnnouncement(announcement, instituteName){
+    try{
+      console.log(announcement);
+      const response = await axios.post(API_URL + "/addAnnouncement", announcement, {
+        params : {
+          instituteName: instituteName
+        }
+      })
+      return response.data;
+    }catch(error){
+      console.log(error.message);
+      throw error;
+    }
+  }
+
+  async fetchAnnouncements(instituteName){
+    try{
+      const response = await axios.get(API_URL + "/fetchAnnouncements", {
+        params: {
+          instituteName: instituteName
+        }
+      })
+      console.log(response.data);
+      return response.data;
+    }catch(error){
+      console.log(error.message);
+      throw error;
+    }
+
   }
 }
 
