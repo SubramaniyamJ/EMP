@@ -141,8 +141,8 @@ public class Controller {
 
 
     @GetMapping("/fetchClasses")
-    List<?> fetchClasses(@RequestParam String instituteName){
-        return util.fetchClasses(instituteName);
+    List<?> fetchClasses(@RequestParam String instituteName, @RequestParam int deptId){
+        return util.fetchClasses(instituteName, deptId);
     }
 
     @GetMapping("/getStudents")

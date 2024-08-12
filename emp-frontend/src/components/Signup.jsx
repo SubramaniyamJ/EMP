@@ -18,6 +18,7 @@ const roles = [
 const Signup = () => {
   const [institutes, setInstitutes] = useState([{value: '', label: ''}]);
   const navigate=useNavigate();
+  const [depts, setDepts] = useState([]);
   const[loading,setLoading]=useState(false);
   const [isValid, setValid] = useState(true);
   const [user, setUser] = useState({
@@ -41,7 +42,17 @@ const Signup = () => {
     } catch (error) {
       console.error('Error fetching institutes:', error);
     }
-  };  
+  }; 
+  
+  const getDepts = async () => {
+    try{
+      const res = await userservice.existingDepartments();
+      setDepts(res);
+    }
+    catch(error){
+      console.error(error.message);
+    }
+  }
 
   useEffect(() => {
     ins();
@@ -88,6 +99,10 @@ const Signup = () => {
       toast.error('Failed to create account.');
     }
   };
+
+  const handleDeptChange = () => {
+
+  }
 
   return (
     <motion.div
@@ -184,6 +199,7 @@ const Signup = () => {
               </MenuItem>
             ))}
           </TextField>}
+
             <Button
               fullWidth
               variant="contained"

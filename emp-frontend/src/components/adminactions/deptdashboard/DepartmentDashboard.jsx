@@ -137,7 +137,7 @@ export const DepartmentDashboard = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
             <Button variant = 'contained' style = {{margin: '30px'}}onClick={() => setOpen(true)}>Create Class</Button>
-            <ClassCards />
+            <ClassCards clas = {clas} />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             {/* <FacultyPresence /> */}

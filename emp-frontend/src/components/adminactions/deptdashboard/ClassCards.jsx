@@ -21,16 +21,15 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 
-const ClassCards = () => {
+const ClassCards = ({clas}) => {
   const [clases, setClases] = useState([]);
   const [user] = useContext(usercontext);
   const navigate = useNavigate();
   useEffect(() => {
     const getResponse = async () => {
-      const response = await userservice.fetchClasses(user.instituteName);
+      const response = await userservice.fetchClasses(user.instituteName, clas.dept_id);
       setClases(response);
     };
-
     getResponse();
   }, []);
 
@@ -46,6 +45,9 @@ const ClassCards = () => {
               {clas.class_name}
             </Typography>
             <Typography color="textSecondary">
+                Class Id: {clas.class_id}
+            </Typography>
+            <Typography color="textSecondary">
               Incharge: {clas.class_incharge} (ID:{" "}
               {clas.faculty_in_charge_id})
             </Typography>
@@ -53,7 +55,7 @@ const ClassCards = () => {
               Department ID: {clas.department_id}
             </Typography>
             <Typography color="textSecondary">
-              Institute: {clas.instituteName}
+              Institute: {user.instituteName}
             </Typography>
           </CardContent>
           <CardActions

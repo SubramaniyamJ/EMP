@@ -12,7 +12,7 @@ import Appbar from './components/Homepage/Appbar';
 import ManagableStudents from './components/adminactions/ManagableStudents';
 import Admindashboard from './components/Admindashboard';
 import Studentdashboard from './components/Studentdashboard';
-import Teacherdashboard from './components/Teacherdashboard';
+import Teacherdashboard from './components/facultydashboard/Teacherdashboard';
 import { useState } from 'react';
 import { usercontext } from './components/Usercontext';
 import { useEffect } from 'react';
@@ -35,7 +35,7 @@ const route=createBrowserRouter(
 			<Route path='/login' element={<Login/>} />
 			<Route path='/register' element={<Signup/>} />
 			<Route path='/admin' element={<Admindashboard/>} />
-			<Route path='admin/AddAnnouncement' element={<AddAnnouncement/>}/>
+			<Route path='RequestUnderProcessing/AddAnnouncement' element={<AddAnnouncement/>}/>
 			<Route path='RequestUnderProcessing/ManageTeachers' element={<ManageFaculties/>}/>
 			<Route path='admin/ManagableFacuties' element={<ManagableFaculties/>} />
 			<Route path='admin/ManagableStudents' element={<ManagableStudents/>} />

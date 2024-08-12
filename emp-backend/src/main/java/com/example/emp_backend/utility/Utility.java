@@ -229,17 +229,18 @@ public class Utility {
 
     }
 
-    public List<?> fetchClasses(String instituteName) {
+    public List<?> fetchClasses(String instituteName, int deptId) {
         String tableName = instituteName + "_classes";
-        String query = "SELECT * FROM " + tableName;
+        String query = "SELECT * FROM " + tableName + " WHERE department_id = " + deptId;
         List<Map<String, Object>> deptList = jdbcTemplate.queryForList(query);
         return deptList;
     }
-    
+
     public List<?> getStudents(String instituteName) {
         String tableName = instituteName + "_students";
         String query = "SELECT * FROM " + tableName;
         List<Map<String, Object>> studentList = jdbcTemplate.queryForList(query);
         return studentList;
     }
+    
 }

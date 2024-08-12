@@ -176,11 +176,12 @@ class userservice {
     }
   }
 
-  async fetchClasses(instituteName) {
+  async fetchClasses(instituteName, deptId) {
     try {
       const response = await axios.get(API_URL + "/fetchClasses", {
         params: {
           instituteName: instituteName,
+          deptId : deptId
         },
       });
       console.log(response.data);

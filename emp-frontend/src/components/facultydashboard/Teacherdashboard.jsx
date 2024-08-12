@@ -17,8 +17,8 @@ import {
 import { styled } from '@mui/system';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import Chatbot from './Chatbot';
-import { usercontext } from './Usercontext';
+import Chatbot from '../Chatbot';
+import { usercontext } from '../Usercontext';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -264,7 +264,6 @@ const Teacherdashboard = () => {
           <Button onClick={handleAddStudent}>Add</Button>
         </DialogActions>
       </Dialog>
-
       <ToastContainer />
     </div>
   );

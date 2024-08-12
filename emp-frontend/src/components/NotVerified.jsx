@@ -4,7 +4,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import './styles/notverified.css'; 
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Teacherdashboard from './Teacherdashboard';
+import Teacherdashboard from './facultydashboard/Teacherdashboard';
 import userservice from '../services/userservice';
 import { usercontext } from './Usercontext';
 import { Verified } from '@mui/icons-material';
@@ -16,7 +16,6 @@ const NotVerified = () => {
   const [isVerified, setVerified] = useState(false);
 
   async function requestProcessing() {
-
     const response = await userservice.manageTeacher(user.instituteName);
     console.log(response);
     response.data.forEach(faculty => {
