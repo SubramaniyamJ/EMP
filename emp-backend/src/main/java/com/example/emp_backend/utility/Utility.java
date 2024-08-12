@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.example.emp_backend.repository.UserRepo;
 import com.example.emp_backend.model.Department;
+import com.example.emp_backend.model.Student;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.model.VerifyUser;
 import com.example.emp_backend.model.Announcement;
@@ -288,17 +289,45 @@ public class Utility {
 
     public List<?> fetchAnnouncements(String instituteName){
         String tableName = instituteName + "_announcement";
-        String query = "SELECT * FROM " + tableName +"_announcement";
+        String query = "SELECT * FROM " + tableName;
         List<Map<String, Object>> announcements =  jdbcTemplate.queryForList(query);
         return announcements;
-    }
-}// "CREATE TABLE IF NOT EXISTS " + instituteName + "_announcements (" +
- // "announcement_id int NOT NULL AUTO_INCREAMENT, " +
- // "title VARCHAR(255) NOT NULL, " +
- // "description VARCHAR NOT NULL, "+
- // "date VARCHAR(255) NOT NULL, " +
- // "role VARCHAR(255) NOT NULL, " +
- // "access_group VARCHAR(255) NOT NULL, "+
- // "dept_id int ,"+
- // "class_id int, " +
+    }   
  // "PRIMARY KEY (announcement_id)"e
+    public void updateStudentDetails( Student student,String instituteName, int student_id) {
+        String tableName = instituteName + "_students";
+        String query = "UPDATE " + tableName + " SET reg_no = " + student.getReg_no() + 
+        " , student_department_id = " + student.getStudent_department_id() + 
+        " , student_gender = '" + student.getStudent_gender() + "'" + 
+        " , student_dob = '" + student.getStudent_dob() + "'" + 
+        " , student_phone_no = '" + student.getStudent_phone_no() + "'" + 
+        " , student_address = '" + student.getStudent_address() + "'" + 
+        " , student_specializations = '" + student.getStudent_specializations() + "'" + 
+        " , student_class_id = " + student.getStudent_class_id() + 
+        " , student_doj = '" + student.getStudent_doj() + "'" + 
+        " WHERE student_id = " + student_id;
+        jdbcTemplate.update(query);
+    }
+
+    
+    public List<?> fetchStudentsbyClass(String instituteName,int class_id){
+        String tableName = instituteName + "_students";
+        String query = "SELECT * FROM "+ tableName +" WHERE student_class_id = ?";
+        List<Map<String, Object>> studenList=jdbcTemplate.queryForList(query, class_id);
+        return studenList;
+    }
+
+
+    public List<?> fetchStudentByUserId(int userId, String instituteName){
+        String tableName = instituteName + "_students";
+        String query = "SELECT * FROM " + tableName + " WHERE student_id = ?";
+        return jdbcTemplate.queryForList(query, userId);
+
+    }
+
+    public List<?> fetchFacultyByUserId(int userId, String instituteName){
+        String tableName = instituteName + "_faculties";
+        String query = "SELECT * FROM " + tableName + " WHERE faculty_id = ?";
+        return jdbcTemplate.queryForList(query, userId);
+    }
+}

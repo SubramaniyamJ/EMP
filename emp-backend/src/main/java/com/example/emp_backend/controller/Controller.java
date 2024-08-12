@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.emp_backend.model.Department;
+import com.example.emp_backend.model.Student;
 import com.example.emp_backend.model.VerifyUser;
 import com.example.emp_backend.model.User;
 import com.example.emp_backend.model.Announcement;
@@ -169,6 +170,25 @@ public class Controller {
     @GetMapping("/fetchAnnouncements")
     List<?> fetchAnnouncements(@RequestParam String instituteName){
         return util.fetchAnnouncements(instituteName);
+    }
+    @PutMapping("/updateStudentDetails")
+    void updateStudentDetails(@RequestBody Student student,@RequestParam String instituteName,@RequestParam int student_id){
+        util.updateStudentDetails(student,instituteName, student_id);
+    } 
+    @GetMapping("/getStudentsByClass")
+    List<?> getStudentsByClass (@RequestParam String instituteName,@RequestParam int class_id){
+        return util.fetchStudentsbyClass(instituteName, class_id);
+    }
+
+
+    @GetMapping("/fetchStudentByUserId")
+    List<?> fetchStudentByUserId(@RequestParam int userId, @RequestParam String instituteName){
+        return util.fetchStudentByUserId(userId, instituteName);
+    }
+
+    @GetMapping("/fetchFacultyByUserId")
+    List<?> fetchFacultyByUserId(@RequestParam int userId, @RequestParam String instituteName){
+        return util.fetchFacultyByUserId(userId, instituteName);
     }
 
 }

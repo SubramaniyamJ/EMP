@@ -59,6 +59,8 @@ const loggedInTeacherId = 1;
 const Teacherdashboard = () => {
   const [user,setuser] = useContext(usercontext);
   const [classes, setClasses] = useState([]);
+  const [faculty, setFaculty] = useState({});
+  const [thisAnc, setThisAnc] = useState([{}]);
   const [selectedClass, setSelectedClass] = useState(null);
   const [open, setOpen] = useState(false);
   const [openStudentDialog, setOpenStudentDialog] = useState(false);
@@ -72,7 +74,7 @@ const Teacherdashboard = () => {
       try{
         const urclass= await userservice.getYourClass(user.instituteName,user.id);
         console.log(urclass);
-        if(urclass.length() > 0)
+        if(urclass.length>0)
         setYourClass(urclass[0]);
         
       }catch(error){
@@ -82,6 +84,50 @@ const Teacherdashboard = () => {
     fetchYourClass();
   },[]);
   
+  useEffect(() => {
+    const getResponse = async () => {
+      const response = await userservice.fetchFacultyByUserId(
+        user.id,
+        user.instituteName
+      );
+      setFaculty(response[0]);
+    };
+    getResponse();
+  }, []);
+
+  useEffect(() => {
+    const getAnnouncement = async () => {
+      const response = await userservice.fetchAnnouncements(user.instituteName);
+      const filterAnnouncement = () => {
+        const filtered = response.filter((announcement) => {
+          if (announcement.role !== "all" && announcement.role !== "staff") {
+            return false;
+          }
+
+          if (announcement.access_group === "Departments") {
+            return (
+              announcement.dept_id === 0 ||
+              announcement.dept_id === faculty.faculty_department_id
+            );
+          } else if (announcement.access_group === "Class") {
+            return (
+              announcement.class_id === 0 ||
+              (announcement.dept_id === faculty.faculty_department_id &&
+                announcement.class_id === faculty.faculty_class_id)
+            );
+          } else {
+            return true;
+          }
+        }).sort((one, two) => two.announcement_id - one.announcement_id);
+        return filtered;
+      };
+      setThisAnc(filterAnnouncement());
+    };
+    getAnnouncement();
+  }, [faculty]);
+
+
+
   useEffect(() => {
     setClasses(allClasses.filter(cls => cls.teacherId === loggedInTeacherId));
   }, []);
@@ -127,6 +173,9 @@ const Teacherdashboard = () => {
   const handleMarkAttendance = () => {
     navigate('/attendance');
   };
+  const handleViewClass = () =>{
+    navigate('/YourClass');
+  }
 
   return (
     <div style={{ marginTop: '100px', marginLeft: '25px', marginRight: '25px', marginBottom: '25px' }}>
@@ -151,7 +200,7 @@ const Teacherdashboard = () => {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button size="small" >
+                      <Button size="small"onClick={yourClass.class_name ? handleViewClass : null}>
                         View Class
                       </Button>
                     </CardActions>
@@ -240,24 +289,34 @@ const Teacherdashboard = () => {
 
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom>
-              Messages 
+            <Typography variant="h5" gutterBottom style={{paddingBottom: '30px'}}>
+              Announcements
             </Typography>
-            {messages.map((message) => (
-              <Box key={message.id} sx={{ mb: 2 }}>
-                <Typography variant="h6" color={'black'}>{message.title}</Typography>
-                <Typography variant="body2" color={'black'}>{message.content}</Typography>
-              </Box>
+            <Grid container spacing={2}>
+            {thisAnc.map((announcement) => (
+              <Grid item xs={12}>
+              <Card>
+                <CardContent>
+                  <Box key={announcement.announcement_id} sx={{ mb: 2 }}>
+                  <Typography variant="h6" color={"black"} gutterBottom>
+                    {announcement.title}
+                  </Typography>
+                  <Typography variant="body1" color={"black"} gutterBottom>
+                    {announcement.date}
+                  </Typography>
+                  <Typography variant="body2" color={"black"} gutterBottom>
+                    {announcement.description}
+                  </Typography>
+                </Box>
+                </CardContent>
+
+              </Card>
+              </Grid>
             ))}
-          </Paper>
-        </Grid>
-        <Grid item xs={12}>
-          <Paper elevation={3} sx={{ padding: 2 }}>
-            <Chatbot />
+          </Grid>
           </Paper>
         </Grid>
       </Grid>
-
       <Dialog open={open} onClose={() => setOpen(false)}>
         <DialogTitle>Create New Class</DialogTitle>
         <DialogContent>

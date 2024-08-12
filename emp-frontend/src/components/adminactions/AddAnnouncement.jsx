@@ -29,8 +29,8 @@ const AddAnnouncement = () => {
     date: "",
     role: "",
     accessGroup: "",
-    deptId: 0,
-    classId: 0,
+    deptId: null,
+    classId: null,
   });
 
   const handleSubmit = async (e) => {
@@ -45,6 +45,16 @@ const AddAnnouncement = () => {
     } else {
       toast.error("There is was an error");
     }
+
+    setAnnouncement({
+      title: "",
+      description: "",
+      date: "",
+      role: "",
+      accessGroup: "",
+      deptId: null,
+      classId: null,
+    });
   };
 
   useEffect(() => {
@@ -66,8 +76,9 @@ const AddAnnouncement = () => {
       );
       setClases(response);
     };
-    getClasses();
-    console.log(clases);
+    if (announcement.deptId) {
+      getClasses();
+    }
   }, [announcement.deptId]);
 
   return (

@@ -25,6 +25,7 @@ import NotVerified from './components/NotVerified';
 import { DepartmentDashboard } from './components/adminactions/deptdashboard/DepartmentDashboard';
 import StudentDetails from './components/StudentDetails';
 import StudentDetailsUpdate from './components/StudentDetailsUpdate';
+import AssingnedClass from './components/AssingnedClass';
 
 
 
@@ -50,6 +51,7 @@ const route=createBrowserRouter(
 			<Route path='/profileSettings' element={<StudentDetails/>} />
 			<Route path='/EditDetails' element={<StudentDetailsUpdate/>} />
 			<Route path='/admin/DepartmentDashboard' element={<DepartmentDashboard/>} />
+			<Route path='/YourClass' element={<AssingnedClass/>} />
 		</Route>
 	)
 )
