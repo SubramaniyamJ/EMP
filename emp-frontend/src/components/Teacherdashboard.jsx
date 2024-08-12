@@ -19,6 +19,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import Chatbot from './chatbot/Chatbot';
 import { usercontext } from './Usercontext';
+import userservice from '../services/userservice';
 
 const StyledBox = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.main,
@@ -65,7 +66,22 @@ const Teacherdashboard = () => {
   const [newNote, setNewNote] = useState('');
   const [newStudent, setNewStudent] = useState('');
   const navigate = useNavigate();
-
+  const [yourClass,setYourClass]=useState({class_id:null,class_name:'',class_incharge:'',faculty_in_charge_id:null,department_id:null});
+  useEffect(() => {
+     const fetchYourClass = async()=>{
+      try{
+        const urclass= await userservice.getYourClass(user.instituteName,user.id);
+        console.log(urclass);
+        
+        setYourClass(urclass[0]);
+        
+      }catch(error){
+        console.log(error);
+      }
+    }
+    fetchYourClass();
+  },[]);
+  
   useEffect(() => {
     setClasses(allClasses.filter(cls => cls.teacherId === loggedInTeacherId));
   }, []);
@@ -94,7 +110,7 @@ const Teacherdashboard = () => {
     setNewClass({ name: '', teacherId: loggedInTeacherId, studentsCount: 0 });
     toast.success('Class created successfully!');
   };
-
+ 
   const handleAddStudent = () => {
     const updatedClasses = classes.map(cls => {
       if (cls.id === selectedClass.id) {
@@ -124,6 +140,24 @@ const Teacherdashboard = () => {
       </StyledBox>
 
       <Grid container spacing={3}>
+        <Grid item xs={12}>
+              <Paper elevation={3} sx={{padding:2}} style={{display:'flex',justifyContent:'center', flexDirection:'column',alignItems:'center',gap:'10px'}}>
+                <Typography variant='h4' >Your Class</Typography>
+                <Card style={{display:'flex',flexDirection:'column',alignItems:'center',width:'300px',justifyContent:'center'}}>
+                    <CardContent style={{display:'flex',flexDirection:'column',alignItems:'center',gap:'10px'}}>
+                      <Typography variant="h4" textAlign='center'>{yourClass.class_name ? yourClass.class_name : 'Not Assigned'}</Typography>
+                      <Typography color={'textSecondary'}>
+                        DepartmentID:{yourClass.department_id ? yourClass.department_id : 'null'}
+                      </Typography>
+                    </CardContent>
+                    <CardActions>
+                      <Button size="small" >
+                        View Class
+                      </Button>
+                    </CardActions>
+                    </Card>
+              </Paper>
+        </Grid>
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>

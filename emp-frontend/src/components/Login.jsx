@@ -45,8 +45,9 @@ const Login = () => {
         // console.log(response);
         setLoading(false);
         if(response.data){
-          // console.log(response.data)
+          console.log(response.data)
             setuser({email:response.data.email,
+            id:response.data.id,
             instituteName:response.data.instituteName,
             name:response.data.name,
             password:response.data.password,

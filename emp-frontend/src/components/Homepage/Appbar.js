@@ -16,7 +16,11 @@ const Appbar = () => {
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  const HandleSettings = () => {
+    if(user.role==='student'){
+      navigate("/profileSettings")
+    }
+  }
   const handleClose = () => {
     setAnchorEl(null);
   };  
@@ -72,7 +76,7 @@ const Appbar = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile Setting</MenuItem>
+                <MenuItem onClick={HandleSettings}>Profile Setting</MenuItem>
                 <MenuItem onClick={handleLogout}>Logout</MenuItem>
               </Menu>
             </Box>
