@@ -8,7 +8,7 @@ const StudentDetails = () => {
     const navigate = useNavigate();
     const [student, setstudent] = useState({
         student_id: null,
-        reg_no: null,
+        reg_no: '',
         student_name: '',
         student_email: '',
         student_department_id: null,
@@ -26,7 +26,7 @@ const StudentDetails = () => {
     useEffect(() => {
         const fetchStudentDetails = async () => {
             try {
-                const response = await userservice.getStudentDetails(user.instituteName, user.id);
+                const response = await userservice.getStudentDetailsById(user.instituteName, user.id);
                 console.log(response);
                 setstudent(response[0]);
             } catch (error) {
@@ -64,7 +64,6 @@ const StudentDetails = () => {
                             value={student.reg_no}
                             label="reg_no"
                             InputLabelProps={student.reg_no ? { shrink: true } : undefined}
-
                             onChange={(e) => setstudent({ ...student, reg_no: e.target.value })}
                             variant="outlined"
                             style={{ width: '45%' }} />

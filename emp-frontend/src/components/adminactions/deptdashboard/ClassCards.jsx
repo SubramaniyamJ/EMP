@@ -28,7 +28,7 @@ const ClassCards = ({clas}) => {
   useEffect(() => {
     const getResponse = async () => {
       const response = await userservice.fetchClasses(user.instituteName, clas.dept_id);
-      setClases(response);
+      setClases(response);  
     };
     getResponse();
   }, []);

@@ -254,7 +254,7 @@ public class Utility {
 
     }
 
-    public List<?> fetchClasses(String instituteName, int deptId) {
+    public List<?> fetchClasses(String instituteName, int deptId){
         String tableName = instituteName + "_classes";
         String query = "SELECT * FROM " + tableName + " WHERE department_id = " + deptId;
         List<Map<String, Object>> deptList = jdbcTemplate.queryForList(query);
@@ -275,7 +275,7 @@ public class Utility {
         return yourClass;
     }
 
-    public List<?> getStudentDetails(String instituteName, int student_id) {
+    public List<?> getStudentDetailsById(String instituteName, int student_id) {
         String tableName = instituteName + "_students";
         String query = "SELECT * FROM " + tableName + " WHERE student_id = ?";
         List<Map<String, Object>> studentDetails = jdbcTemplate.queryForList(query, student_id);
@@ -308,7 +308,7 @@ public class Utility {
  // "PRIMARY KEY (announcement_id)"e
     public void updateStudentDetails( Student student,String instituteName, int student_id) {
         String tableName = instituteName + "_students";
-        String query = "UPDATE " + tableName + " SET reg_no = " + student.getReg_no() + 
+        String query = "UPDATE " + tableName + " SET reg_no = '" + student.getReg_no() + "'"+ 
         " , student_department_id = " + student.getStudent_department_id() + 
         " , student_gender = '" + student.getStudent_gender() + "'" + 
         " , student_dob = '" + student.getStudent_dob() + "'" + 
@@ -325,12 +325,12 @@ public class Utility {
     public List<?> fetchStudentsbyClass(String instituteName,int class_id){
         String tableName = instituteName + "_students";
         String query = "SELECT * FROM "+ tableName +" WHERE student_class_id = ?";
-        List<Map<String, Object>> studenList=jdbcTemplate.queryForList(query, class_id);
+        List<Map<String, Object>> studenList=jdbcTemplate.queryForList(query,class_id);
         return studenList;
     }
 
 
-    public List<?> fetchStudentByUserId(int userId, String instituteName){
+    public List<?> fetchStudentByUserId(String instituteName, int userId){
         String tableName = instituteName + "_students";
         String query = "SELECT * FROM " + tableName + " WHERE student_id = ?";
         return jdbcTemplate.queryForList(query, userId);

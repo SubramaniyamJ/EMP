@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Typography, Box, Container, Paper } from '@mui/material';
-
 import FetchStudentbyClass from './FetchStudentbyClass';
 import { useLocation } from 'react-router-dom';
 
@@ -33,6 +32,8 @@ function a11yProps(index) {
 }
 
 const AssignedClass = () => {
+  const location = useLocation();
+  const { instituteName, class_id } = location.state || {};
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -57,7 +58,7 @@ const AssignedClass = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {/* <FetchStudentbyClass/> */}
+          <FetchStudentbyClass instituteName={instituteName} class_id={class_id} />
         </TabPanel>
         <TabPanel value={value} index={1}>
           {/* <ManageRequests /> */}

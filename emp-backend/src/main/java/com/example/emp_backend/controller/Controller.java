@@ -156,8 +156,8 @@ public class Controller {
     }
 
     @GetMapping("/profileSettings")
-    List<?> getStudentDetails(@RequestParam String instituteName, @RequestParam int student_id) {
-        return util.getStudentDetails(instituteName, student_id);
+    List<?> getStudentDetails(@RequestParam String instituteName,@RequestParam int student_id){
+        return util.getStudentDetailsById(instituteName, student_id);
     }
 
     @PostMapping("/addAnnouncement")
@@ -180,10 +180,11 @@ public class Controller {
     List<?> getStudentsByClass(@RequestParam String instituteName, @RequestParam int class_id) {
         return util.fetchStudentsbyClass(instituteName, class_id);
     }
+    
 
-    @GetMapping("/fetchStudentByUserId")
-    List<?> fetchStudentByUserId(@RequestParam int userId, @RequestParam String instituteName) {
-        return util.fetchStudentByUserId(userId, instituteName);
+    @GetMapping("/getStudentDetailsById")
+    List<?> fetchStudentByUserId(@RequestParam String instituteName, @RequestParam int userId) {
+        return util.fetchStudentByUserId(instituteName, userId);
     }
 
     @GetMapping("/fetchFacultyByUserId")
