@@ -135,59 +135,59 @@ public class Controller {
         return util.addClasses(clas);
     }
 
-
     @PutMapping("/assignFacultyToClass")
-    void assignFacultyClass(@RequestBody Class clas){
+    void assignFacultyClass(@RequestBody Class clas) {
         util.assignFacultyClass(clas);
     }
 
-
     @GetMapping("/fetchClasses")
-    List<?> fetchClasses(@RequestParam String instituteName, @RequestParam int deptId){
+    List<?> fetchClasses(@RequestParam String instituteName, @RequestParam int deptId) {
         return util.fetchClasses(instituteName, deptId);
     }
 
     @GetMapping("/getStudents")
-    List<?> getStudents(@RequestParam String instituteName){
+    List<?> getStudents(@RequestParam String instituteName) {
         return util.getStudents(instituteName);
     }
 
     @GetMapping("/yourclass")
-    List<?> yourClass(@RequestParam String instituteName,@RequestParam int faculty_id){
+    List<?> yourClass(@RequestParam String instituteName, @RequestParam int faculty_id) {
         return util.getYourClass(instituteName, faculty_id);
     }
 
     @GetMapping("/profileSettings")
-    List<?> getStudentDetails(@RequestParam String instituteName,@RequestParam int student_id){
+    List<?> getStudentDetails(@RequestParam String instituteName, @RequestParam int student_id) {
         return util.getStudentDetails(instituteName, student_id);
     }
 
     @PostMapping("/addAnnouncement")
-    boolean addAnnouncement(@RequestBody Announcement announcement, @RequestParam String instituteName){
+    boolean addAnnouncement(@RequestBody Announcement announcement, @RequestParam String instituteName) {
         return util.addAnnouncement(announcement, instituteName);
     }
 
     @GetMapping("/fetchAnnouncements")
-    List<?> fetchAnnouncements(@RequestParam String instituteName){
+    List<?> fetchAnnouncements(@RequestParam String instituteName) {
         return util.fetchAnnouncements(instituteName);
     }
+
     @PutMapping("/updateStudentDetails")
-    void updateStudentDetails(@RequestBody Student student,@RequestParam String instituteName,@RequestParam int student_id){
-        util.updateStudentDetails(student,instituteName, student_id);
-    } 
+    void updateStudentDetails(@RequestBody Student student, @RequestParam String instituteName,
+            @RequestParam int student_id) {
+        util.updateStudentDetails(student, instituteName, student_id);
+    }
+
     @GetMapping("/getStudentsByClass")
-    List<?> getStudentsByClass (@RequestParam String instituteName,@RequestParam int class_id){
+    List<?> getStudentsByClass(@RequestParam String instituteName, @RequestParam int class_id) {
         return util.fetchStudentsbyClass(instituteName, class_id);
     }
 
-
     @GetMapping("/fetchStudentByUserId")
-    List<?> fetchStudentByUserId(@RequestParam int userId, @RequestParam String instituteName){
+    List<?> fetchStudentByUserId(@RequestParam int userId, @RequestParam String instituteName) {
         return util.fetchStudentByUserId(userId, instituteName);
     }
 
     @GetMapping("/fetchFacultyByUserId")
-    List<?> fetchFacultyByUserId(@RequestParam int userId, @RequestParam String instituteName){
+    List<?> fetchFacultyByUserId(@RequestParam int userId, @RequestParam String instituteName) {
         return util.fetchFacultyByUserId(userId, instituteName);
     }
 

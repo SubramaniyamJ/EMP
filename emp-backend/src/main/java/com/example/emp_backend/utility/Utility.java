@@ -101,12 +101,24 @@ public class Utility {
                 "class_id INT, " +
                 "PRIMARY KEY (announcement_id));";
 
+                // CREATE TABLE IF NOT EXISTS  seven_attendance_record (attendance_id BIGINT NOT NULL AUTO_INCREMENT, student_id INT NOT NULL, class_id INT NOT NULL, department_id INT NOT NULL, date VARCHAR(50) NOT NULL, status VARCHAR(50) NOT NULL, faculty_id INT NOT NULL, PRIMARY KEY(attendance_id));
+        String queryAttendence = "CREATE TABLE IF NOT EXISTS " + instituteName + "_attendance_record ( " +
+                            "attendance_id BIGINT NOT NULL AUTO_INCREMENT, " +
+                            "student_id INT NOT NULL, " +
+                            "class_id INT NOT NULL, " +
+                            "department_id INT NOT NULL, "+
+                            "date VARCHAR(50) NOT NULL, "+ 
+                            "status VARCHAR(50) NOT NULL, "+
+                            "faculty_id INT NOT NULL, "+
+                            "PRIMARY KEY(attendance_id));";
+ 
         jdbcTemplate.execute(queryFaculty);
         jdbcTemplate.execute(queryStudent);
         jdbcTemplate.execute(queryDept);
         jdbcTemplate.execute(queryClass);
         jdbcTemplate.execute(queryRequest);
         jdbcTemplate.execute(queryAnnouncement);
+        jdbcTemplate.execute(queryAttendence);
 
     }
 
@@ -330,4 +342,5 @@ public class Utility {
         String query = "SELECT * FROM " + tableName + " WHERE faculty_id = ?";
         return jdbcTemplate.queryForList(query, userId);
     }
+
 }

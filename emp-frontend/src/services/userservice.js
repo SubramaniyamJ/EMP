@@ -299,7 +299,7 @@ class userservice {
       console.log(error.message);
     }
   }
-  
+
   async fetchFacultyByUserId(userId, instituteName){
     try{
       const response = await axios.get(API_URL + "/fetchFacultyByUserId", {
@@ -314,6 +314,19 @@ class userservice {
     }
   }
 
+  async fetchStudentsByClassId(userId, instituteName){
+    try{
+      const response = await axios.get(API_URL + "/fetchStudentsByClassId", {
+        params: {
+          userId: userId,
+          instituteName: instituteName
+        }
+      })
+      return response.data;
+    }catch(error){
+      console.log(error.message);
+    }
+  }
 }
 
 export default new userservice();

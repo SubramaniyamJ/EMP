@@ -83,7 +83,7 @@ const Teacherdashboard = () => {
     }
     fetchYourClass();
   },[]);
-  
+
   useEffect(() => {
     const getResponse = async () => {
       const response = await userservice.fetchFacultyByUserId(
@@ -174,7 +174,7 @@ const Teacherdashboard = () => {
     navigate('/attendance');
   };
   const handleViewClass = () =>{
-    navigate('/YourClass');
+    navigate('/YourClass', {state : { urclass : yourClass}});
   }
 
   return (
@@ -189,7 +189,7 @@ const Teacherdashboard = () => {
       </StyledBox>
 
       <Grid container spacing={3}>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
               <Paper elevation={3} sx={{padding:2}} style={{display:'flex',justifyContent:'center', flexDirection:'column',alignItems:'center',gap:'10px'}}>
                 <Typography variant='h4' >Your Class</Typography>
                 <Card style={{display:'flex',flexDirection:'column',alignItems:'center',width:'300px',justifyContent:'center'}}>
@@ -268,17 +268,6 @@ const Teacherdashboard = () => {
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom>
-              Create Class
-            </Typography>
-            <Button variant="contained" onClick={() => setOpen(true)}>
-              Create New Class
-            </Button>
-          </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom>
               Mark Attendance
             </Typography>
             <Button variant="contained" onClick={handleMarkAttendance}>
@@ -286,7 +275,16 @@ const Teacherdashboard = () => {
             </Button>
           </Paper>
         </Grid>
-
+        <Grid item xs={12} md={6}>
+          <Paper elevation={3} sx={{ padding: 2 }}>
+            <Typography variant="h5" gutterBottom>
+              Create Class
+            </Typography>
+            <Button variant="contained" onClick={() => setOpen(true)}>
+              Create New Class
+            </Button>
+          </Paper>
+        </Grid>
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ padding: 2 }}>
             <Typography variant="h5" gutterBottom style={{paddingBottom: '30px'}}>

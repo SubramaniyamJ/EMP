@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { Tabs, Tab, Typography, Box, Container, Paper } from '@mui/material';
 
+import FetchStudentbyClass from './FetchStudentbyClass';
+import { useLocation } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  const location = useLocation();
   return (
     <div
       role="tabpanel"
@@ -55,7 +57,7 @@ const AssignedClass = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          {/* <ManageStudents /> */}
+          {/* <FetchStudentbyClass/> */}
         </TabPanel>
         <TabPanel value={value} index={1}>
           {/* <ManageRequests /> */}

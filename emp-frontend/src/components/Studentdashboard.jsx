@@ -50,23 +50,23 @@ const grades = [
   { id: 3, subject: "History", grade: "B+" },
 ];
 
-const messages = [
-  {
-    id: 1,
-    title: "Holiday Announcement",
-    content: "School will be closed on Friday for a public holiday.",
-  },
-  {
-    id: 2,
-    title: "New Circular",
-    content: "Please check the new circular regarding the upcoming exams.",
-  },
-  {
-    id: 3,
-    title: "Event Notification",
-    content: "Join us for the annual sports day event next month.",
-  },
-];
+// const messages = [
+//   {
+//     id: 1,
+//     title: "Holiday Announcement",
+//     content: "School will be closed on Friday for a public holiday.",
+//   },
+//   {
+//     id: 2,
+//     title: "New Circular",
+//     content: "Please check the new circular regarding the upcoming exams.",
+//   },
+//   {
+//     id: 3,
+//     title: "Event Notification",
+//     content: "Join us for the annual sports day event next month.",
+//   },
+// ];
 
 const Studentdashboard = () => {
   const [user, setuser] = useContext(usercontext);
