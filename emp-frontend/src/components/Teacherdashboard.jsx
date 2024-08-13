@@ -128,7 +128,12 @@ const Teacherdashboard = () => {
     navigate('/attendance');
   };
   const handleViewClass = () =>{
-    navigate('/YourClass');
+    navigate('/YourClass', {
+      state: {
+        instituteName: user.instituteName,
+        class_id: yourClass.class_id,
+      },
+    });
   }
 
   return (

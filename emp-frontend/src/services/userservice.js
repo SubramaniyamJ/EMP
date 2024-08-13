@@ -176,11 +176,12 @@ class userservice {
     }
   }
 
-  async fetchClasses(instituteName) {
+  async fetchClasses(instituteName,deptId) {
     try {
       const response = await axios.get(API_URL + "/fetchClasses", {
         params: {
           instituteName: instituteName,
+          department_Id:deptId,
         },
       });
       // console.log(response.data);
@@ -220,9 +221,9 @@ class userservice {
       throw error;
     }
   }
-  async getStudentDetails(instituteName,student_id){
+  async getStudentDetailsById(instituteName,student_id){
     try{
-      const response = await axios.get(API_URL + "/profileSettings", {
+      const response = await axios.get(API_URL + "/getStudentDetailsById", {
         params : {instituteName:instituteName,student_id:student_id},
       });
       return response.data;
@@ -242,7 +243,7 @@ class userservice {
   }
   async getStudentsByClass(instituteName,class_id){
     try{
-      const response = await axios.get(API_URL + "/getStudentByClass",{
+      const response = await axios.get(API_URL + "/getStudentsByClass",{
         params:{instituteName:instituteName,class_id:class_id},
       });
       console.log(response.data);

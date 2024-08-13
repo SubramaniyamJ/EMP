@@ -142,8 +142,8 @@ public class Controller {
 
 
     @GetMapping("/fetchClasses")
-    List<?> fetchClasses(@RequestParam String instituteName){
-        return util.fetchClasses(instituteName);
+    List<?> fetchClasses(@RequestParam String instituteName,@RequestParam int department_Id){
+        return util.fetchClasses(instituteName,department_Id);
     }
 
     @GetMapping("/getStudents")
@@ -156,9 +156,9 @@ public class Controller {
         return util.getYourClass(instituteName, faculty_id);
     }
 
-    @GetMapping("/profileSettings")
-    List<?> getStudentDetails(@RequestParam String instituteName,@RequestParam int student_id){
-        return util.getStudentDetails(instituteName, student_id);
+    @GetMapping("/getStudentDetailsById")
+    List<?> getStudentDetailsById(@RequestParam String instituteName,@RequestParam int student_id){
+        return util.getStudentDetailsById(instituteName, student_id);
     }
 
     @PutMapping("/updateStudentDetails")
@@ -169,6 +169,7 @@ public class Controller {
     List<?> getStudentsByClass (@RequestParam String instituteName,@RequestParam int class_id){
         return util.fetchStudentsbyClass(instituteName, class_id);
     }
+    
 
 
 }

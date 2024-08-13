@@ -43,20 +43,9 @@ const StudentDetailsUpdate = () => {
     useEffect(() => {
         const fetchStudentDetails =async()=>{
             try{
-                const response=await userservice.getStudentDetails(user.instituteName,user.id);
+                const response=await userservice.getStudentDetailsById(user.instituteName,user.id);
                 console.log(response);
                 setstudent(response[0]);
-            }catch(error){
-                console.log(error);
-                throw(error);
-            }
-        }
-        const fetchClasses = async () =>{
-            try{
-                const response=await userservice.fetchClasses(user.instituteName);
-                console.log(response);
-                setClasses(response.map(c => ({ value: c.class_id, label:c.class_id })));
-                // response.map(c => (console.log(c.class_id)));
             }catch(error){
                 console.log(error);
                 throw(error);
@@ -74,9 +63,24 @@ const StudentDetailsUpdate = () => {
             }
         }
         fetchStudentDetails();
-        fetchClasses();
         fetchDepts();
-    },[])
+    },[]);
+
+    useEffect(() => {
+        const fetchClasses = async () =>{
+            try{
+                const response=await userservice.fetchClasses(user.instituteName, student.student_department_id);
+                console.log(response);
+                setClasses(response.map(c => ({ value: c.class_id, label:c.class_id })));
+                // response.map(c => (console.log(c.class_id)));
+            }catch(error){
+                console.log(error);
+                throw(error);
+            }
+        }
+        if(student.student_department_id)
+        fetchClasses();
+    }, [student.student_department_id])
     return (
         <>
             <Container style={{ marginTop: '100px', height: 'fit-content', display: 'flex', justifyContent: 'center', width: '100vw' }}>
@@ -192,6 +196,9 @@ const StudentDetailsUpdate = () => {
                             error={!isValid}
                             helperText={!isValid && !student.student_class_id? 'Class Id is Required' : ''}
                             select
+                            InputLabelProps={{
+                                shrink: true,
+                              }}
                             >
                                 {classes.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
